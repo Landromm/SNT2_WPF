@@ -7,4 +7,19 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Communication\Repositories\" />
+    <Folder Include="Models\DBModel\" />
+    <Folder Include="Models\DataContext\" />
+    <Folder Include="Models\DataModel\" />
+    <Folder Include="Models\GenerationModel\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Styles\CustomControls\" />
+    <Folder Include="ViewModel\MainViewModel\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="7.0.0" />
+  </ItemGroup>
+
 </Project>
