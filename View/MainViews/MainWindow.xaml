@@ -3,10 +3,267 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:SNT2_WPF"
+        xmlns:viewModel="clr-namespace:SNT2_WPF.ViewModel.MainViewModel" xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Height="500" Width="570"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        StateChanged="Window_StateChanged">
 
-    </Grid>
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+
+    <Border Background="#CFDAEC"
+            CornerRadius="10,10,0,0"
+            BorderThickness="2"
+            BorderBrush="#094D74">
+
+        <!--Общий Grid-->
+        <Grid>            
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Header-->
+            <Border Grid.Row="0"
+                    Background="#094D74"
+                    CornerRadius="8,8,0,0"
+                    MouseLeftButtonDown="grdHeader_MouseLeftButtonDown">
+
+                <!--Общий Grid Header'а-->
+                <Grid x:Name="grdHeader">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Пенель наименования программы-->
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="15,0,0,0">
+
+                        <TextBlock  Text="Драйвер СНТ2"
+                                    FontFamily="Andika"
+                                    FontSize="14"
+                                    Foreground="#CFDAEC"
+                                    VerticalAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0">
+
+                        <tb:TaskbarIcon Visibility="Visible"
+                                        Width="30"                                       
+                                        ToolTipText="Драйвер СНТ2"
+                                        IconSource="../../Resources/Images/database_icon.ico"
+                                        TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"/>
+
+                        <!--Кнопка сворачивания приложения в трэй-->
+                        <Button x:Name="btnClose"
+                                Foreground="#CFDAEC"
+                                Cursor="Hand"
+                                Click="btnClose_Click">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#094D74"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+
+                                    <Border Background="{TemplateBinding Background}"
+                                            Width="30" 
+                                            Height="30"
+                                            CornerRadius="0,10,0,0">
+                                            
+                                        <fa:IconImage   Icon="X"
+                                                        Foreground="#CFDAEC"
+                                                        Width="15" 
+                                                        Height="15"/>                                
+                                        
+                                    </Border>
+                                    
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <!--Body-->
+            <Grid Grid.Row="1">
+
+                <Grid>
+                    
+                </Grid>
+
+                <!--Скрытая панель дополнительных функциональных кнопок-->
+                <StackPanel Name="CollapsedStackPanel"
+                            Height="40" 
+                            Width="100"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Background="#094D74"
+                            Margin="0,0,40,0">
+
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>                                
+
+                                <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}">
+
+                                    <DataTrigger.Value>
+                                        <sys:Boolean>True</sys:Boolean>
+                                    </DataTrigger.Value>
+
+                                    <Setter Property="Visibility" Value="Visible"/>
+
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation    
+                                                            To="0" Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                            Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform X="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=UIElement}}"/>
+                    </StackPanel.RenderTransform>
+
+                </StackPanel>
+
+                <Button VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Command="{Binding ActivateHideMenuCommand}">
+
+                    <!--Шаблон кнопки раскрытия доп.меню-->
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Width" Value="40"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                            <Setter Property="Background" Value="#094D74"/>
+                            <Setter Property="BorderBrush" Value="#094D74"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+
+                                        <Border x:Name="BorderButton"
+                                                Background="{TemplateBinding Background}"                                                            
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="5,0,0,0">
+
+                                            <ContentPresenter Name="ContentPresenter"
+                                                              HorizontalAlignment="Center" 
+                                                              VerticalAlignment="Center"
+                                                              Margin="2,2,0,0"/>
+
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter TargetName="BorderButton" Property="CornerRadius" Value="0"/>
+                                            </DataTrigger>
+                                        </ControlTemplate.Triggers>
+
+                                    </ControlTemplate>
+
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="#063b59"/>
+                                    <Setter Property="BorderThickness" Value="2"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#063b59"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <!--Шаблон иконки внутри кнопки-->
+                    <Button.Content>
+
+                        <fa:IconImage>
+                            <fa:IconImage.Style>
+
+                                <Style TargetType="fa:IconImage">
+                                    <Setter Property="Icon" Value="ArrowAltCircleLeft"/>
+                                    <Setter Property="Foreground" Value="#EEF0F6"/>
+                                    <Setter Property="Width" Value="25"/>
+                                    <Setter Property="Height" Value="25"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Icon" Value="ArrowAltCircleRight"/>
+                                            <Setter Property="Foreground" Value="#71A05A"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </fa:IconImage.Style>
+                        </fa:IconImage>
+
+                    </Button.Content>
+
+                </Button>
+
+            </Grid>
+
+        </Grid>
+        
+    </Border>
+
+
 </Window>

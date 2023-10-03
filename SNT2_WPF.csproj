@@ -5,7 +5,23 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\database_icon.ico</ApplicationIcon>
+    <PackageIcon>database_icon.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Andika-Bold.ttf" />
+    <None Remove="Resources\Fonts\Andika-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Andika-Italic.ttf" />
+    <None Remove="Resources\Fonts\Andika-Regular.ttf" />
+    <None Remove="Resources\Images\database_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\database_icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Communication\Repositories\" />
@@ -13,13 +29,27 @@
     <Folder Include="Models\DataContext\" />
     <Folder Include="Models\DataModel\" />
     <Folder Include="Models\GenerationModel\" />
-    <Folder Include="Resources\Images\" />
     <Folder Include="Styles\CustomControls\" />
-    <Folder Include="ViewModel\MainViewModel\" />
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Andika-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Andika-BoldItalic.ttf" />
+    <Resource Include="Resources\Fonts\Andika-Italic.ttf" />
+    <Resource Include="Resources\Fonts\Andika-Regular.ttf" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="database_icon.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
