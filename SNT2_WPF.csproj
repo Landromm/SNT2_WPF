@@ -15,6 +15,8 @@
     <None Remove="Resources\Fonts\Andika-Italic.ttf" />
     <None Remove="Resources\Fonts\Andika-Regular.ttf" />
     <None Remove="Resources\Images\database_icon.ico" />
+    <None Remove="Resources\Images\icon-graph.png" />
+    <None Remove="Resources\Images\icon-setting.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +45,12 @@
     <Resource Include="Resources\Fonts\Andika-BoldItalic.ttf" />
     <Resource Include="Resources\Fonts\Andika-Italic.ttf" />
     <Resource Include="Resources\Fonts\Andika-Regular.ttf" />
+    <Resource Include="Resources\Images\icon-graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\icon-setting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   
   <ItemGroup>
