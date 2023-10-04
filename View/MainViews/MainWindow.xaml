@@ -9,9 +9,10 @@
         xmlns:viewModel="clr-namespace:SNT2_WPF.ViewModel.MainViewModel" xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="500" Width="570"
+        Height="495" Width="570"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"
         StateChanged="Window_StateChanged">
@@ -121,7 +122,20 @@
             <!--Body-->
             <Grid Grid.Row="1">
 
-                <Grid>
+                <Grid Margin="10">
+
+                    <WrapPanel>
+
+                        <Border BorderThickness="2"
+                                BorderBrush="#094D74"
+                                CornerRadius="10"
+                                Width="250"
+                                Height="200"
+                                Margin="0,0,10,10">
+                            
+                        </Border>
+
+                    </WrapPanel>
                     
                 </Grid>
 

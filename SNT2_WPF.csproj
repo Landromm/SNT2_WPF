@@ -31,7 +31,6 @@
     <Folder Include="Models\DataContext\" />
     <Folder Include="Models\DataModel\" />
     <Folder Include="Models\GenerationModel\" />
-    <Folder Include="Styles\CustomControls\" />
   </ItemGroup>
   
   <ItemGroup>
