@@ -24,7 +24,7 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="45"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
@@ -75,9 +75,585 @@
             
             <!--Body-->
             <Grid Grid.Row="1">
-                
-                
-                
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Отрисовка стрелы вправо-->
+                <Grid Grid.Row="0"
+                      VerticalAlignment="Top">
+                    
+                    <Polygon Fill="#D35A5A" Points="10, 25, 28, 33, 10, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                    <Polygon Fill="#D35A5A" Points="220, 25, 238, 33, 220, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                    <Border Background="#D35A5A" 
+                            Height="6"
+                            Width="207"
+                            BorderThickness="0,1,0,1"
+                            BorderBrush="Black"
+                            Margin="0,25,5,0"/>
+                </Grid>
+                <!--Отрисовка стрелы влево-->
+                <Grid Grid.Row="1"
+                      VerticalAlignment="Top">
+
+                    <Polygon Fill="#71A05A" Points="10, 33, 28, 25, 28, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                    <Polygon Fill="#71A05A" Points="220, 33, 238, 25, 238, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                    <Border Background="#71A05A" 
+                            Height="6"
+                            Width="207"
+                            BorderThickness="0,1,0,1"
+                            BorderBrush="Black"
+                            Margin="15,25,5,0"/>
+                </Grid>
+
+                <!--Верхняя панель показаний-->
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                                Margin="0,0,15,0">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                                Margin="0,0,15,0">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+                        
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+                        
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+                    
+
+                </StackPanel>
+
+                <!--Нижняя панель показаний-->
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                                Margin="0,0,15,0">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                                Margin="0,0,15,0">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                        <TextBlock Text="P1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                        <!--Кнопка показания значения-->
+                        <Button VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenCurrentGraphCommand}">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <ContentPresenter Name="ContentPresenter"
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,0,0,0"/>
+
+                                            </ControlTemplate>
+
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="#063b59"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <!--Шаблон кнопки показания занчения-->
+                            <Button.Content>
+
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Width" Value="50"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Background" Value="#EEF0F6"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="#063b59"/>
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock  Text="123,9"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        FontFamily="Arial"/>
+
+                                </Border>
+
+                            </Button.Content>
+
+                        </Button>
+
+                        <TextBlock Text="МПа"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Andika"
+                                   FontSize="10"
+                                   Foreground="Black"/>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
             </Grid>
             
             <!--Footer-->
