@@ -99,6 +99,7 @@
                             BorderThickness="0,1,0,1"
                             BorderBrush="Black"
                             Margin="0,25,5,0"/>
+                    
                 </Grid>
                 <!--Отрисовка стрелы влево-->
                 <Grid Grid.Row="1"
@@ -217,7 +218,7 @@
                             VerticalAlignment="Center"
                                 Margin="0,0,15,0">
 
-                        <TextBlock Text="P1"
+                        <TextBlock Text="T1"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -290,7 +291,7 @@
 
                         </Button>
 
-                        <TextBlock Text="МПа"
+                        <TextBlock Text="&#176;C"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -302,7 +303,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
 
-                        <TextBlock Text="P1"
+                        <TextBlock Text="F1"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -375,7 +376,7 @@
 
                         </Button>
 
-                        <TextBlock Text="МПа"
+                        <TextBlock Text="т/ч"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -398,7 +399,7 @@
                             VerticalAlignment="Center"
                                 Margin="0,0,15,0">
 
-                        <TextBlock Text="P1"
+                        <TextBlock Text="P2"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -484,7 +485,7 @@
                             VerticalAlignment="Center"
                                 Margin="0,0,15,0">
 
-                        <TextBlock Text="P1"
+                        <TextBlock Text="T2"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -557,7 +558,7 @@
 
                         </Button>
 
-                        <TextBlock Text="МПа"
+                        <TextBlock Text="&#176;C"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -569,7 +570,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
 
-                        <TextBlock Text="P1"
+                        <TextBlock Text="F2"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -642,7 +643,7 @@
 
                         </Button>
 
-                        <TextBlock Text="МПа"
+                        <TextBlock Text="т/ч"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontFamily="Andika"
@@ -660,20 +661,40 @@
             <Grid Grid.Row="2">
 
                 <!--Заводской номер счётчика-->
-                <TextBlock Text="СНТ-2 Зав.№: 2200">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
 
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="TextAlignment" Value="Center"/>
-                            <Setter Property="FontFamily" Value="Andika"/>
-                            <Setter Property="FontSize" Value="10"/>
-                            <Setter Property="Foreground" Value="#094D74"/>
-                        </Style>
-                    </TextBlock.Style>
+                    <TextBlock Text="СНТ-2 Зав.№: ">
 
-                </TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="FontFamily" Value="Andika"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="Foreground" Value="#094D74"/>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+                    <TextBlock Text="2222">
+
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="FontFamily" Value="Andika"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="Foreground" Value="#094D74"/>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+
+                </StackPanel>
 
             </Grid>
             
