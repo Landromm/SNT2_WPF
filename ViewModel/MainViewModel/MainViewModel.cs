@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
@@ -48,7 +49,12 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 
         public ICommand ActivateHideMenuCommand { get; }
-        public ICommand OpenCurrentGraphCommand { get; }
+        public ICommand OpenCurrentP1GraphCommand { get; }
+        public ICommand OpenCurrentP2GraphCommand { get; }
+        public ICommand OpenCurrentT1GraphCommand { get; }
+        public ICommand OpenCurrentT2GraphCommand { get; }
+        public ICommand OpenCurrentF1GraphCommand { get; }
+        public ICommand OpenCurrentF2GraphCommand { get; }
 
         public MainViewModel()
         {
@@ -104,12 +110,37 @@ namespace SNT2_WPF.ViewModel.MainViewModel
                }
             };
             ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
-            OpenCurrentGraphCommand = new ViewModelCommand(ExecuteOpenCurrentGraphCommand);
+            OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
+            OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
+            OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
+            OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
+            OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
+            OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
         }
 
-        private void ExecuteOpenCurrentGraphCommand(object obj)
+        private void ExecuteOpenCurrentP1GraphCommand(object obj)
         {
-
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Pressure_ch1}");
+        }
+        private void ExecuteOpenCurrentP2GraphCommand(object obj)
+        {
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Pressure_ch2}");
+        }
+        private void ExecuteOpenCurrentT1GraphCommand(object obj)
+        {
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Temperature_ch1}");
+        }
+        private void ExecuteOpenCurrentT2GraphCommand(object obj)
+        {
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Temperature_ch2}");
+        }
+        private void ExecuteOpenCurrentF1GraphCommand(object obj)
+        {
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Flow_ch1}");
+        }
+        private void ExecuteOpenCurrentF2GraphCommand(object obj)
+        {
+            MessageBox.Show($"Давление: {SelectedMainDataModels.Flow_ch2}");
         }
 
         private void ExecuteActivateHideMenuCommand(object obj)

@@ -18,6 +18,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         StateChanged="Window_StateChanged">
+   
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -126,14 +127,757 @@
 
                 <Grid Margin="10">
 
-                    <ListView   Grid.Row="2" 
-                                ItemsSource="{Binding MainDataModels, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding SelectedMainDataModels}"
-                                HorizontalAlignment="Stretch"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        
+                    <!--region Example ItemsControl (Hidden)-->
+                    <ItemsControl   ItemsSource="{Binding MainDataModels, UpdateSourceTrigger=PropertyChanged}"                                    
+                                    HorizontalAlignment="Stretch"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    Visibility="Hidden">
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border BorderThickness="2"
+                                        BorderBrush="#094D74"
+                                        CornerRadius="10"
+                                        Height="200"
+                                        Width="250"
+                                        Margin="5">
+
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,1" EndPoint="1,0">
+                                            <GradientStop Color="#EEF0F6" Offset="0"/>
+                                            <GradientStop Color="#CFDAEC" Offset="0.40"/>
+                                            <GradientStop Color="#CFDAEC" Offset="0.60"/>
+                                            <GradientStop Color="#EEF0F6" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+
+                                    <Grid>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="15"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--Header-->
+                                        <Grid Grid.Row="0">
+
+                                            <!--Индикатор связи со счетчиком-->
+                                            <Border>
+
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                        <Setter Property="Margin" Value="15,0,0,0"/>
+                                                        <Setter Property="Background" Value="#FF0000"/>
+                                                        <Setter Property="BorderThickness" Value="1"/>
+                                                        <Setter Property="BorderBrush" Value="#094D74"/>
+                                                        <Setter Property="Width" Value="15"/>
+                                                        <Setter Property="Height" Value="15"/>
+                                                        <Setter Property="CornerRadius" Value="10"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                <Setter Property="Background" Value="#57FF04"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+
+                                            </Border>
+
+                                            <!--Наименование счётчика-->
+                                            <TextBlock Text="{Binding DescriptionCounter}">
+
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="TextAlignment" Value="Center"/>
+                                                        <Setter Property="FontFamily" Value="Andika"/>
+                                                        <Setter Property="FontSize" Value="20"/>
+                                                        <Setter Property="Foreground" Value="#094D74"/>
+                                                    </Style>
+                                                </TextBlock.Style>
+
+                                            </TextBlock>
+
+                                        </Grid>
+
+                                        <!--Body-->
+                                        <Grid Grid.Row="1">
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!--Отрисовка стрелы вправо-->
+                                            <Grid   Grid.Row="0" VerticalAlignment="Top">
+
+                                                <Polygon Fill="#D35A5A" Points="10, 25, 28, 33, 10, 41"
+                                                     StrokeThickness="1"
+                                                     Stroke="Black"/>
+
+                                                <Polygon Fill="#D35A5A" Points="220, 25, 238, 33, 220, 41"
+                                 StrokeThickness="1"
+                                 Stroke="Black"/>
+
+                                                <Border Background="#D35A5A" 
+                                Height="6"
+                                Width="207"
+                                BorderThickness="0,1,0,1"
+                                BorderBrush="Black"
+                                Margin="0,25,5,0"/>
+
+                                            </Grid>
+
+                                            <!--Отрисовка стрелы влево-->
+                                            <Grid   Grid.Row="1"
+                            VerticalAlignment="Top">
+
+                                                <Polygon Fill="#71A05A" Points="10, 33, 28, 25, 28, 41"
+                                 StrokeThickness="1"
+                                 Stroke="Black"/>
+
+                                                <Polygon Fill="#71A05A" Points="220, 33, 238, 25, 238, 41"
+                                 StrokeThickness="1"
+                                 Stroke="Black"/>
+
+                                                <Border Background="#71A05A" 
+                                Height="6"
+                                Width="207"
+                                BorderThickness="0,1,0,1"
+                                BorderBrush="Black"
+                                Margin="15,25,5,0"/>
+
+                                            </Grid>
+
+                                            <!--Верхняя панель показаний-->
+                                            <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,15,0">
+
+                                                    <TextBlock Text="P1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Давления-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Pressure_ch1}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="МПа"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,15,0">
+
+                                                    <TextBlock Text="T1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Температуры-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Temperature_ch1}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="&#176;C"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+
+                                                    <TextBlock Text="F1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Расхода-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Flow_ch1}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="т/ч"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+
+                                            </StackPanel>
+
+                                            <!--Нижняя панель показаний-->
+                                            <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,15,0">
+
+                                                    <TextBlock Text="P2"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Давления-2-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Pressure_ch2}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="МПа"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,15,0">
+
+                                                    <TextBlock  Text="T2"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontFamily="Andika"
+                                        FontSize="10"
+                                        Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Температуры-2-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Temperature_ch2}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="&#176;C"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+
+                                                    <TextBlock Text="F2"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                    <!--Кнопка показания значения Расхода-2-->
+                                                    <Button VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Height" Value="30"/>
+                                                                <Setter Property="Width" Value="50"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="BorderBrush" Value="#063b59"/>
+                                                                <Setter Property="Background" Value="#EEF0F6"/>
+                                                                <Setter Property="Margin" Value="0,0,0,0"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+
+                                                                        <ControlTemplate TargetType="Button">
+
+                                                                            <Border x:Name="BorderContent"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+
+                                                                                <ContentPresenter   Name="ContentPresenter"
+                                                                        HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0,0,0,0"/>
+
+                                                                            </Border>
+
+                                                                        </ControlTemplate>
+
+                                                                    </Setter.Value>
+                                                                </Setter>
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#EEF0F6"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#CFDAEC"/>
+                                                                        <Setter Property="BorderBrush" Value="#71A05A"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <!--Шаблон кнопки показания занчения-->
+                                                        <Button.Content>
+
+                                                            <TextBlock  Text="{Binding Flow_ch2}"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="12"
+                                                    FontWeight="SemiBold"
+                                                    FontFamily="Arial"/>
+
+                                                        </Button.Content>
+
+                                                    </Button>
+
+                                                    <TextBlock Text="т/ч"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="Andika"
+                                       FontSize="10"
+                                       Foreground="Black"/>
+
+                                                </StackPanel>
+
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                        <!--Footer-->
+                                        <Grid Grid.Row="2">
+
+                                            <!--Заводской номер счётчика-->
+                                            <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                                                <TextBlock Text="СНТ-2 Зав.№: ">
+
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                                            <Setter Property="TextAlignment" Value="Center"/>
+                                                            <Setter Property="FontFamily" Value="Andika"/>
+                                                            <Setter Property="FontSize" Value="10"/>
+                                                            <Setter Property="Foreground" Value="#094D74"/>
+                                                        </Style>
+                                                    </TextBlock.Style>
+
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding NumberCounter}">
+
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                                            <Setter Property="TextAlignment" Value="Center"/>
+                                                            <Setter Property="FontFamily" Value="Andika"/>
+                                                            <Setter Property="FontSize" Value="10"/>
+                                                            <Setter Property="Foreground" Value="#094D74"/>
+                                                        </Style>
+                                                    </TextBlock.Style>
+
+                                                </TextBlock>
+
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+                    <!--#endregion-->
+
+                    <!--region Example ListView (Visible)-->
+                    <ListView ItemsSource="{Binding MainDataModels, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedMainDataModels}"
+                              Focusable="False"
+                              HorizontalAlignment="Stretch"
+                              Background="{x:Null}"
+                              BorderBrush="{x:Null}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              Visibility="Visible">
+
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -283,7 +1027,7 @@
                                                     <!--Кнопка показания значения Давления-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentP1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -373,7 +1117,7 @@
                                                     <!--Кнопка показания значения Температуры-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentT1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -461,7 +1205,7 @@
                                                     <!--Кнопка показания значения Расхода-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentF1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -559,7 +1303,7 @@
                                                     <!--Кнопка показания значения Давления-2-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentP2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -648,7 +1392,7 @@
                                                     <!--Кнопка показания значения Температуры-2-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentT2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -737,7 +1481,7 @@
                                                     <!--Кнопка показания значения Расхода-2-->
                                                     <Button VerticalAlignment="Center"
                                                                 HorizontalAlignment="Left"
-                                                                Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                                                Command="{Binding DataContext.OpenCurrentF2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
@@ -863,19 +1607,36 @@
 
                             </DataTemplate>
                             
-                        </ListView.Resources>                        
+                        </ListView.Resources>
 
+                            
                         <ListView.ItemContainerStyle>
 
+                            
                             <Style TargetType="ListViewItem">
-
+                                
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                 <Setter Property="ContentTemplate" Value="{StaticResource DefaultTemplateItem}"/>
-
-                                <Style.Triggers>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <!--<Setter Property="Focusable" Value="False"/>-->
+                                
+                                    <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <!--Не работает-->
-                                        <Setter Property="Background" Value="Black"/> 
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="IsSelected" Value="True"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                    </Trigger>
+                                    <Trigger Property="Focusable" Value="True">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
                                     </Trigger>
                                 </Style.Triggers>
 
@@ -884,6 +1645,7 @@
                         </ListView.ItemContainerStyle>
 
                     </ListView>
+                    <!--#endregion-->
 
                 </Grid>
 
@@ -898,7 +1660,7 @@
 
                     <Border.Style>
                         <Style TargetType="Border">
-                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
 
                                 <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}">
@@ -907,14 +1669,13 @@
                                         <sys:Boolean>True</sys:Boolean>
                                     </DataTrigger.Value>
 
-                                    <Setter Property="Visibility" Value="Visible"/>
-
                                     <DataTrigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation    
-                                                            To="0" Duration="0:0:0.25"
-                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                                                    To="0" 
+                                                    Duration="0:0:0.25"
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </DataTrigger.EnterActions>
@@ -923,11 +1684,13 @@
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation
-                                                            Duration="0:0:0.25"
-                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                                                    Duration="0:0:0.25"
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </DataTrigger.ExitActions>
+
+
 
                                 </DataTrigger>
 
@@ -1074,7 +1837,7 @@
                 <!--Кнопка раскрытия панели дополнительных функциональных кнопок (доп.меню)-->                
                 <Button VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
-                        Command="{Binding ActivateHideMenuCommand}">
+                        Command="{Binding ActivateHideMenuCommand}" Height="42" Margin="0,0,-2,-2" Width="42">
 
                     <!--Шаблон кнопки раскрытия доп.меню-->
                     <Button.Style>
