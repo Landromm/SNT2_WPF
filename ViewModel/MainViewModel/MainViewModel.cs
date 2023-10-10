@@ -15,10 +15,12 @@ namespace SNT2_WPF.ViewModel.MainViewModel
     {
         //Fields
         private bool _checkActivetedHideMenu=false;
+        private bool _isCheckedStyleMode;
         private ObservableCollection<MainDataModel> _mainData;
         private MainDataModel _selectedMainData;
 
         //Properties
+        //Состояние открытия скрытого меню.
         public bool CheckActivetedHideMenu
         {
             get => _checkActivetedHideMenu;
@@ -26,6 +28,16 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             {
                 _checkActivetedHideMenu = value;
                 OnPropertyChanged(nameof(CheckActivetedHideMenu));
+            }
+        }
+        //Состояние выбора темы приложения 
+        public bool IsCheckedStyleMode
+        {
+            get => _isCheckedStyleMode;
+            set
+            {
+                _isCheckedStyleMode = value;
+                OnPropertyChanged(nameof(IsCheckedStyleMode));
             }
         }
         public ObservableCollection<MainDataModel> MainDataModels
@@ -48,16 +60,18 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         }
 
 
-        public ICommand ActivateHideMenuCommand { get; }
-        public ICommand OpenCurrentP1GraphCommand { get; }
-        public ICommand OpenCurrentP2GraphCommand { get; }
-        public ICommand OpenCurrentT1GraphCommand { get; }
-        public ICommand OpenCurrentT2GraphCommand { get; }
-        public ICommand OpenCurrentF1GraphCommand { get; }
-        public ICommand OpenCurrentF2GraphCommand { get; }
+        public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
+        public ICommand SelectionModeStyleCommand {  get; } //Выбор темы приложения (светлая или темная).
+        public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
+        public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
+        public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
+        public ICommand OpenCurrentT2GraphCommand { get; }  //Открытие графика температуры №2
+        public ICommand OpenCurrentF1GraphCommand { get; }  //Открытие графика расхода №1
+        public ICommand OpenCurrentF2GraphCommand { get; }  //Открытие графика расхода №2
 
         public MainViewModel()
         {
+            IsCheckedStyleMode = true;
             MainDataModels = new ObservableCollection<MainDataModel>() 
             {
                new MainDataModel()
@@ -110,12 +124,18 @@ namespace SNT2_WPF.ViewModel.MainViewModel
                }
             };
             ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
+            SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
             OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
             OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
             OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
             OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
             OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
             OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
+        }
+
+        private void ExecuteSelectionModeStyleCommand(object obj)
+        {
+            IsCheckedStyleMode = !IsCheckedStyleMode;
         }
 
         private void ExecuteOpenCurrentP1GraphCommand(object obj)

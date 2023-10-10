@@ -74,6 +74,96 @@
                                 VerticalAlignment="Center"
                                 Margin="0,0,0,0">
 
+                        <ToggleButton Width="30"
+                                      Command="{Binding SelectionModeStyleCommand}">
+
+                            <ToggleButton.Style>
+                                
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            
+                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                
+                                                <Viewbox>
+                                                    
+                                                    <Border x:Name="Border" CornerRadius="10"
+                                                            Background="#FFFFFFFF"
+                                                            Width="40" Height="20">
+                                                        
+                                                        <Border.Effect>
+                                                            <DropShadowEffect ShadowDepth="0.5" Direction="0" Opacity="0.3" />
+                                                        </Border.Effect>
+                                                        
+                                                        <Ellipse x:Name="Ellipse" Fill="#FFFFFFFF" Stretch="Uniform"
+                                                                 Margin="2 1 2 1"
+                                                                 Stroke="Gray" StrokeThickness="0.2"
+                                                                 HorizontalAlignment="Stretch">
+                                                            
+                                                            <Ellipse.Effect>
+                                                                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.3" Direction="260" />
+                                                            </Ellipse.Effect>
+                                                            
+                                                        </Ellipse>
+                                                    </Border>
+                                                    
+                                                </Viewbox>
+
+                                                <ControlTemplate.Triggers>
+
+                                                    <DataTrigger Binding="{Binding IsCheckedStyleMode, UpdateSourceTrigger=PropertyChanged}">
+
+                                                        <DataTrigger.Value>
+                                                            <sys:Boolean>True</sys:Boolean>
+                                                        </DataTrigger.Value>
+
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+
+                                                                    <ColorAnimation Storyboard.TargetName="Border"
+                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                        To="#FF4CD661"
+                        Duration="0:0:0.1" />
+
+                                                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                            Storyboard.TargetProperty="Margin"
+                            To="20 1 2 1"
+                            Duration="0:0:0.1" />
+
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+
+                                                        <DataTrigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+
+                                                                    <ColorAnimation Storyboard.TargetName="Border"
+                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                         To="White"
+                         Duration="0:0:0.1" />
+
+                                                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                             Storyboard.TargetProperty="Margin"
+                             To="2 1 2 1"
+                             Duration="0:0:0.1" />
+
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.ExitActions>
+
+                                                    </DataTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ToggleButton.Style>
+                            
+                        </ToggleButton>
+
                         <tb:TaskbarIcon Visibility="Visible"
                                         Width="30"                                       
                                         ToolTipText="Драйвер СНТ2"
@@ -1689,8 +1779,6 @@
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </DataTrigger.ExitActions>
-
-
 
                                 </DataTrigger>
 
