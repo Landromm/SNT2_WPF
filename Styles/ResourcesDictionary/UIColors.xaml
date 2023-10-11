@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Background Colors-->
+    <SolidColorBrush x:Key="primaryBackColor" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="secondaryBackColor" Color="#094D74"/>
+    <SolidColorBrush x:Key="activeSecondaryBackColor" Color="#063b59"/>
+    <Color x:Key="gradientBackColor1">#EEF0F6</Color>
+    <Color x:Key="gradientBackColor2">#CFDAEC</Color>
+
+    <!--Border Colors-->
+    <SolidColorBrush x:Key="BorderColor1" Color="#094D74"/>
+    <!--Color Palette-->
+    <SolidColorBrush x:Key="color1" Color="#D35A5A"/>
+    <SolidColorBrush x:Key="color2" Color="#FF0000"/>
+    <SolidColorBrush x:Key="color3" Color="#71A05A"/>
+    <SolidColorBrush x:Key="color4" Color="#57FF04"/>
+    <SolidColorBrush x:Key="color5" Color="#EEF0F6"/>
+    <SolidColorBrush x:Key="color6" Color="#CFDAEC"/>
+
+    <!--Font Colors-->
+    <SolidColorBrush x:Key="mainFontColor" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="secondFontColor" Color="#094D74"/>
+    <SolidColorBrush x:Key="blackFontColor" Color="Black"/>
+    <!--Panel Colors-->
+    <SolidColorBrush x:Key="panelColor" Color="#094D74"/>
+    <SolidColorBrush x:Key="panelOverColor" Color="Black"/>
+    <SolidColorBrush x:Key="panelActiveColor" Color="#063b59"/>
+    <!--Button Colors-->
+    <SolidColorBrush x:Key="buttonColor" Color="#094D74"/>
+    <SolidColorBrush x:Key="buttonOverColor" Color="Black"/>
+    <SolidColorBrush x:Key="buttonActiveColor" Color="#063b59"/>
+    <!--TextBox Colors-->
+
+</ResourceDictionary>

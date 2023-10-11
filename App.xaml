@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:SNT2_WPF"
              StartupUri="View/MainViews/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ResourcesDictionary/UIColors.xaml"/>
+                <ResourceDictionary Source="/Styles/ResourcesDictionary/DefaultStyleMode.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

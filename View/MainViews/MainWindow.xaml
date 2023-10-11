@@ -25,10 +25,7 @@
     </Window.DataContext>
 
 
-    <Border Background="#CFDAEC"
-            CornerRadius="10,10,0,0"
-            BorderThickness="2"
-            BorderBrush="#094D74">
+    <Border Style="{StaticResource MainBorder}">
 
         <!--Общий Grid-->
         <Grid>            
@@ -40,8 +37,7 @@
 
             <!--Header-->
             <Border Grid.Row="0"
-                    Background="#094D74"
-                    CornerRadius="8,8,0,0"
+                    Style="{StaticResource GridHeaderBorder}"
                     MouseLeftButtonDown="grdHeader_MouseLeftButtonDown">
 
                 <!--Общий Grid Header'а-->
@@ -54,113 +50,21 @@
 
                     <!--Пенель наименования программы-->
                     <StackPanel Grid.Column="0"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="15,0,0,0">
+                                Margin="15,0,0,0"
+                                Style="{StaticResource StackPanelHeaderNameProgramm}">
 
                         <TextBlock  Text="Драйвер СНТ2"
-                                    FontFamily="Andika"
-                                    FontSize="14"
-                                    Foreground="#CFDAEC"
-                                    VerticalAlignment="Center"/>
+                                    Style="{StaticResource TextBlockNameProgramm}"/>
 
                     </StackPanel>
 
                     <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
                     <StackPanel Grid.Column="1"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0">
+                                Style="{StaticResource StackPanelHeaderControl}">
 
                         <ToggleButton Width="30"
-                                      Command="{Binding SelectionModeStyleCommand}">
-
-                            <ToggleButton.Style>
-                                
-                                <Style TargetType="{x:Type ToggleButton}">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            
-                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                                
-                                                <Viewbox>
-                                                    
-                                                    <Border x:Name="Border" CornerRadius="10"
-                                                            Background="#FFFFFFFF"
-                                                            Width="40" Height="20">
-                                                        
-                                                        <Border.Effect>
-                                                            <DropShadowEffect ShadowDepth="0.5" Direction="0" Opacity="0.3" />
-                                                        </Border.Effect>
-                                                        
-                                                        <Ellipse x:Name="Ellipse" Fill="#FFFFFFFF" Stretch="Uniform"
-                                                                 Margin="2 1 2 1"
-                                                                 Stroke="Gray" StrokeThickness="0.2"
-                                                                 HorizontalAlignment="Stretch">
-                                                            
-                                                            <Ellipse.Effect>
-                                                                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.3" Direction="260" />
-                                                            </Ellipse.Effect>
-                                                            
-                                                        </Ellipse>
-                                                    </Border>
-                                                    
-                                                </Viewbox>
-
-                                                <ControlTemplate.Triggers>
-
-                                                    <DataTrigger Binding="{Binding IsCheckedStyleMode, UpdateSourceTrigger=PropertyChanged}">
-
-                                                        <DataTrigger.Value>
-                                                            <sys:Boolean>True</sys:Boolean>
-                                                        </DataTrigger.Value>
-
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-
-                                                                    <ColorAnimation Storyboard.TargetName="Border"
-                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                        To="#FF4CD661"
-                        Duration="0:0:0.1" />
-
-                                                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
-                            Storyboard.TargetProperty="Margin"
-                            To="20 1 2 1"
-                            Duration="0:0:0.1" />
-
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-
-                                                        <DataTrigger.ExitActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-
-                                                                    <ColorAnimation Storyboard.TargetName="Border"
-                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                         To="White"
-                         Duration="0:0:0.1" />
-
-                                                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
-                             Storyboard.TargetProperty="Margin"
-                             To="2 1 2 1"
-                             Duration="0:0:0.1" />
-
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.ExitActions>
-
-                                                    </DataTrigger>
-                                                </ControlTemplate.Triggers>
-
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ToggleButton.Style>
+                                      Command="{Binding SelectionModeStyleCommand}"
+                                      Style="{StaticResource ToggleButtonChangeThemes}">
                             
                         </ToggleButton>
 
@@ -172,38 +76,9 @@
 
                         <!--Кнопка сворачивания приложения в трэй-->
                         <Button x:Name="btnClose"
-                                Foreground="#CFDAEC"
-                                Cursor="Hand"
+                                Style="{StaticResource buttonCloseApp}"
                                 Click="btnClose_Click">
-
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#094D74"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#063b59"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
                             
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-
-                                    <Border Background="{TemplateBinding Background}"
-                                            Width="30" 
-                                            Height="30"
-                                            CornerRadius="0,10,0,0">
-                                            
-                                        <fa:IconImage   Icon="X"
-                                                        Foreground="#CFDAEC"
-                                                        Width="15" 
-                                                        Height="15"/>                                
-                                        
-                                    </Border>
-                                    
-                                </ControlTemplate>
-                            </Button.Template>
                         </Button>
 
                     </StackPanel>
@@ -213,7 +88,7 @@
             </Border>
 
             <!--Body-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"> 
 
                 <Grid Margin="10">
 
@@ -958,15 +833,9 @@
                     </ItemsControl>
                     <!--#endregion-->
 
-                    <!--region Example ListView (Visible)-->
-                    <ListView ItemsSource="{Binding MainDataModels, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedMainDataModels}"
-                              Focusable="False"
-                              HorizontalAlignment="Stretch"
-                              Background="{x:Null}"
-                              BorderBrush="{x:Null}"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              Visibility="Visible">
+                    <!--region Example ListView (Hidden)-->
+                    <ListView Style="{StaticResource MainListViewCounter}"
+                              Visibility="Hidden">
 
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -1698,10 +1567,8 @@
                             </DataTemplate>
                             
                         </ListView.Resources>
-
                             
                         <ListView.ItemContainerStyle>
-
                             
                             <Style TargetType="ListViewItem">
                                 
@@ -1733,6 +1600,20 @@
                             </Style>
 
                         </ListView.ItemContainerStyle>
+
+                    </ListView>
+                    <!--#endregion-->
+
+                    <!--region Example ListView (Visible)-->
+                    <ListView   Style="{StaticResource MainListViewCounter}"
+                                Visibility="Visible"
+                                ItemContainerStyle="{StaticResource ListViewItemStyle}">
+
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
 
                     </ListView>
                     <!--#endregion-->
