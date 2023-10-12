@@ -1,4 +1,755 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <!--Главный Border-->
+    <Style x:Key="MainBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource primaryBackColorDark}"/>
+        <Setter Property="CornerRadius" Value="10,10,0,0"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
+    </Style>
+
+    <!--#region Общий Grid (Header)-->
+    <!--Border-->
+    <Style x:Key="GridHeaderBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource BorderColor1Dark}"/>
+        <Setter Property="CornerRadius" Value="8,8,0,0"/>
+    </Style>
+
+    <!--Панель наименования программы-->
+    <Style x:Key="StackPanelHeaderNameProgramm" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="TextBlockNameProgramm" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDark}"/>
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
+    <Style x:Key="StackPanelHeaderControl" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <!--Переключатель стилей приложения-->
+    <Style x:Key="ToggleButtonChangeThemes" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Viewbox>
+
+                        <Border     x:Name="Border" CornerRadius="10"
+                                    Background="{StaticResource mainFontColorDark}"
+                                    Width="40" Height="20">
+
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Direction="0" Opacity="0.3" />
+                            </Border.Effect>
+
+                            <Ellipse    x:Name="Ellipse" Fill="{StaticResource mainFontColorDark}" Stretch="Uniform"
+                                        Margin="2 1 2 1"
+                                        Stroke="Gray" StrokeThickness="0.2"
+                                        HorizontalAlignment="Stretch">
+
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.3" Direction="260" />
+                                </Ellipse.Effect>
+
+                            </Ellipse>
+                        </Border>
+
+                    </Viewbox>
+
+                    <ControlTemplate.Triggers>
+
+                        <DataTrigger Binding="{Binding IsCheckedStyleMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ColorAnimation Storyboard.TargetName="Border"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="#FF4CD661"
+                                                        Duration="0:0:0.1" />
+                                        <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                                                            Storyboard.TargetProperty="Margin"
+                                                            To="20 1 2 1"
+                                                            Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ColorAnimation Storyboard.TargetName="Border"
+                                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                         To="#FFE4A2"
+                                                         Duration="0:0:0.1" />
+                                        <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                                                            Storyboard.TargetProperty="Margin"
+                                                            To="2 1 2 1"
+                                                            Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Кнопка сворачивания приложения в трэй-->
+    <Style x:Key="buttonCloseApp" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDark}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource panelOverColorDark}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30" 
+                            Height="30"
+                            CornerRadius="0,10,0,0">
+
+                        <fa:IconImage   Icon="X"
+                                        Foreground="{StaticResource mainFontColorDark}"
+                                        Width="15" 
+                                        Height="15"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelColorDark}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelActiveColorDark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Общий Grid (Body)-->
+    <!--Body-->
+    <!--Отображение счетчиков на главном окне (ListView)-->
+    <Style x:Key="MainListViewCounter" TargetType="ListView">
+        <Setter Property="ItemsSource" Value="{Binding MainDataModels, UpdateSourceTrigger=PropertyChanged}"/>
+        <Setter Property="SelectedItem" Value="{Binding SelectedMainDataModels}"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource ListViewItemStyle}"/>
+    </Style>
+
+    <!--Шаблон контейнера ListView-->
+    <DataTemplate x:Key="DefaultTemplateItem">
+        <Border Style="{DynamicResource ItemMainBorder}"
+                Height="200"
+                Width="250"
+                Margin="5">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="15"/>
+                </Grid.RowDefinitions>
+
+                <!--Header-->
+                <Grid Grid.Row="0">
+
+                    <!--Индикатор связи со счетчиком-->
+                    <Border Style="{DynamicResource ItemCheckConnectStyle}"
+                            Margin="15,0,0,0"
+                            Height="15"
+                            Width="15"/>
+
+                    <!--Наименование счётчика-->
+                    <TextBlock Text="{Binding DescriptionCounter}"
+                               Style="{DynamicResource ItemNameCounter}"/>
+
+                </Grid>
+
+                <!--Body-->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region Прорисовка стрелок (прямая и обратная)-->
+                    <!--Отрисовка стрелы вправо-->
+                    <Grid   Grid.Row="0"
+                        VerticalAlignment="Top">
+
+                        <Polygon Fill="#D35A5A" Points="10, 25, 28, 33, 10, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                        <Polygon Fill="#D35A5A" Points="220, 25, 238, 33, 220, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                        <Border Background="#D35A5A" 
+                            Height="6"
+                            Width="207"
+                            BorderThickness="0,1,0,1"
+                            BorderBrush="Black"
+                            Margin="0,25,5,0"/>
+
+                    </Grid>
+                    <!--Отрисовка стрелы влево-->
+                    <Grid   Grid.Row="1"
+                        VerticalAlignment="Top">
+
+                        <Polygon Fill="#71A05A" Points="10, 33, 28, 25, 28, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                        <Polygon Fill="#71A05A" Points="220, 33, 238, 25, 238, 41"
+                             StrokeThickness="1"
+                             Stroke="Black"/>
+
+                        <Border Background="#71A05A" 
+                            Height="6"
+                            Width="207"
+                            BorderThickness="0,1,0,1"
+                            BorderBrush="Black"
+                            Margin="15,25,5,0"/>
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--Верхняя панель показаний-->
+                    <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}"
+                                    Margin="0,0,15,0">
+
+                            <TextBlock  Text="P1"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Давления-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentP1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Pressure_ch1}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock  Text="МПа"
+                                        Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}"
+                                    Margin="0,0,15,0">
+
+                            <TextBlock  Text="T1"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Температуры-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentT1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Temperature_ch1}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock  Text="&#176;C"
+                                        Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}">
+
+                            <TextBlock  Text="F1"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Расхода-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentF1GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Flow_ch1}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock  Text="т/ч"
+                                        Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <!--Нижняя панель показаний-->
+                    <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}" 
+                                    Margin="0,0,15,0">
+
+                            <TextBlock  Text="P2"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Давления-2-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentP2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Pressure_ch2}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock  Text="МПа"
+                                        Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}" 
+                                    Margin="0,0,15,0">
+
+                            <TextBlock  Text="T2"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Температуры-2-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentT2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Temperature_ch2}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock  Text="&#176;C"
+                                        Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+
+                        <StackPanel Style="{DynamicResource ItemChanelStackPanel}">
+
+                            <TextBlock  Text="F2"
+                                        Style="{DynamicResource ItemNameChanelTextBlock}"/>
+
+                            <!--Кнопка показания значения Расхода-2-->
+                            <Button Height="30"
+                                    Width="50"
+                                    Margin="0"
+                                    Style="{DynamicResource ItemChanelButton}"
+                                    Command="{Binding DataContext.OpenCurrentF2GraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+
+                                <!--Шаблон кнопки показания занчения-->
+                                <Button.Content>
+
+                                    <TextBlock  Text="{Binding Flow_ch2}"
+                                                Style="{DynamicResource ItemContentButtonStyle}"/>
+
+                                </Button.Content>
+
+                            </Button>
+
+                            <TextBlock Text="т/ч"
+                                       Style="{DynamicResource ItemUnitChanelTextBlock}"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Footer-->
+                <Grid Grid.Row="2">
+
+                    <!--Заводской номер счётчика-->
+                    <StackPanel Style="{DynamicResource ItemSerialNumberStackPanel}">
+
+                        <TextBlock Text="СНТ-2 Зав.№: "
+                                   Style="{DynamicResource ItemSerialNumberTextBlock}"/>
+
+                        <TextBlock Text="{Binding NumberCounter}"
+                                   Style="{DynamicResource ItemSerialNumberTextBlock}"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+    </DataTemplate>
+    <!--Стиль контейнера ListView-->
+    <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ContentTemplate" Value="{DynamicResource DefaultTemplateItem}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <!--<Setter Property="Focusable" Value="False"/>-->
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <!--Не работает-->
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="IsSelected" Value="True"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="Focusable" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#region Стили элементов шаблона контейнера ListView-->
+    <!--Основной BorderItem-->
+    <Style x:Key="ItemMainBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="1,1" EndPoint="1,0">
+                    <GradientStop Color="{StaticResource gradientBackColor1Dark}" Offset="0"/>
+                    <GradientStop Color="{StaticResource gradientBackColor2Dark}" Offset="0.40"/>
+                    <GradientStop Color="{StaticResource gradientBackColor2Dark}" Offset="0.60"/>
+                    <GradientStop Color="{StaticResource gradientBackColor1Dark}" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#region HeaderItem-->
+    <!--Индикатор связи со счетчиком-->
+    <Style x:Key="ItemCheckConnectStyle" TargetType="Border">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Background" Value="{StaticResource color2Dark}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                <Setter Property="Background" Value="{StaticResource color4Dark}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--Наименование счётчика-->
+    <Style x:Key="ItemNameCounter" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="{StaticResource secondFontColorDark}"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region BodyItem-->
+    <Style x:Key="ItemChanelStackPanel" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <!--Текстовое поле обозначения канала-->
+    <Style x:Key="ItemNameChanelTextBlock" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDark}"/>
+    </Style>
+    <!--Текстовое поле еденицы измерения канала-->
+    <Style x:Key="ItemUnitChanelTextBlock" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="{StaticResource secondFontColorDark}"/>
+    </Style>
+    <!--Кнопка показания значения Расхода-->
+    <Style x:Key="ItemChanelButton" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource buttonActiveColorDark}"/>
+        <Setter Property="Background" Value="{StaticResource color5Dark}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="BorderContent"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="5">
+
+                        <ContentPresenter   Name="ContentPresenter"
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Margin="0,0,0,0"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color5Dark}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource buttonOverColorDark}"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource color6Dark}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource buttonActiveColorDark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Шаблон кнопки показания занчения-->
+    <Style x:Key="ItemContentButtonStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region FooterItem-->
+    <!--Заводской номер счётчика-->
+    <Style x:Key="ItemSerialNumberStackPanel" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="ItemSerialNumberTextBlock" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="{StaticResource secondFontColorDark}"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--Скрытая панель дополнительных функциональных кнопок-->
+    <Style x:Key="HiddenControlPanel" TargetType="Border">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDark}"/>
+        <Setter Property="BorderThickness" Value="2,2,0,0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource panelOverColorDark}"/>
+        <Setter Property="CornerRadius" Value="10,0,0,0"/>
+        <Setter Property="Visibility" Value="Visible"/>
+        <Style.Triggers>
+
+            <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}">
+
+                <DataTrigger.Value>
+                    <sys:Boolean>True</sys:Boolean>
+                </DataTrigger.Value>
     
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation    
+                        To="0" 
+                        Duration="0:0:0.25"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                        Duration="0:0:0.25"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--Стиль кнопок в скрытом меню-->
+    <Style x:Key="ButtonsHiddenControlPanel" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDark}"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="BorderButton"
+                            Background="{TemplateBinding Background}"                                                            
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="0">
+
+                        <ContentPresenter   Name="ContentPresenter"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelOverColorDark}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelActiveColorDark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Кнопка раскрытия панели дополнительных функциональных кнопок (доп.меню)(Распакоука на хуй)-->
+    <Style x:Key="ButtonActivatedHiddenMenu" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="BorderThickness" Value="2,2,0,0"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDark}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
+        <Setter Property="Visibility" Value="Visible"/>
+
+        <!--Шаблон кнопки раскрытия доп.меню-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="BorderButton"
+                            Background="{TemplateBinding Background}"                                                            
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5,0,0,0">
+
+                        <ContentPresenter Name="ContentPresenter"
+                                          HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"
+                                          Margin="2,2,0,0"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter TargetName="BorderButton" Property="CornerRadius" Value="0"/>
+                            <Setter TargetName="BorderButton" Property="BorderThickness" Value="0,2,0,0"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonOverColorDark}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonOverColorDark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Шаблон иконки внутри кнопки-->
+    <Style x:Key="TemplateIconButtonHiddenControl" TargetType="fa:IconImage">
+        <Setter Property="Icon" Value="ArrowAltCircleLeft"/>
+        <Setter Property="Foreground" Value="{StaticResource color5Default}"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                <Setter Property="Icon" Value="ArrowAltCircleRight"/>
+                <Setter Property="Foreground" Value="{StaticResource color6Dark}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--#endregion-->
+
 </ResourceDictionary>

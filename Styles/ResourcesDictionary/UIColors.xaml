@@ -2,34 +2,57 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Background Colors-->
-    <SolidColorBrush x:Key="primaryBackColor" Color="#CFDAEC"/>
-    <SolidColorBrush x:Key="secondaryBackColor" Color="#094D74"/>
-    <SolidColorBrush x:Key="activeSecondaryBackColor" Color="#063b59"/>
-    <Color x:Key="gradientBackColor1">#EEF0F6</Color>
-    <Color x:Key="gradientBackColor2">#CFDAEC</Color>
+    <SolidColorBrush x:Key="primaryBackColorDefault" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="secondaryBackColorDefault" Color="#094D74"/>
+    <SolidColorBrush x:Key="activeSecondaryBackColorDefault" Color="#063b59"/>
+    <SolidColorBrush x:Key="primaryBackColorDark" Color="#242424"/>
+    <SolidColorBrush x:Key="secondaryBackColorDark" Color="#242424"/>
+    <SolidColorBrush x:Key="activeSecondaryBackColorDark" Color="#383838"/>
+    <Color x:Key="gradientBackColor1Default">#EEF0F6</Color>
+    <Color x:Key="gradientBackColor2Default">#CFDAEC</Color>
+    <Color x:Key="gradientBackColor1Dark">#383838</Color>
+    <Color x:Key="gradientBackColor2Dark">#383838</Color>
 
     <!--Border Colors-->
-    <SolidColorBrush x:Key="BorderColor1" Color="#094D74"/>
+    <SolidColorBrush x:Key="BorderColor1Default" Color="#094D74"/>
+    <SolidColorBrush x:Key="BorderColor1Dark" Color="#3D3D3D"/>
     <!--Color Palette-->
-    <SolidColorBrush x:Key="color1" Color="#D35A5A"/>
-    <SolidColorBrush x:Key="color2" Color="#FF0000"/>
-    <SolidColorBrush x:Key="color3" Color="#71A05A"/>
-    <SolidColorBrush x:Key="color4" Color="#57FF04"/>
-    <SolidColorBrush x:Key="color5" Color="#EEF0F6"/>
-    <SolidColorBrush x:Key="color6" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="color1Default" Color="#D35A5A"/>
+    <SolidColorBrush x:Key="color2Default" Color="#FF0000"/>
+    <SolidColorBrush x:Key="color3Default" Color="#71A05A"/>
+    <SolidColorBrush x:Key="color4Default" Color="#57FF04"/>
+    <SolidColorBrush x:Key="color5Default" Color="#EEF0F6"/>
+    <SolidColorBrush x:Key="color6Default" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="color7Default" Color="#4CD661"/>
+    <SolidColorBrush x:Key="color1Dark" Color="#D35A5A"/>
+    <SolidColorBrush x:Key="color2Dark" Color="#DE0000" Opacity="0.7"/>
+    <SolidColorBrush x:Key="color3Dark" Color="#71A05A"/>
+    <SolidColorBrush x:Key="color4Dark" Color="#3AAF00" Opacity="0.7"/>
+    <SolidColorBrush x:Key="color5Dark" Color="#FFE4A2"/>
+    <SolidColorBrush x:Key="color6Dark" Color="#FFDA80"/>
 
     <!--Font Colors-->
-    <SolidColorBrush x:Key="mainFontColor" Color="#CFDAEC"/>
-    <SolidColorBrush x:Key="secondFontColor" Color="#094D74"/>
-    <SolidColorBrush x:Key="blackFontColor" Color="Black"/>
+    <SolidColorBrush x:Key="mainFontColorDefault" Color="#CFDAEC"/>
+    <SolidColorBrush x:Key="secondFontColorDefault" Color="#094D74"/>
+    <SolidColorBrush x:Key="blackFontColorDefault" Color="Black"/>
+    <SolidColorBrush x:Key="mainFontColorDark" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="secondFontColorDark" Color="#63BECE"/>
+    <SolidColorBrush x:Key="blackFontColorDark" Color="Black"/>
     <!--Panel Colors-->
-    <SolidColorBrush x:Key="panelColor" Color="#094D74"/>
-    <SolidColorBrush x:Key="panelOverColor" Color="Black"/>
-    <SolidColorBrush x:Key="panelActiveColor" Color="#063b59"/>
+    <SolidColorBrush x:Key="panelColorDefault" Color="#094D74"/>
+    <SolidColorBrush x:Key="panelOverColorDefault" Color="#063b59"/>
+    <SolidColorBrush x:Key="panelActiveColorDefault" Color="#063b59"/>
+    <SolidColorBrush x:Key="panelColorDark" Color="#383838"/>
+    <SolidColorBrush x:Key="panelOverColorDark" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="panelActiveColorDark" Color="#5C5C5C"/>
+    
     <!--Button Colors-->
-    <SolidColorBrush x:Key="buttonColor" Color="#094D74"/>
-    <SolidColorBrush x:Key="buttonOverColor" Color="Black"/>
-    <SolidColorBrush x:Key="buttonActiveColor" Color="#063b59"/>
+    <SolidColorBrush x:Key="buttonColorDefault" Color="#094D74"/>
+    <SolidColorBrush x:Key="buttonOverColorDefault" Color="#063b59"/>
+    <SolidColorBrush x:Key="buttonActiveColorDefault" Color="#063b59"/>
+    <SolidColorBrush x:Key="buttonColorDark" Color="#FFE4A2"/>
+    <SolidColorBrush x:Key="buttonOverColorDark" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="buttonActiveColorDark" Color="#5C5C5C"/>
     <!--TextBox Colors-->
 
 </ResourceDictionary>

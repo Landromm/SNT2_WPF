@@ -7,7 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/ResourcesDictionary/UIColors.xaml"/>
+
                 <ResourceDictionary Source="/Styles/ResourcesDictionary/DefaultStyleMode.xaml"/>
+                <ResourceDictionary Source="/Styles/ResourcesDictionary/DarkStyleMode.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

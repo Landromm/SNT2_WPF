@@ -1623,49 +1623,10 @@
                 <!--Скрытая панель дополнительных функциональных кнопок-->
                 <Border Height="40" 
                         Width="100"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Background="#094D74"
                         Margin="0,0,40,0"
-                        CornerRadius="10,0,0,0">
+                        Style="{DynamicResource HiddenControlPanel}">
 
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-
-                                <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}">
-
-                                    <DataTrigger.Value>
-                                        <sys:Boolean>True</sys:Boolean>
-                                    </DataTrigger.Value>
-
-                                    <DataTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation    
-                                                    To="0" 
-                                                    Duration="0:0:0.25"
-                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.EnterActions>
-
-                                    <DataTrigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation
-                                                    Duration="0:0:0.25"
-                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.ExitActions>
-
-                                </DataTrigger>
-
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
+                   
                     <Border.RenderTransform>
                         <TranslateTransform X="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=UIElement}}"/>
                     </Border.RenderTransform>
@@ -1674,55 +1635,12 @@
                                 Orientation="Horizontal"
                                 Background="Transparent">
 
-                        <!--Кнопка открытия меню настроек-->
-                        <Button VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Command="{Binding OpenSettingsCommand}">
-
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Height" Value="40"/>
-                                    <Setter Property="Width" Value="40"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Background" Value="#094D74"/>
-                                    <Setter Property="Margin" Value="10,0,0,0"/>
-
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-
-                                                <Border x:Name="BorderButton"
-                                                Background="{TemplateBinding Background}"                                                            
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="0">
-
-                                                    <ContentPresenter Name="ContentPresenter"
-                                                              HorizontalAlignment="Center" 
-                                                              VerticalAlignment="Center"
-                                                              Margin="0,0,0,0"/>
-
-                                                </Border>
-
-                                            </ControlTemplate>
-
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#063b59"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter Property="Background" Value="#063b59"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                        <!--Кнопка открытия графиков-->
+                        <Button Command="{Binding OpenGraphsCommand}"
+                                Style="{DynamicResource ButtonsHiddenControlPanel}">
 
                             <!--Шаблон иконки внутри кнопки-->
                             <Button.Content>
-
                                 <Image>
                                     <Image.Style>
                                         <Style TargetType="Image">
@@ -1732,56 +1650,15 @@
                                         </Style>
                                     </Image.Style>
                                 </Image>
-
                             </Button.Content>
 
                         </Button>
 
                         <!--Кнопка открытия меню настроек-->
                         <Button VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Command="{Binding OpenSettingsCommand}">
-
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Height" Value="40"/>
-                                    <Setter Property="Width" Value="40"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Background" Value="#094D74"/>
-                                    <Setter Property="Margin" Value="5,0,0,0"/>
-
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-
-                                                <Border x:Name="BorderButton"
-                                                Background="{TemplateBinding Background}"                                                            
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="0">
-
-                                                    <ContentPresenter Name="ContentPresenter"
-                                                              HorizontalAlignment="Center" 
-                                                              VerticalAlignment="Center"
-                                                              Margin="0,0,0,0"/>
-
-                                                </Border>
-
-                                            </ControlTemplate>
-
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#063b59"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter Property="Background" Value="#063b59"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                                HorizontalAlignment="Center"
+                                Command="{Binding OpenSettingsCommand}"
+                                Style="{DynamicResource ButtonsHiddenControlPanel}">
 
                             <!--Шаблон иконки внутри кнопки-->
                             <Button.Content>
@@ -1804,80 +1681,16 @@
                 </Border>
 
                 <!--Кнопка раскрытия панели дополнительных функциональных кнопок (доп.меню)-->                
-                <Button VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right"
-                        Command="{Binding ActivateHideMenuCommand}" Height="42" Margin="0,0,-2,-2" Width="42">
-
-                    <!--Шаблон кнопки раскрытия доп.меню-->
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Height" Value="40"/>
-                            <Setter Property="Width" Value="40"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Background" Value="#094D74"/>
-                            <Setter Property="Visibility" Value="Visible"/>
-
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-
-                                        <Border x:Name="BorderButton"
-                                                Background="{TemplateBinding Background}"                                                            
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="5,0,0,0">
-
-                                            <ContentPresenter Name="ContentPresenter"
-                                                              HorizontalAlignment="Center" 
-                                                              VerticalAlignment="Center"
-                                                              Margin="2,2,0,0"/>
-
-                                        </Border>
-
-                                        <ControlTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                                <Setter TargetName="BorderButton" Property="CornerRadius" Value="0"/>
-                                            </DataTrigger>
-                                        </ControlTemplate.Triggers>
-
-                                    </ControlTemplate>
-
-                                </Setter.Value>
-                            </Setter>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#063b59"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#063b59"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                <Button Height="42"                         
+                        Width="42"
+                        Margin="0,0,-2,-2"
+                        Style="{DynamicResource ButtonActivatedHiddenMenu}"
+                        Command="{Binding ActivateHideMenuCommand}">
 
                     <!--Шаблон иконки внутри кнопки-->
                     <Button.Content>
 
-                        <fa:IconImage>
-                            <fa:IconImage.Style>
-
-                                <Style TargetType="fa:IconImage">
-                                    <Setter Property="Icon" Value="ArrowAltCircleLeft"/>
-                                    <Setter Property="Foreground" Value="#EEF0F6"/>
-                                    <Setter Property="Width" Value="25"/>
-                                    <Setter Property="Height" Value="25"/>
-
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding CheckActivetedHideMenu, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Icon" Value="ArrowAltCircleRight"/>
-                                            <Setter Property="Foreground" Value="#71A05A"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                                
-                            </fa:IconImage.Style>
-                        </fa:IconImage>
+                        <fa:IconImage Style="{DynamicResource TemplateIconButtonHiddenControl}"/>
 
                     </Button.Content>
 
