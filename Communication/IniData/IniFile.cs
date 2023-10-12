@@ -44,7 +44,7 @@ namespace SNT2_WPF.Communication.IniData
         {
             try
             {
-                uint maxLength = 32;
+                uint maxLength = 128;
                 string value = new string(' ', (int)maxLength);
                 NativeMethods.GetPrivateProfileString(section, key, "", value, maxLength, Path);
                 return value.Split('\0')[0];

@@ -43,7 +43,7 @@
                     <Viewbox>
 
                         <Border     x:Name="Border" CornerRadius="10"
-                                    Background="{StaticResource mainFontColorDark}"
+                                    Background="{StaticResource color6Default}"
                                     Width="40" Height="20">
 
                             <Border.Effect>

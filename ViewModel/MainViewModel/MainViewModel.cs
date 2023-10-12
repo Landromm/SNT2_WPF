@@ -1,4 +1,5 @@
-﻿using SNT2_WPF.Models.DataModel;
+﻿using SNT2_WPF.Communication.IniData;
+using SNT2_WPF.Models.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +14,13 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        IniFile INI = new IniFile(@"Resources\Config.ini");
+
         //Fields
         private bool _checkActivetedHideMenu=false;
         private bool _isCheckedStyleMode;
+        private string pathDefaultStyle = "";
+        private string pathDarkStyle = "";
         private ObservableCollection<MainDataModel> _mainData;
         private MainDataModel _selectedMainData;
 
@@ -61,7 +66,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 
         public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
-        public ICommand SelectionModeStyleCommand {  get; } //Выбор темы приложения (светлая или темная).
+        public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
         public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
         public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
         public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
@@ -71,7 +76,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         public MainViewModel()
         {
-            IsCheckedStyleMode = true;
+            InitializationStyleDefectLog();
             MainDataModels = new ObservableCollection<MainDataModel>() 
             {
                new MainDataModel()
@@ -133,9 +138,31 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
         }
 
+        //Метод установления стиля в зависимости от принятых параметров.
+        private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
+        {
+            var uri = new Uri(@pathStyle, UriKind.Relative);
+            ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
+            Application.Current.Resources.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+
+            INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
+            INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
+            INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
+        }
+
+        //Выполнения метода смены стиля приложения.
         private void ExecuteSelectionModeStyleCommand(object obj)
         {
             IsCheckedStyleMode = !IsCheckedStyleMode;
+            CheckActivetedHideMenu = false;
+            pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
+            pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
+
+            if (!IsCheckedStyleMode)
+                ChangeStyleThemes(pathDarkStyle, false);
+            else
+                ChangeStyleThemes(pathDefaultStyle, true);
         }
 
         private void ExecuteOpenCurrentP1GraphCommand(object obj)
@@ -165,7 +192,26 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         private void ExecuteActivateHideMenuCommand(object obj)
         {
-            CheckActivetedHideMenu = !CheckActivetedHideMenu;
+            CheckActivetedHideMenu = !CheckActivetedHideMenu;            
+        }
+
+        // Метод инициализации стиля приложения
+        private void InitializationStyleDefectLog()
+        {
+            string isCheckedStyleApplication = INI.ReadINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked");
+            //string isCheckedDefaultStyle = INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle");
+
+            bool isCheckedDefaultStyle = Convert.ToBoolean(INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle"));
+
+            if (isCheckedDefaultStyle)
+                IsCheckedStyleMode = true;
+            else
+                IsCheckedStyleMode = false;
+
+            var uri = new Uri(@isCheckedStyleApplication, UriKind.Relative);
+            ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
+            Application.Current.Resources.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
     }
 }
