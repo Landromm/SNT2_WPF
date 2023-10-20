@@ -17,10 +17,10 @@ namespace SNT2_WPF.View.Graphs
     /// <summary>
     /// Interaction logic for GraphCurrentData.xaml
     /// </summary>
-    public partial class GraphCurrentData : Window
+    public partial class GraphCurrentDataView : Window
     {
 
-        public GraphCurrentData()
+        public GraphCurrentDataView()
         {
             InitializeComponent();
         }
