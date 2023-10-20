@@ -3,6 +3,7 @@ using SNT2_WPF.Models.DataModel;
 using SNT2_WPF.Models.GenerationModel;
 using SNT2_WPF.View.Graphs;
 using SNT2_WPF.ViewModel.Graph;
+using SNT2_WPF.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ using System.Windows.Input;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : DialogViewModel
     {
         IniFile INI = new IniFile(@"Resources\Config.ini");
         GenerationData generationData = null!;
