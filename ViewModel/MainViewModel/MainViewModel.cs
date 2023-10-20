@@ -200,7 +200,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         private void ExecuteOpenCurrentP1GraphCommand(object obj)
         {
-            GraphCurrentData graphCurrentData = new GraphCurrentData();
+            GraphCurrentDataView graphCurrentData = new GraphCurrentDataView();
             graphCurrentData.Show();
         }
         private void ExecuteOpenCurrentP2GraphCommand(object obj)
