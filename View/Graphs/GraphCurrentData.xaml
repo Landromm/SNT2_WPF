@@ -1,0 +1,26 @@
+﻿<Window x:Class="SNT2_WPF.View.Graphs.GraphCurrentData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SNT2_WPF.View.Graphs"
+        xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph"         
+        mc:Ignorable="d"
+        Title="GraphCurrentData" 
+        Height="450" 
+        Width="600">
+
+    <Window.DataContext>
+        <viewModelGraph:GraphCurrentViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+
+        <TextBlock Text="{Binding TestText}"
+                   FontSize="48"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+    </Grid>
+    
+</Window>

@@ -7,12 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SNT2_WPF.Models.DataContext
+namespace SNT2_WPF.Models.DataConEF
 {
     internal class DataContext : DbContext
     {
         private readonly string _connectionString = @ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-
 
         public DbSet<ProjectObject> ProjectObjects { get; set; }
         public DbSet<Counter> Counters { get; set; }

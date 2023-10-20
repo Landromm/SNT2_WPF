@@ -1,11 +1,16 @@
 ﻿using SNT2_WPF.Communication.IniData;
 using SNT2_WPF.Models.DataModel;
+using SNT2_WPF.Models.GenerationModel;
+using SNT2_WPF.View.Graphs;
+using SNT2_WPF.ViewModel.Graph;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -15,14 +20,17 @@ namespace SNT2_WPF.ViewModel.MainViewModel
     public class MainViewModel : ViewModelBase
     {
         IniFile INI = new IniFile(@"Resources\Config.ini");
+        GenerationData generationData = null!;
 
         //Fields
-        private bool _checkActivetedHideMenu=false;
+        private bool _checkActivetedHideMenu = false;
         private bool _isCheckedStyleMode;
         private string pathDefaultStyle = "";
         private string pathDarkStyle = "";
-        private ObservableCollection<MainDataModel> _mainData;
-        private MainDataModel _selectedMainData;
+        private ObservableCollection<MainDataModel> _mainData = null!;
+        private MainDataModel _selectedMainData = null!;
+        private ViewModelBase _currentChildView = null!;
+
 
         //Properties
         //Состояние открытия скрытого меню.
@@ -63,7 +71,15 @@ namespace SNT2_WPF.ViewModel.MainViewModel
                 OnPropertyChanged(nameof(SelectedMainDataModels));
             }
         }
-
+        public ViewModelBase CurrentChildView
+        {
+            get => _currentChildView;
+            set
+            {
+                _currentChildView = value;
+                OnPropertyChanged(nameof(CurrentChildView));
+            }
+        }
 
         public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
         public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
@@ -136,6 +152,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
             OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
             OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
+            generationData = new GenerationData();
+            RunGenerationThread();
         }
 
         //Метод установления стиля в зависимости от принятых параметров.
@@ -149,6 +167,21 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
+
+        }
+
+        private void RunGenerationThread()
+        {
+            Thread thread = new Thread(() =>
+            {
+                while (true)
+                {
+                    generationData.GenerationDataStart();
+                    Thread.Sleep(1000);
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         //Выполнения метода смены стиля приложения.
@@ -167,7 +200,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         private void ExecuteOpenCurrentP1GraphCommand(object obj)
         {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Pressure_ch1}");
+            GraphCurrentData graphCurrentData = new GraphCurrentData();
+            graphCurrentData.Show();
         }
         private void ExecuteOpenCurrentP2GraphCommand(object obj)
         {

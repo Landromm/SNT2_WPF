@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace SNT2_WPF.Models.DataModel.DataControl
     class Data_NV
     {
         delegate string InvertedString(string? input);
-
+        
+        #region Fields Data_NV
         //Поля
         private DateTime _dateTime;
         //-ОБЩИЕ--------------------------------------------------------------------------------------------
@@ -75,7 +77,9 @@ namespace SNT2_WPF.Models.DataModel.DataControl
         private string? _flowPulseInput_ch2;            //Расход импульсного входа №2 - канал №2.
         private string? _volumePulseInput_ch2;          //Объем импульсного входа №2 - канал №2.
         private string? _viscosity_ch2;                 //Вязкость - канал №2.
+        #endregion
 
+        #region Properties Data_NV
 
         //Свойста.
         public int Id { get; set; }
@@ -922,7 +926,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
                 }
             }
         }
+        #endregion
 
+        #region InvertedString - инверсия строки данных в обратном порядке.
+        /// <summary>
+        /// Инверсия полученной строки в обратном порядке по байтам.
+        /// </summary>
         InvertedString invertedString = inputStr =>
         {
             string tempstr = "";
@@ -932,6 +941,7 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             }
             return tempstr;
         };
+        #endregion
 
     }
 }

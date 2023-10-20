@@ -6,7 +6,9 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:SNT2_WPF"
+        xmlns:localGraph="clr-namespace:SNT2_WPF.View.Graphs"
         xmlns:viewModel="clr-namespace:SNT2_WPF.ViewModel.MainViewModel" 
+        xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph" 
         xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
         Title="MainWindow"
@@ -23,6 +25,14 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type viewModelGraph:GraphCurrentViewModel}">
+            <localGraph:GraphCurrentData/>
+        </DataTemplate>
+        
+    </Window.Resources>
 
 
     <Border Style="{DynamicResource MainBorder}">
