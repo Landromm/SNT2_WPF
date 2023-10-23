@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SNT2_WPF.Services;
+using SNT2_WPF.Services.Implementations;
 using SNT2_WPF.View.Graphs;
 using SNT2_WPF.ViewModel.Graph;
 using SNT2_WPF.ViewModel.MainViewModel;
@@ -21,13 +22,18 @@ namespace SNT2_WPF
          services.AddSingleton<MainViewModel>();
          services.AddScoped<GraphCurrentViewModel>();
 
-         services.AddTransient(
+			services.AddSingleton<IUserDialog, UserDialogServices>();
+			services.AddSingleton<IMessageBus, MessageBusService>();
+
+
+			services.AddTransient(
             s =>
             {
                var model = s.GetRequiredService<MainViewModel>();
                var window = new MainWindow { DataContext = model };
+					model.DialogComplete += (_, _) => window.Close();
 
-               return window;
+					return window;
             });
          services.AddTransient(
             s =>
@@ -35,8 +41,10 @@ namespace SNT2_WPF
                var scope = s.CreateScope();
                var model = scope.ServiceProvider.GetRequiredService<GraphCurrentViewModel>();
                var window = new GraphCurrentDataView { DataContext = model };
-               model.DialogComplete +=
-               return window;
+					model.DialogComplete += (_, _) => window.Close();
+					window.Closed += (_, _) => scope.Dispose();
+
+					return window;
             });
 
 			return services;
@@ -46,7 +54,7 @@ namespace SNT2_WPF
 		{
 			base.OnStartup(e);
 
-         Services.GetRequiredService<IUserDialog>().OpenCurrentGrapf();
+         Services.GetRequiredService<IUserDialog>().OpenMainWindow();
 		}
 
 	}

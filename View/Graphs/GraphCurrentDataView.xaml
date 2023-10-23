@@ -9,17 +9,17 @@
         Title="GraphCurrentData" 
         Height="450" 
         Width="600">
-
-    <Window.DataContext>
-        <viewModelGraph:GraphCurrentViewModel/>
-    </Window.DataContext>
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding TestText}"
-                   FontSize="48"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+        <GroupBox Header="Номер счетчика!"
+                  Grid.Row="0">
+            <TextBox Text="{Binding TestText}"/>
+        </GroupBox>
 
     </Grid>
     

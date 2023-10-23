@@ -1,30 +1,44 @@
-﻿namespace SNT2_WPF.ViewModel.Graph
-{
-    public class GraphCurrentViewModel : ViewModelBase
-    {
-        private string _testText;
+﻿using SNT2_WPF.Models.DataModel;
+using SNT2_WPF.Services;
+using SNT2_WPF.ViewModel.Base;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-        public string TestText
+namespace SNT2_WPF.ViewModel.Graph
+{
+    public class GraphCurrentViewModel : DialogViewModel
+    {
+		private string? _testText;
+
+		private readonly IUserDialog _userDialog = null!;
+		private readonly IMessageBus _messageBus = null!;
+		private readonly IDisposable _subscription = null!;
+
+		public string? TestText
         {
             get => _testText;
             set
             {
                 _testText = value;
                 OnPropertyChanged(nameof(TestText));
-            }
-        }
+			}
+		}
 
-        public GraphCurrentViewModel()
-        {
-            this.TestText = "Не передалось!";
-        }
+		public GraphCurrentViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
+      {
+			_userDialog = UserDialog;
+			_messageBus = MessageBus;
 
-        public GraphCurrentViewModel(string testText) : base()
-        {
-            this.TestText = testText;
-        }
+			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
+		}
 
+		private void OnReceiveMessage(Message message)
+		{
+			TestText = message.Text;
+		}
 
+		public void Dispose() => _subscription.Dispose();
 
-    }
+	}
 }

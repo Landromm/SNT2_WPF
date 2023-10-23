@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SNT2_WPF.Services;
-public interface IUserDialog
+public interface IMessageBus
 {
-	void OpenMainWindow();
-	void OpenCurrentGrapf();
+	IDisposable RegisterHandler<T>(Action<T> Handler);
+
+	void Send<T>(T Message);
 }
+
