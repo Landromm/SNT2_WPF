@@ -20,20 +20,6 @@
         Background="Transparent"
         AllowsTransparency="True"
         StateChanged="Window_StateChanged">
-   
-
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
-
-    <Window.Resources>
-
-        <DataTemplate DataType="{x:Type viewModelGraph:GraphCurrentViewModel}">
-            <localGraph:GraphCurrentData/>
-        </DataTemplate>
-        
-    </Window.Resources>
-
 
     <Border Style="{DynamicResource MainBorder}">
 

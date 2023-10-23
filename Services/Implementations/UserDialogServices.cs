@@ -1,4 +1,5 @@
-﻿using Microsoft.Windows.Themes;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Windows.Themes;
 using SNT2_WPF.View.Graphs;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SNT2_WPF.Services.Implementations;
-public class UserDialogServices
+internal class UserDialogServices  : IUserDialog
 {
 	private readonly IServiceProvider _service;
 
@@ -16,10 +17,28 @@ public class UserDialogServices
 		_service = service;
 	}
 
-	private GraphCurrentDataView _graphCurrrent = null!;
+	private MainWindow? _mainWindow = null!;
+	public void OpenMainWindow()
+	{
+		if (_mainWindow is { } window)
+		{
+			window.Show();
+			return;
+		}
+
+		window = _service.GetRequiredService<MainWindow>();
+		window.Closed += (_, _) => _mainWindow = null;
+		_mainWindow = window;
+		window.Show();
+	}
+
+	private GraphCurrentDataView _graphCurrrent = null!;	
 	public void OpenCurrentGrapf()
 	{
-
+		var window = _service.GetRequiredService<GraphCurrentDataView>();
+		window.Closed += (_, _) => _graphCurrrent = null;
+		_graphCurrrent = window;
+		window.Show();
 	}
 
 }
