@@ -17,20 +17,20 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		public string? TestText
         {
-            get => _testText;
-            set
-            {
-                _testText = value;
-                OnPropertyChanged(nameof(TestText));
-			}
+				get => _testText;
+				set
+				{
+					_testText = value;
+					OnPropertyChanged(nameof(TestText));
+				}
 		}
 
 		public GraphCurrentViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
       {
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
-
 			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
+
 		}
 
 		private void OnReceiveMessage(Message message)
