@@ -501,7 +501,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="Andika"/>
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
     </Style>
     <!--#endregion-->
