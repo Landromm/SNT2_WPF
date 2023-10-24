@@ -17,12 +17,14 @@ using System.Windows;
 using System.Windows.Input;
 using SNT2_WPF.Services;
 using SNT2_WPF.ViewModel.Commands;
+using SNT2_WPF.Communication.Repositories;
+using LiveChartsCore.Defaults;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
 {
     public class MainViewModel : DialogViewModel
     {
-      IniFile INI = new IniFile(@"Resources\Config.ini");
+        IniFile INI = new IniFile(@"Resources\Config.ini");
         GenerationData generationData = null!;
 
         //Fields
@@ -34,10 +36,11 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         private MainDataModel _selectedMainData = null!;
         private ViewModelBase _currentChildView = null!;
 
-		  private readonly IUserDialog _userDialog = null!;
-		  private readonly IMessageBus _messageBus = null!;
-		  private readonly IDisposable _subscription = null!;
-
+		private readonly IUserDialog _userDialog = null!;
+		private readonly IMessageBus _messageBus = null!;
+		private readonly IDisposable _subscription = null!;
+        private readonly IRepositoriesDB _userRepositoriesDB = null!;
+        private readonly IRepositoriesLocal _userRepositoriesLocal = null!;
 		//Properties
 		//Состояние открытия скрытого меню.
 		public bool CheckActivetedHideMenu
@@ -87,84 +90,112 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             }
         }
 
-        //public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
-        //public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
-        //public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
-        //public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
-        //public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
-        //public ICommand OpenCurrentT2GraphCommand { get; }  //Открытие графика температуры №2
-        //public ICommand OpenCurrentF1GraphCommand { get; }  //Открытие графика расхода №1
-        //public ICommand OpenCurrentF2GraphCommand { get; }  //Открытие графика расхода №2
+		public object Sync { get; } = new object();
+		public bool IsReading { get; set; } = true;
 
-        public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
+		//public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
+		//public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
+		//public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
+		//public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
+		//public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
+		//public ICommand OpenCurrentT2GraphCommand { get; }  //Открытие графика температуры №2
+		//public ICommand OpenCurrentF1GraphCommand { get; }  //Открытие графика расхода №1
+		//public ICommand OpenCurrentF2GraphCommand { get; }  //Открытие графика расхода №2
+
+		public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
         {
             InitializationStyleDefectLog();
-            MainDataModels = new ObservableCollection<MainDataModel>() 
-            {
-               new MainDataModel()
-               {
-                   CheckErrorConection = true,
-                   NumberCounter = "1234",
-                   DescriptionCounter = "Счетчик №1",
-                   Pressure_ch1 = "14,0",
-                   Temperature_ch1 = "65,8",
-                   Flow_ch1 = "1012,4",
-                   Pressure_ch2 = "22,0",
-                   Temperature_ch2 = "55,8",
-                   Flow_ch2 = "1312,4"
-               },
-                new MainDataModel()
-               {
-                   CheckErrorConection = true,
-                   NumberCounter = "2345",
-                   DescriptionCounter = "Счетчик №2",
-                   Pressure_ch1 = "15,0",
-                   Temperature_ch1 = "55,8",
-                   Flow_ch1 = "1222,4",
-                   Pressure_ch2 = "42,0",
-                   Temperature_ch2 = "55,8",
-                   Flow_ch2 = "1332,43"
-               },
-                new MainDataModel()
-               {
-                   CheckErrorConection = false,
-                   NumberCounter = "3456",
-                   DescriptionCounter = "Счетчик №3",
-                   Pressure_ch1 = "14,0",
-                   Temperature_ch1 = "65,8",
-                   Flow_ch1 = "1012,4",
-                   Pressure_ch2 = "22,0",
-                   Temperature_ch2 = "55,8",
-                   Flow_ch2 = "1312,4"
-               },
-                new MainDataModel()
-               {
-                   CheckErrorConection = false,
-                   NumberCounter = "4567",
-                   DescriptionCounter = "Счетчик №4",
-                   Pressure_ch1 = "54,0",
-                   Temperature_ch1 = "55,8",
-                   Flow_ch1 = "2012,4",
-                   Pressure_ch2 = "72,0",
-                   Temperature_ch2 = "33,8",
-                   Flow_ch2 = "2312,4"
-               }
-            };
+            
 
-			   _userDialog = UserDialog;
-			   _messageBus = MessageBus;
+			_userDialog = UserDialog;
+			_messageBus = MessageBus;
+            _userRepositoriesDB = new UserRepositoriesDB();
+            _userRepositoriesLocal = new UserRepositoriesLocal();
+            MainDataModels = new ObservableCollection<MainDataModel>();
+		//ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
+		//SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
+		//OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
+		//OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
+		//OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
+		//OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
+		//OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
+		//OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
 
-			//ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
-			//SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
-			//OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
-			//OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
-			//OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
-			//OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
-			//OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
-			//OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
-
-			   generationData = new GenerationData();
+			generationData = new GenerationData();
             RunGenerationThread();
+			_ = ReadData();
+			//RunDataRead();
+		}
+
+		private async Task ReadData()
+		{
+			// to keep this sample simple, we run the next infinite loop 
+			// in a real application you should stop the loop/task when the view is disposed 
+			var listCounters = new List<string>();
+			listCounters = _userRepositoriesLocal.InitializeCounters();
+            InitializeDataValues(listCounters);
+
+			while (IsReading)
+			{
+				await Task.Delay(3000);
+
+				// Because we are updating the chart from a different thread 
+				// we need to use a lock to access the chart data. 
+				// this is not necessary if your changes are made in the UI thread. 
+				lock (Sync)
+				{
+					GetAllDataValues(listCounters);
+				}
+			}
+		}
+
+		private void RunDataRead()
+		{
+			var listCounters = new List<string>();
+			listCounters = _userRepositoriesLocal.InitializeCounters();
+
+			while (true)
+			{
+                GetAllDataValues(listCounters);
+				Thread.Sleep(1000);
+			}
+		}
+
+		private void InitializeDataValues(List<string> listCounters)
+		{
+			for (int i = 0; i < listCounters.Count; i++)
+			{
+				var counterData = new MainDataModel();
+				string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+				counterData.NumberCounter = listCounters[i];
+				counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
+				counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(1229 + (i * 1000));
+				counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(1269 + (i * 1000));
+				counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(1116 + (i * 1000));
+				counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(1117 + (i * 1000));
+				counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(1225 + (i * 1000));
+				counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(1265 + (i * 1000));
+
+				MainDataModels.Add(counterData);
+			}
+		}
+		private void GetAllDataValues( List<string> listCounters)
+        {            
+            for (int i = 0; i < listCounters.Count; i++)
+            {
+				var counterData = new MainDataModel();
+                string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+				counterData.NumberCounter = listCounters[i];
+                counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
+                counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(1229 + (i * 1000));
+                counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(1269 + (i * 1000));
+                counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(1116 + (i * 1000));
+                counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(1117 + (i * 1000));
+                counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(1225 + (i * 1000));
+                counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(1265 + (i * 1000));
+
+                MainDataModels[i] = counterData;
+			}
         }
 
 		public void Dispose() => _subscription.Dispose();

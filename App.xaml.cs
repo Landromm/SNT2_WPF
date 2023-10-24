@@ -11,16 +11,16 @@ namespace SNT2_WPF
 {
     public partial class App
     {
-      private static IServiceProvider? _Services;
+        private static IServiceProvider? _Services;
 
 		public static IServiceProvider Services => _Services ??= InitializeServices().BuildServiceProvider();
 
 		private static IServiceCollection InitializeServices()
-      {
-         var services = new ServiceCollection();
+        {
+            var services = new ServiceCollection();
 
-         services.AddSingleton<MainViewModel>();
-         services.AddScoped<GraphCurrentViewModel>();
+            services.AddSingleton<MainViewModel>();
+            services.AddScoped<GraphCurrentViewModel>();
 
 			services.AddSingleton<IUserDialog, UserDialogServices>();
 			services.AddSingleton<IMessageBus, MessageBusService>();
@@ -29,18 +29,18 @@ namespace SNT2_WPF
 			services.AddTransient(
             s =>
             {
-               var model = s.GetRequiredService<MainViewModel>();
-               var window = new MainWindow { DataContext = model };
+                var model = s.GetRequiredService<MainViewModel>();
+                var window = new MainWindow { DataContext = model };
 					model.DialogComplete += (_, _) => window.Close();
 
 					return window;
             });
-         services.AddTransient(
+            services.AddTransient(
             s =>
             {
-               var scope = s.CreateScope();
-               var model = scope.ServiceProvider.GetRequiredService<GraphCurrentViewModel>();
-               var window = new GraphCurrentDataView { DataContext = model };
+                var scope = s.CreateScope();
+                var model = scope.ServiceProvider.GetRequiredService<GraphCurrentViewModel>();
+                var window = new GraphCurrentDataView { DataContext = model };
 					model.DialogComplete += (_, _) => window.Close();
 					window.Closed += (_, _) => scope.Dispose();
 
@@ -48,13 +48,12 @@ namespace SNT2_WPF
             });
 
 			return services;
-      }
+        }
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
-
-         Services.GetRequiredService<IUserDialog>().OpenMainWindow();
+            Services.GetRequiredService<IUserDialog>().OpenMainWindow();
 		}
 
 	}
