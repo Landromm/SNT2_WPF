@@ -33,7 +33,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         private string pathDefaultStyle = "";
         private string pathDarkStyle = "";
         private ObservableCollection<MainDataModel> _mainData = null!;
-        private MainDataModel _selectedMainData = null!;
+        private MainDataModel? _selectedMainData = null!;
         private ViewModelBase _currentChildView = null!;
 
 		private readonly IUserDialog _userDialog = null!;
@@ -71,9 +71,9 @@ namespace SNT2_WPF.ViewModel.MainViewModel
                 OnPropertyChanged(nameof(MainDataModels));
             }
         }
-        public MainDataModel SelectedMainDataModels
+        public MainDataModel? SelectedMainDataModels
         {
-            get => _selectedMainData;
+            get => _selectedMainData ?? (_selectedMainData = new MainDataModel());
             set
             {
                 _selectedMainData = value;
@@ -93,8 +93,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		public object Sync { get; } = new object();
 		public bool IsReading { get; set; } = true;
 
-		//public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
-		//public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
+		public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
+		public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
 		//public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
 		//public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
 		//public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
@@ -112,8 +112,9 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             _userRepositoriesDB = new UserRepositoriesDB();
             _userRepositoriesLocal = new UserRepositoriesLocal();
             MainDataModels = new ObservableCollection<MainDataModel>();
-		//ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
-		//SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
+            SelectedMainDataModels = new MainDataModel();
+		    ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
+		    SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
 		//OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
 		//OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
 		//OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
@@ -137,7 +138,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 			while (IsReading)
 			{
-				await Task.Delay(3000);
+				await Task.Delay(2000);
 
 				// Because we are updating the chart from a different thread 
 				// we need to use a lock to access the chart data. 
