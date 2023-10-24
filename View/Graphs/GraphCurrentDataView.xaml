@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SNT2_WPF.View.Graphs"
         xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph"         
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
         Title="GraphCurrentData" 
         Height="450" 
@@ -20,6 +21,16 @@
                   Grid.Row="0">
             <TextBox Text="{Binding TestText}"/>
         </GroupBox>
+
+        <lvc:CartesianChart Grid.Row="1"
+                            DrawMarginFrame="{Binding DrawMarginFrame}"
+                            SyncContext="{Binding Sync}"
+                            Series="{Binding Series}"
+                            XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}"
+                            BorderThickness="1"
+                            ZoomMode="Both">
+        </lvc:CartesianChart>
 
     </Grid>
     

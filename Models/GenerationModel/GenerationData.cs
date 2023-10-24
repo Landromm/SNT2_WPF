@@ -58,14 +58,14 @@ namespace SNT2_WPF.Models.GenerationModel
                 {
                     DateTime dateTime = DateTime.Now;   
                     GetSqlProcedure(context, dictionary[i][0], randomConnect.Next(0,1).ToString(), dateTime);
-                    GetSqlProcedure(context, dictionary[i][1], counters[0], dateTime);
+                    GetSqlProcedure(context, dictionary[i][1], counters[i], dateTime);
                     GetSqlProcedure(context, dictionary[i][2], randomPressure.Next(30, 35).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][3], randomTemperature.Next(49, 73).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][4], randomFlow.Next(1020,1450).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][5], randomPressure.Next(30, 35).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][6], randomTemperature.Next(52, 70).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][7], randomFlow.Next(1220, 1250).ToString(), dateTime);
-                }
+				}
             }
         }
 
