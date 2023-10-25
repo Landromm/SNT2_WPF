@@ -6,4 +6,4 @@ using System.Threading.Tasks;
 
 namespace SNT2_WPF.Models.DataModel;
 
-public record Message(string Text);
+public record Message(string? Text);

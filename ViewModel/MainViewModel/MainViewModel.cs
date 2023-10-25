@@ -96,33 +96,15 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		public object Sync { get; } = new object();
 		public bool IsReading { get; set; } = true;
 
-		public ICommand ActivateHideMenuCommand { get; }    //Открытие\закрытие скрытого меню.
-		public ICommand SelectionModeStyleCommand { get; } //Выбор темы приложения (светлая или темная).
-		//public ICommand OpenCurrentP1GraphCommand { get; }  //Открытие графика давления №1
-		//public ICommand OpenCurrentP2GraphCommand { get; }  //Открытие графика давления №2
-		//public ICommand OpenCurrentT1GraphCommand { get; }  //Открытие графика температуры №1
-		//public ICommand OpenCurrentT2GraphCommand { get; }  //Открытие графика температуры №2
-		//public ICommand OpenCurrentF1GraphCommand { get; }  //Открытие графика расхода №1
-		//public ICommand OpenCurrentF2GraphCommand { get; }  //Открытие графика расхода №2
-
 		public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
         {
-            InitializationStyleSNT2();
-            
+            InitializationStyleSNT2();            
 
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
             _userRepositoriesDB = new UserRepositoriesDB();
             _userRepositoriesLocal = new UserRepositoriesLocal();
             MainDataModels = new ObservableCollection<MainDataModel>();
-		    ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
-		    SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
-            //OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
-            //OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
-            //OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
-            //OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
-            //OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
-            //OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
 
             InitializeCounters();
 
@@ -244,28 +226,163 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		public void Dispose() => _subscription.Dispose();
 
-		#region Command SendMessageCommand - Отправка сообщения
+		#region Command ActivateHideMenuCommand - Открытие скрытого меню
 
-		/// <summary>Отправка сообщения</summary>
-		private LambdaCommand? _OpenGraphCommand;
+		/// <summary>Открытие скрытого меню</summary>
+		private LambdaCommand? _ActivateHideMenuCommand;
 
-		/// <summary>Отправка сообщения</summary>
-		public ICommand OpenCurrentP1GraphCommand => _OpenGraphCommand ??= new((Action)ExecuteOpenCurrentP1GraphCommand);
+		/// <summary>Открытие скрытого меню</summary>
+		public ICommand ActivateHideMenuCommand => _ActivateHideMenuCommand ??= new(ExecutedActivateHideMenuCommand);
 
-		/// <summary>Логика выполнения - Отправка сообщения</summary>
-		private void ExecuteOpenCurrentP1GraphCommand()
+		/// <summary>Логика выполнения - Открытие скрытого меню</summary>
+		private void ExecutedActivateHideMenuCommand()
 		{
-            if (SelectedMainDataModels != null)
-            {
+			CheckActivetedHideMenu = !CheckActivetedHideMenu;
+		}
+
+        #endregion
+
+        #region Command SelectionModeStyleCommand - Выбор стиля приложения: темная или светлая тема.
+
+        /// <summary>Выбор стиля приложения: темная или светлая тема.</summary>
+        private LambdaCommand? _SelectionModeStyleCommand;
+
+        /// <summary>Выбор стиля приложения: темная или светлая тема.</summary>
+        public ICommand SelectionModeStyleCommand => _SelectionModeStyleCommand ??= new(ExecutedSelectionModeStyleCommand);
+
+        /// <summary>Логика выполнения - Выбор стиля приложения: темная или светлая тема.</summary>
+        private void ExecutedSelectionModeStyleCommand()
+        {
+			IsCheckedStyleMode = !IsCheckedStyleMode;
+			CheckActivetedHideMenu = false;
+			pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
+			pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
+
+			if (!IsCheckedStyleMode)
+				ChangeStyleThemes(pathDarkStyle, false);
+			else
+				ChangeStyleThemes(pathDefaultStyle, true);
+		}
+		#endregion
+
+		#region Command OpenCurrentP1GraphCommand - Открытие текущего графика по давлению №1 (P1)
+
+		/// <summary>Открытие текущего графика по давлению №1 (P1)</summary>
+		private LambdaCommand? _OpenCurrentP1Graph;
+
+		/// <summary>Открытие текущего графика по давлению №1 (P1)</summary>
+		public ICommand OpenCurrentP1GraphCommand => _OpenCurrentP1Graph ??= new(ExecutedCurrentP1GraphCommand);
+
+		/// <summary>Логика выполнения - Открытие графика по давлению №1 (P1)</summary>
+		private void ExecutedCurrentP1GraphCommand()
+		{
+			if (SelectedMainDataModels != null)
+			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.NumberCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1));
 			}
 		}
 
+        #endregion
+
+        #region Command OpenCurrentT1GraphCommand - Открытие текущего графика по температуре №1 (T1)
+
+        /// <summary>Открытие текущего графика по температуре №1 (T1)</summary>
+        private LambdaCommand? _OpenCurrentT1GraphCommand;
+
+        /// <summary>Открытие текущего графика по температуре №1 (T1)</summary>
+        public ICommand OpenCurrentT1GraphCommand => _OpenCurrentT1GraphCommand ??= new(ExecutedOpenCurrentT1GraphCommand);
+
+        /// <summary>Логика выполнения - Открытие текущего графика по температуре №1 (T1)</summary>
+        private void ExecutedOpenCurrentT1GraphCommand()
+        {
+			if (SelectedMainDataModels != null)
+			{
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch1));
+			}
+		}
 		#endregion
 
-		//Метод установления стиля в зависимости от принятых параметров.
-		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
+		#region Command OpenCurrentF1GraphCommand - Открытие текущего графика по расходу №1 (F1)
+
+		/// <summary>Открытие текущего графика по расходу №1 (F1)</summary>
+		private LambdaCommand? _OpenCurrentF1GraphCommand;
+
+        /// <summary>Открытие текущего графика по расходу №1 (F1)</summary>
+        public ICommand OpenCurrentF1GraphCommand => _OpenCurrentF1GraphCommand ??= new(ExecutedOpenCurrentF1GraphCommand);
+
+        /// <summary>Логика выполнения - Открытие текущего графика по расходу №1 (F1)</summary>
+        private void ExecutedOpenCurrentF1GraphCommand()
+        {
+			if (SelectedMainDataModels != null)
+			{
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch1));
+			}
+		}
+		#endregion
+
+		#region Command OpenCurrentP2GraphCommand - Открытие текущего графика по давлению №2 (P2)
+
+		/// <summary>Открытие текущего графика по давлению №2 (P2)</summary>
+		private LambdaCommand? _OpenCurrentP2GraphCommand;
+
+        /// <summary>Открытие текущего графика по давлению №2 (P2)</summary>
+        public ICommand OpenCurrentP2GraphCommand => _OpenCurrentP2GraphCommand ??= new(ExecutedOpenCurrentP2GraphCommand);
+
+        /// <summary>Логика выполнения - Открытие текущего графика по давлению №2 (P2)</summary>
+        private void ExecutedOpenCurrentP2GraphCommand()
+        {
+			if (SelectedMainDataModels != null)
+			{
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch2));
+			}
+		}
+		#endregion
+
+		#region Command OpenCurrentT2GraphCommand - Открытие текущего графика по температуре №2 (T2)
+
+		/// <summary>Открытие текущего графика по температуре №2 (T2)</summary>
+		private LambdaCommand? _OpenCurrentT2GraphCommand;
+
+        /// <summary>Открытие текущего графика по температуре №2 (T2)</summary>
+        public ICommand OpenCurrentT2GraphCommand => _OpenCurrentT2GraphCommand ??= new(ExecutedOpenCurrentT2GraphCommand);
+
+        /// <summary>Логика выполнения - Открытие текущего графика по температуре №2 (T2)</summary>
+        private void ExecutedOpenCurrentT2GraphCommand()
+        {
+			if (SelectedMainDataModels != null)
+			{
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch2));
+			}
+		}
+		#endregion
+
+		#region Command OpenCurrentF2GraphCommand - Открытие текущего графика по расходу №2 (F2)
+
+		/// <summary>Открытие текущего графика по расходу №2 (F2)</summary>
+		private LambdaCommand? _OpenCurrentF2GraphCommand;
+
+        /// <summary>Открытие текущего графика по расходу №2 (F2)</summary>
+        public ICommand OpenCurrentF2GraphCommand => _OpenCurrentF2GraphCommand ??= new(ExecutedOpenCurrentF2GraphCommand);
+
+        /// <summary>Логика выполнения - Открытие текущего графика по расходу №2 (F2)</summary>
+        private void ExecutedOpenCurrentF2GraphCommand()
+        {
+			if (SelectedMainDataModels != null)
+			{
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2));
+			}
+		}
+        #endregion
+
+
+        //Метод установления стиля в зависимости от принятых параметров.
+        private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
         {
             var uri = new Uri(@pathStyle, UriKind.Relative);
             ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
@@ -275,56 +392,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
-        }
-
-        //Выполнения метода смены стиля приложения.
-        private void ExecuteSelectionModeStyleCommand(object obj)
-        {
-            IsCheckedStyleMode = !IsCheckedStyleMode;
-            CheckActivetedHideMenu = false;
-            pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
-            pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
-
-            if (!IsCheckedStyleMode)
-                ChangeStyleThemes(pathDarkStyle, false);
-            else
-                ChangeStyleThemes(pathDefaultStyle, true);
-        }
-
-
-        
-
-
-        private void ExecuteOpenCurrentP1GraphCommand(object obj)
-        {
-            GraphCurrentDataView graphCurrentData = new GraphCurrentDataView();
-            graphCurrentData.Show();
-        }
-        private void ExecuteOpenCurrentP2GraphCommand(object obj)
-        {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Pressure_ch2}");
-        }
-        private void ExecuteOpenCurrentT1GraphCommand(object obj)
-        {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Temperature_ch1}");
-        }
-        private void ExecuteOpenCurrentT2GraphCommand(object obj)
-        {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Temperature_ch2}");
-        }
-        private void ExecuteOpenCurrentF1GraphCommand(object obj)
-        {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Flow_ch1}");
-        }
-        private void ExecuteOpenCurrentF2GraphCommand(object obj)
-        {
-            MessageBox.Show($"Давление: {SelectedMainDataModels.Flow_ch2}");
-        }
-
-        private void ExecuteActivateHideMenuCommand(object obj)
-        {
-			CheckActivetedHideMenu = !CheckActivetedHideMenu;
-		}
+        }        
 
         // Метод инициализации стиля приложения
         private void InitializationStyleSNT2()
