@@ -49,4 +49,18 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		}
 		return value;
 	}
+
+	public bool GetStatusChanel(int hash)
+	{
+		string? value = "0";
+		using var contex = new DataContext();
+		{
+			value = contex.ListValues
+				.Where(h => h.Hash == hash)
+				.Select(v => v.Value)
+				.ToList()
+				.First();
+		}
+		return !value.Equals("0");
+	}
 }

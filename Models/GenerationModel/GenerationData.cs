@@ -57,7 +57,7 @@ namespace SNT2_WPF.Models.GenerationModel
                 for (int i = 0; i < CountCounter; i++)
                 {
                     DateTime dateTime = DateTime.Now;   
-                    GetSqlProcedure(context, dictionary[i][0], randomConnect.Next(0,1).ToString(), dateTime);
+                    GetSqlProcedure(context, dictionary[i][0], randomConnect.Next(0,2).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][1], counters[i], dateTime);
                     GetSqlProcedure(context, dictionary[i][2], randomPressure.Next(30, 35).ToString(), dateTime);
                     GetSqlProcedure(context, dictionary[i][3], randomTemperature.Next(49, 73).ToString(), dateTime);

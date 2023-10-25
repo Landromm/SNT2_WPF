@@ -197,6 +197,7 @@ namespace SNT2_WPF.ViewModel.Graph
 		private void OnReceiveMessage(Message message)
 		{
 			TestText = message.Text;
+			Dispose();
 		}
 
 		public void Dispose() => _subscription.Dispose();

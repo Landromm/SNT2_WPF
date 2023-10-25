@@ -19,6 +19,7 @@ using SNT2_WPF.Services;
 using SNT2_WPF.ViewModel.Commands;
 using SNT2_WPF.Communication.Repositories;
 using LiveChartsCore.Defaults;
+using System.ComponentModel.DataAnnotations;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
 {
@@ -35,12 +36,14 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         private ObservableCollection<MainDataModel> _mainData = null!;
         private MainDataModel? _selectedMainData = null!;
         private ViewModelBase _currentChildView = null!;
+        private int[,] arrayCounters = null!;
 
 		private readonly IUserDialog _userDialog = null!;
 		private readonly IMessageBus _messageBus = null!;
 		private readonly IDisposable _subscription = null!;
         private readonly IRepositoriesDB _userRepositoriesDB = null!;
         private readonly IRepositoriesLocal _userRepositoriesLocal = null!;
+
 		//Properties
 		//Состояние открытия скрытого меню.
 		public bool CheckActivetedHideMenu
@@ -73,7 +76,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         }
         public MainDataModel? SelectedMainDataModels
         {
-            get => _selectedMainData ?? (_selectedMainData = new MainDataModel());
+            get => _selectedMainData;
             set
             {
                 _selectedMainData = value;
@@ -104,7 +107,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
         {
-            InitializationStyleDefectLog();
+            InitializationStyleSNT2();
             
 
 			_userDialog = UserDialog;
@@ -112,54 +115,76 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             _userRepositoriesDB = new UserRepositoriesDB();
             _userRepositoriesLocal = new UserRepositoriesLocal();
             MainDataModels = new ObservableCollection<MainDataModel>();
-            SelectedMainDataModels = new MainDataModel();
 		    ActivateHideMenuCommand = new ViewModelCommand(ExecuteActivateHideMenuCommand);
 		    SelectionModeStyleCommand = new ViewModelCommand(ExecuteSelectionModeStyleCommand);
-		//OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
-		//OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
-		//OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
-		//OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
-		//OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
-		//OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
+            //OpenCurrentP1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP1GraphCommand);
+            //OpenCurrentP2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentP2GraphCommand);
+            //OpenCurrentT1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT1GraphCommand);
+            //OpenCurrentT2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentT2GraphCommand);
+            //OpenCurrentF1GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF1GraphCommand);
+            //OpenCurrentF2GraphCommand = new ViewModelCommand(ExecuteOpenCurrentF2GraphCommand);
+
+            InitializeCounters();
 
 			generationData = new GenerationData();
             RunGenerationThread();
+            Thread.Sleep(1000);
 			_ = ReadData();
-			//RunDataRead();
+        }
+
+        private void InitializeCounters()
+        {
+            var listCounters = _userRepositoriesLocal.InitializeCounters();
+            arrayCounters = new int[listCounters.Count(),7];
+
+            for (int i = 0; i < arrayCounters.GetUpperBound(0) + 1; i++)
+            {
+				arrayCounters[i,0] = 1112 + (i * 1000);
+				arrayCounters[i,1] = 1229 + (i * 1000);
+				arrayCounters[i,2] = 1116 + (i * 1000);
+				arrayCounters[i,3] = 1225 + (i * 1000);
+				arrayCounters[i,4] = 1269 + (i * 1000);
+				arrayCounters[i,5] = 1117 + (i * 1000);
+				arrayCounters[i,6] = 1265 + (i * 1000);
+			}
 		}
 
-		private async Task ReadData()
+        private async Task ReadData()
 		{
-			// to keep this sample simple, we run the next infinite loop 
-			// in a real application you should stop the loop/task when the view is disposed 
-			var listCounters = new List<string>();
-			listCounters = _userRepositoriesLocal.InitializeCounters();
-            InitializeDataValues(listCounters);
-
-			while (IsReading)
-			{
-				await Task.Delay(2000);
-
-				// Because we are updating the chart from a different thread 
-				// we need to use a lock to access the chart data. 
-				// this is not necessary if your changes are made in the UI thread. 
-				lock (Sync)
+            // to keep this sample simple, we run the next infinite loop 
+            // in a real application you should stop the loop/task when the view is disposed 
+            var listCounters = _userRepositoriesLocal.InitializeCounters();			
+			//listCounters = _userRepositoriesLocal.InitializeCounters();
+            if(listCounters != null)
+            {
+				InitializeDataValues(listCounters);
+				while (IsReading)
 				{
-					GetAllDataValues(listCounters);
+					await Task.Delay(5000);
+
+					// Because we are updating the chart from a different thread 
+					// we need to use a lock to access the chart data. 
+					// this is not necessary if your changes are made in the UI thread. 
+					lock (Sync)
+					{
+						GetAllDataValues(listCounters);
+					}
 				}
-			}
+			}            
 		}
 
-		private void RunDataRead()
+		private void RunGenerationThread()
 		{
-			var listCounters = new List<string>();
-			listCounters = _userRepositoriesLocal.InitializeCounters();
-
-			while (true)
+			Thread thread = new Thread(() =>
 			{
-                GetAllDataValues(listCounters);
-				Thread.Sleep(1000);
-			}
+				while (true)
+				{
+					generationData.GenerationDataStart();
+					Thread.Sleep(1000);
+				}
+			});
+			thread.IsBackground = true;
+			thread.Start();
 		}
 
 		private void InitializeDataValues(List<string> listCounters)
@@ -168,34 +193,52 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			{
 				var counterData = new MainDataModel();
 				string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+
 				counterData.NumberCounter = listCounters[i];
 				counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
-				counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(1229 + (i * 1000));
-				counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(1269 + (i * 1000));
-				counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(1116 + (i * 1000));
-				counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(1117 + (i * 1000));
-				counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(1225 + (i * 1000));
-				counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(1265 + (i * 1000));
+				counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
+				counterData.HashCheckErrorConection = arrayCounters[i,0].ToString();
+				counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]);
+                counterData.HashPressure_ch1 = arrayCounters[i,1].ToString();
+                counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]);
+                counterData.HashTemperature_ch1 = arrayCounters[i,2].ToString();
+				counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]);
+				counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
+				counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]);
+                counterData.HashPressure_ch2 = arrayCounters[i,4].ToString();
+				counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]);
+                counterData.HashTemperature_ch2 = arrayCounters[i,5].ToString();
+				counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]);
+				counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
 
 				MainDataModels.Add(counterData);
 			}
 		}
 		private void GetAllDataValues( List<string> listCounters)
-        {            
+        {
             for (int i = 0; i < listCounters.Count; i++)
             {
 				var counterData = new MainDataModel();
                 string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+
 				counterData.NumberCounter = listCounters[i];
                 counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
-                counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(1229 + (i * 1000));
-                counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(1269 + (i * 1000));
-                counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(1116 + (i * 1000));
-                counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(1117 + (i * 1000));
-                counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(1225 + (i * 1000));
-                counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(1265 + (i * 1000));
+				counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
+				counterData.HashCheckErrorConection = arrayCounters[i, 0].ToString();
+				counterData.Pressure_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]);
+				counterData.HashPressure_ch1 = arrayCounters[i, 1].ToString();
+				counterData.Temperature_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]);
+				counterData.HashTemperature_ch1 = arrayCounters[i, 2].ToString();
+				counterData.Flow_ch1 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]);
+				counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
+				counterData.Pressure_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]);
+				counterData.HashPressure_ch2 = arrayCounters[i, 4].ToString();
+				counterData.Temperature_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]);
+				counterData.HashTemperature_ch2 = arrayCounters[i, 5].ToString();
+				counterData.Flow_ch2 = _userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]);
+				counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
 
-                MainDataModels[i] = counterData;
+				MainDataModels[i] = counterData;
 			}
         }
 
@@ -212,14 +255,16 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		/// <summary>Логика выполнения - Отправка сообщения</summary>
 		private void ExecuteOpenCurrentP1GraphCommand()
 		{
-			_userDialog.OpenCurrentGrapf();
-			_messageBus.Send(new Message(SelectedMainDataModels.NumberCounter));
+            if (SelectedMainDataModels != null)
+            {
+				_userDialog.OpenCurrentGrapf();
+				_messageBus.Send(new Message(SelectedMainDataModels.NumberCounter));
+			}
 		}
 
 		#endregion
 
 		//Метод установления стиля в зависимости от принятых параметров.
-
 		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
         {
             var uri = new Uri(@pathStyle, UriKind.Relative);
@@ -230,21 +275,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
             INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
-
-        }
-
-        private void RunGenerationThread()
-        {
-            Thread thread = new Thread(() =>
-            {
-                while (true)
-                {
-                    generationData.GenerationDataStart();
-                    Thread.Sleep(1000);
-                }
-            });
-            thread.IsBackground = true;
-            thread.Start();
         }
 
         //Выполнения метода смены стиля приложения.
@@ -260,6 +290,10 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             else
                 ChangeStyleThemes(pathDefaultStyle, true);
         }
+
+
+        
+
 
         private void ExecuteOpenCurrentP1GraphCommand(object obj)
         {
@@ -289,11 +323,11 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         private void ExecuteActivateHideMenuCommand(object obj)
         {
-            CheckActivetedHideMenu = !CheckActivetedHideMenu;            
-        }
+			CheckActivetedHideMenu = !CheckActivetedHideMenu;
+		}
 
         // Метод инициализации стиля приложения
-        private void InitializationStyleDefectLog()
+        private void InitializationStyleSNT2()
         {
             string isCheckedStyleApplication = INI.ReadINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked");
             //string isCheckedDefaultStyle = INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle");

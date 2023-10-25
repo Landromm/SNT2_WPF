@@ -11,11 +11,10 @@ namespace SNT2_WPF.Models.DataModel
 		//Properties
 		public string? NumberCounter { get; set; }
 
-		public bool CheckErrorConection { get; set; }
-        public bool HashCheckErrorConection { get; set; }
+        public bool CheckErrorConection { get; set; } = false;
+        public string? HashCheckErrorConection { get; set; }
 
         public string? DescriptionCounter { get; set; }
-        public string? HashDescriptionCounter { get; set; }
 
 		public string? Pressure_ch1 { get; set; }
 		public string? HashPressure_ch1 { get; set; }
