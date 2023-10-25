@@ -5,127 +5,132 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SNT2_WPF.ViewModel.Commands;
-
-public class LambdaCommand : Command
+namespace SNT2_WPF.ViewModel.Commands
 {
-	private readonly Delegate? _Execute;
-	private readonly Delegate? _CanExecute;
-
-	public LambdaCommand(Action<object?> Execute, Func<bool>? CanExecute = null)
+	public class LambdaCommand : Command
 	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
+		private readonly Delegate? _Execute;
+		private readonly Delegate? _CanExecute;
 
-	public LambdaCommand(Action<object?> Execute, Func<object?, bool>? CanExecute)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	public LambdaCommand(Action Execute, Func<bool>? CanExecute = null)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	public LambdaCommand(Action Execute, Func<object?, bool>? CanExecute)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	protected override bool CanExecute(object? p)
-	{
-		if (!base.CanExecute(p))
-			return false;
-		return _CanExecute switch
+		public LambdaCommand(Action<object?> Execute, Func<bool>? CanExecute = null)
 		{
-			null => true,
-			Func<bool> can_exec => can_exec(),
-			Func<object?, bool> can_exec => can_exec(p),
-			_ => throw new InvalidOperationException($"Тип делегата {_CanExecute.GetType()} не поддерживается командой")
-		};
-	}
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
 
-	protected override void Execute(object? p)
-	{
-		switch (_Execute)
+		public LambdaCommand(Action<object?> Execute, Func<object?, bool>? CanExecute)
 		{
-			default:
-				throw new InvalidOperationException($"Тип делегата {_Execute.GetType()} не поддерживается командой");
-			case null:
-				throw new InvalidOperationException("Не указан делегат вызова для команды");
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
 
-			case Action execute:
-				execute();
-				break;
-			case Action<object?> execute:
-				execute(p);
-				break;
+		public LambdaCommand(Action Execute, Func<bool>? CanExecute = null)
+		{
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
+
+		public LambdaCommand(Action Execute, Func<object?, bool>? CanExecute)
+		{
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
+
+		protected override bool CanExecute(object? p)
+		{
+			if (!base.CanExecute(p))
+				return false;
+			return _CanExecute switch
+			{
+				null => true,
+				Func<bool> can_exec => can_exec(),
+				Func<object?, bool> can_exec => can_exec(p),
+				_ => throw new InvalidOperationException($"Тип делегата {_CanExecute.GetType()} не поддерживается командой")
+			};
+		}
+
+		protected override void Execute(object? p)
+		{
+			switch (_Execute)
+			{
+				default:
+					throw new InvalidOperationException($"Тип делегата {_Execute.GetType()} не поддерживается командой");
+				case null:
+					throw new InvalidOperationException("Не указан делегат вызова для команды");
+
+				case Action execute:
+					execute();
+					break;
+				case Action<object?> execute:
+					execute(p);
+					break;
+			}
 		}
 	}
-}
 
-public class LambdaCommand<T> : Command
-{
-	private readonly Delegate? _Execute;
-	private readonly Delegate? _CanExecute;
-
-	public LambdaCommand(Action<T?> Execute, Func<bool>? CanExecute = null)
+	public class LambdaCommand<T> : Command
 	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
+		private readonly Delegate? _Execute;
+		private readonly Delegate? _CanExecute;
 
-	public LambdaCommand(Action<T?> Execute, Func<T?, bool>? CanExecute)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	public LambdaCommand(Action Execute, Func<bool>? CanExecute = null)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	public LambdaCommand(Action Execute, Func<T?, bool>? CanExecute)
-	{
-		_Execute = Execute;
-		_CanExecute = CanExecute;
-	}
-
-	protected override bool CanExecute(object? p)
-	{
-		if (!base.CanExecute(p))
-			return false;
-		return _CanExecute switch
+		public LambdaCommand(Action<T?> Execute, Func<bool>? CanExecute = null)
 		{
-			null => true,
-			Func<bool> can_exec => can_exec(),
-			Func<T?, bool> can_exec => can_exec((T?)Convert.ChangeType(p, typeof(T))),
-			_ => throw new InvalidOperationException($"Тип делегата {_CanExecute.GetType()} не поддерживается командой")
-		};
-	}
-
-	protected override void Execute(object? p)
-	{
-		switch (_Execute)
-		{
-			default:
-				throw new InvalidOperationException($"Тип делегата {_Execute.GetType()} не поддерживается командой");
-			case null:
-				throw new InvalidOperationException("Не указан делегат вызова для команды");
-
-			case Action execute:
-				execute();
-				break;
-			case Action<T?> execute:
-				execute((T?)Convert.ChangeType(p, typeof(T)));
-				break;
+			_Execute = Execute;
+			_CanExecute = CanExecute;
 		}
+
+		public LambdaCommand(Action<T?> Execute, Func<T?, bool>? CanExecute)
+		{
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
+
+		public LambdaCommand(Action Execute, Func<bool>? CanExecute = null)
+		{
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
+
+		public LambdaCommand(Action Execute, Func<T?, bool>? CanExecute)
+		{
+			_Execute = Execute;
+			_CanExecute = CanExecute;
+		}
+
+		protected override bool CanExecute(object? p)
+		{
+			if (!base.CanExecute(p))
+				return false;
+			return _CanExecute switch
+			{
+				null => true,
+				Func<bool> can_exec => can_exec(),
+				Func<T?, bool> can_exec => can_exec((T?)Convert.ChangeType(p, typeof(T))),
+				_ => throw new InvalidOperationException($"Тип делегата {_CanExecute.GetType()} не поддерживается командой")
+			};
+		}
+
+		protected override void Execute(object? p)
+		{
+			switch (_Execute)
+			{
+				default:
+					throw new InvalidOperationException($"Тип делегата {_Execute.GetType()} не поддерживается командой");
+				case null:
+					throw new InvalidOperationException("Не указан делегат вызова для команды");
+
+				case Action execute:
+					execute();
+					break;
+				case Action<T?> execute:
+					execute((T?)Convert.ChangeType(p, typeof(T)));
+					break;
+			}
+		}
+
 	}
+
 }
+
+
 

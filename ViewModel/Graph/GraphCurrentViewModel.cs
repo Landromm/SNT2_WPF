@@ -96,7 +96,7 @@ namespace SNT2_WPF.ViewModel.Graph
 			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
 
 			Series = new ObservableCollection<ISeries>
-		  {
+			{
 				new LineSeries<DateTimePoint>
 				{
 					Values = _values,
@@ -107,7 +107,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					LineSmoothness = 0,
 					GeometrySize = 5
 				}
-		  };
+			};
 
 			_customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
 			{
