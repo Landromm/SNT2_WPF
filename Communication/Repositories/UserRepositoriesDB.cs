@@ -63,4 +63,33 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		}
 		return !value.Equals("0");
 	}
+
+	public List<Tuple<DateTime, double>> GetHistoryData(string hash)
+	{
+		var dataold1 = DateTime.Now.AddHours(1);
+		var dataold2 = DateTime.Now.AddHours(-1);
+		var dataold3 = DateTime.Now;
+		var result2 = dataold2 > dataold1;
+
+		var hashInt = Convert.ToInt32(hash);
+
+		var historyData = new List<Tuple<DateTime, double>>();
+		using var context = new DataContext();
+		{
+			var result = from historyH in context.History
+						 where historyH.HashId == hashInt &&
+						 historyH.DateTime > DateTime.Now.AddMinutes(-30) &&
+						 historyH.DateTime <= DateTime.Now
+						 orderby historyH.DateTime
+						 select new
+						 {
+							 historyH.DateTime,
+							 historyH.Value
+						 };
+
+			foreach (var item in result)
+				historyData.Add(new (item.DateTime, Convert.ToDouble(item.Value)));
+		}
+		return historyData;
+	}
 }

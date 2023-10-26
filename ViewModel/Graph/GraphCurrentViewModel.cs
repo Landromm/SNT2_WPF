@@ -4,6 +4,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using SkiaSharp;
+using SNT2_WPF.Communication.Repositories;
 using SNT2_WPF.Models.DataModel;
 using SNT2_WPF.Services;
 using SNT2_WPF.ViewModel.Base;
@@ -22,6 +23,7 @@ namespace SNT2_WPF.ViewModel.Graph
 		private readonly IUserDialog _userDialog = null!;
 		private readonly IMessageBus _messageBus = null!;
 		private readonly IDisposable _subscription = null!;
+		private readonly IRepositoriesDB _userRepositoriesDB = null!;
 
 		private readonly Random _random = new();
 		private readonly List<DateTimePoint> _values = new();
@@ -70,7 +72,8 @@ namespace SNT2_WPF.ViewModel.Graph
 
 						  LabelsPaint = new SolidColorPaint(SKColors.Blue),
 						  TextSize = 14,
-
+						  MinLimit = 0,
+						  MaxLimit = 100,
 						  SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
 						  {
 								StrokeThickness = 1,
@@ -94,6 +97,7 @@ namespace SNT2_WPF.ViewModel.Graph
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
 			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
+			_userRepositoriesDB = new UserRepositoriesDB();
 
 			Series = new ObservableCollection<ISeries>
 			{
@@ -105,7 +109,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					GeometryFill = new SolidColorPaint(SKColors.AliceBlue),
 					GeometryStroke = new SolidColorPaint(SKColors.Gray) { StrokeThickness = 1 },
 					LineSmoothness = 0,
-					GeometrySize = 5
+					GeometrySize = 1
 				}
 			};
 
@@ -119,30 +123,6 @@ namespace SNT2_WPF.ViewModel.Graph
 			XAxes = new Axis[] { _customAxis };
 
 			_ = ReadData();
-
-			//var values = new int[100];
-			//var r = new Random();
-			//var t = 0;
-
-			//for (var i = 0; i < 100; i++)
-			//{
-			//	t += r.Next(-10, 10);
-			//	values[i] = t;
-			//}
-
-			//SeriesCollection = new ISeries[] 
-			//{ 
-			//	new LineSeries<int> 
-			//	{ 
-			//		Values = values,
-			//		Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 2 },
-			//		Fill = null,
-			//		GeometryFill = new SolidColorPaint(SKColors.AliceBlue),
-			//		GeometryStroke = new SolidColorPaint(SKColors.Gray) { StrokeThickness = 1 },
-			//		LineSmoothness = 0,
-			//		GeometrySize = 5
-			//	} 
-			//};
 		}
 
 		private async Task ReadData()
@@ -159,9 +139,15 @@ namespace SNT2_WPF.ViewModel.Graph
 				// this is not necessary if your changes are made in the UI thread. 
 				lock (Sync)
 				{
-					_values.Add(new DateTimePoint(DateTime.Now, _random.Next(40, 55)));
-					if (_values.Count > 60)
-						_values.RemoveAt(0);
+					if (_values != null)
+						_values.Clear();
+
+					var histotyData = _userRepositoriesDB.GetHistoryData(TestText);
+					foreach (var item in histotyData)
+					{
+						_values.Add(new DateTimePoint(item.Item1, item.Item2));
+						//_values.Add(new DateTimePoint(DateTime.Now, _random.Next(0, 10)));
+					}
 
 					// we need to update the separators every time we add a new point 
 					_customAxis.CustomSeparators = GetSeparators();
@@ -175,23 +161,21 @@ namespace SNT2_WPF.ViewModel.Graph
 
 			return new double[]
 			{
-				now.AddSeconds(-60).Ticks,
-				now.AddSeconds(-50).Ticks,
-				now.AddSeconds(-40).Ticks,
-				now.AddSeconds(-30).Ticks,
-				now.AddSeconds(-20).Ticks,
-				now.AddSeconds(-10).Ticks,
+				now.AddMinutes(-60).Ticks,
+				now.AddMinutes(-50).Ticks,
+				now.AddMinutes(-40).Ticks,
+				now.AddMinutes(-30).Ticks,
+				now.AddMinutes(-20).Ticks,
+				now.AddMinutes(-10).Ticks,
 				now.Ticks
 			};
 		}
 
 		private static string Formatter(DateTime date)
 		{
-			var secsAgo = (DateTime.Now - date).TotalSeconds;
+			var secsAgo = date.ToString("HH:mm:ss");
 
-			return secsAgo < 1
-				 ? "now"
-				 : $"{secsAgo:N0}s ago";
+			return secsAgo ;
 		}
 
 		private void OnReceiveMessage(Message message)

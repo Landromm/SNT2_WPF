@@ -29,7 +29,7 @@
                             XAxes="{Binding XAxes}"
                             YAxes="{Binding YAxes}"
                             BorderThickness="1"
-                            ZoomMode="Both">
+                            ZoomMode="None">
         </lvc:CartesianChart>
 
     </Grid>

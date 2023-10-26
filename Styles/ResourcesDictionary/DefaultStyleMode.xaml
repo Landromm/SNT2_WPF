@@ -156,7 +156,8 @@
 
     <!--Шаблон контейнера ListView-->
     <DataTemplate x:Key="DefaultTemplateItem">
-        <Border Style="{DynamicResource ItemMainBorder}"
+        <Border x:Name="borderItem"
+                Style="{DynamicResource ItemMainBorder}"
                 Height="200"
                 Width="250"
                 Margin="5">
