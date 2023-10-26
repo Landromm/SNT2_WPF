@@ -16,6 +16,7 @@ namespace SNT2_WPF.Models.DataConEF
         public DbSet<ProjectObject> ProjectObjects { get; set; }
         public DbSet<Counter> Counters { get; set; }
         public DbSet<ListValue> ListValues { get; set; }
+        public DbSet<History> History { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
