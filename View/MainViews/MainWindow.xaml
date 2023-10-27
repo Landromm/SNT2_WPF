@@ -244,7 +244,7 @@
                                                     <!--Кнопка показания значения Давления-->
                                                     <Button VerticalAlignment="Center"
                                     HorizontalAlignment="Left"
-                                    Command="{Binding DataContext.OpenCurrentGraphCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                    Command="{Binding OpenCurrentGraphCommand}">
 
                                                         <Button.Style>
                                                             <Style TargetType="Button">
