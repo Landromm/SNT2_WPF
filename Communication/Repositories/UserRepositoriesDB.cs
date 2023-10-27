@@ -95,18 +95,35 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		(DateTime, double) historyData = new();
 		using var context = new DataContext();
 		{
-			var result = context.History
-				.Where(d => d.HashId == hashInt && d.DateTime > DateTime.Now.AddMinutes(-30))
-				.OrderBy(date => date.DateTime)
-				.Select(val => new
-				{
-					val.DateTime,
-					val.Value
-				})
+			var result = context.ListValues
+				.Where(d => d.Hash == hashInt)
+				.Select(val => 	val.Value)
 				.ToList()
 				.Last();
-			historyData = (result.DateTime, Convert.ToDouble(result.Value));
+			historyData = (DateTime.Now, Convert.ToDouble(result));
 		}
 		return historyData;
 	}
+
+	//public (DateTime, double) GetLastHistoryData(string hash)
+	//{
+	//	var hashInt = Convert.ToInt32(hash);
+
+	//	(DateTime, double) historyData = new();
+	//	using var context = new DataContext();
+	//	{
+	//		var result = context.History
+	//			.Where(d => d.HashId == hashInt && d.DateTime > DateTime.Now.AddMinutes(-30))
+	//			.OrderBy(date => date.DateTime)
+	//			.Select(val => new
+	//			{
+	//				val.DateTime,
+	//				val.Value
+	//			})
+	//			.ToList()
+	//			.Last();
+	//		historyData = (result.DateTime, Convert.ToDouble(result.Value));
+	//	}
+	//	return historyData;
+	//}
 }
