@@ -66,11 +66,6 @@ internal class UserRepositoriesDB : IRepositoriesDB
 
 	public List<Tuple<DateTime, double>> GetHistoryData(string hash)
 	{
-		var dataold1 = DateTime.Now.AddHours(1);
-		var dataold2 = DateTime.Now.AddHours(-1);
-		var dataold3 = DateTime.Now;
-		var result2 = dataold2 > dataold1;
-
 		var hashInt = Convert.ToInt32(hash);
 
 		var historyData = new List<Tuple<DateTime, double>>();
@@ -89,6 +84,28 @@ internal class UserRepositoriesDB : IRepositoriesDB
 
 			foreach (var item in result)
 				historyData.Add(new (item.DateTime, Convert.ToDouble(item.Value)));
+		}
+		return historyData;
+	}
+
+	public (DateTime, double) GetLastHistoryData(string hash)
+	{
+		var hashInt = Convert.ToInt32(hash);
+
+		(DateTime, double) historyData = new();
+		using var context = new DataContext();
+		{
+			var result = context.History
+				.Where(d => d.HashId == hashInt && d.DateTime > DateTime.Now.AddMinutes(-30))
+				.OrderBy(date => date.DateTime)
+				.Select(val => new
+				{
+					val.DateTime,
+					val.Value
+				})
+				.ToList()
+				.Last();
+			historyData = (result.DateTime, Convert.ToDouble(result.Value));
 		}
 		return historyData;
 	}
