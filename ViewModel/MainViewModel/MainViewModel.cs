@@ -162,7 +162,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				while (true)
 				{
 					generationData.GenerationDataStart();
-					Thread.Sleep(1000);
+					Thread.Sleep(5000);
 				}
 			});
 			thread.IsBackground = true;
