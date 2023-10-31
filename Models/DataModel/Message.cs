@@ -8,13 +8,13 @@ namespace SNT2_WPF.Models.DataModel;
 
 public class Message
 {
-	public Message(string? testText, string? description)
+	public Message(string? hashId, string? description)
 	{
-		TestText = testText;
+		HashId = hashId;
 		Description = description;
 	}
 
-	public string? TestText { get; set; }
+	public string? HashId { get; set; }
 	public string? Description { get; set;}
 
 }

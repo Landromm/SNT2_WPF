@@ -16,11 +16,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <GroupBox Header="Номер счетчика!"
-                  Grid.Row="0">
-            <TextBox Text="{Binding TestText}"/>
-        </GroupBox>
+        
 
         <lvc:CartesianChart Grid.Row="1"
                             DrawMarginFrame="{Binding DrawMarginFrame}"

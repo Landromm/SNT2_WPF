@@ -15,7 +15,7 @@ namespace SNT2_WPF.Communication.IniData
         string Path;
 
         // С помощью конструктора записываем путь до файла и его имя.
-        public IniFile(string iniPath)
+        public IniFile(string? iniPath)
         {
             Path = new FileInfo(iniPath).FullName.ToString();
         }

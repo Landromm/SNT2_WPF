@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.Repositories;
 internal class UserRepositoriesLocal : IRepositoriesLocal
 {
-	IniFile INI = new IniFile(@ConfigurationManager.AppSettings["pathConfig"]);
+	readonly IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
 
 	public List<string> InitializeCounters()
 	{
