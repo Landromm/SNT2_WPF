@@ -21,8 +21,6 @@ namespace SNT2_WPF.ViewModel.Graph
 {
     public class GraphCurrentViewModel : DialogViewModel
     {
-		private string? _testText;
-
 		private readonly IUserDialog _userDialog = null!;
 		private readonly IMessageBus _messageBus = null!;
 		private readonly IDisposable _subscription = null!;
@@ -32,42 +30,45 @@ namespace SNT2_WPF.ViewModel.Graph
 		private readonly List<DateTimePoint> _values = new();
 		private readonly DateTimeAxis _customAxis;
 
-		public string? TestText
-        {
-				get => _testText;
-				set
-				{
-					_testText = value;
-					OnPropertyChanged(nameof(TestText));
-				}
-		}
+		#region HashId : string? - Хэш-id параметра
 
+		/// <summary>Хэш-id параметра - поле.</summary>
+		private string? _HashId;
 
-		#region NumberCounter : string? - Номер счетчика
-
-		/// <summary>Номер счетчика - поле.</summary>
-		private string? _NumberCounter;
-
-		/// <summary>Номер счетчика - свойство.</summary>
-		public string? NumberCounter
+		/// <summary>Хэш-id параметра - свойство.</summary>
+		public string? HashId
 		{
-			get => _NumberCounter;
+			get => _HashId;
 			set
 			{
-				_NumberCounter = value;
-				OnPropertyChanged(nameof(NumberCounter));
+				_HashId = value;
+				OnPropertyChanged(nameof(HashId));
 			}
 		}
 		#endregion
 
+		#region Description : string? - Наименование счетчика.
 
+		/// <summary>Наименование счетчика. - поле.</summary>
+		private string? _Description;
 
+		/// <summary>Наименование счетчика. - свойство.</summary>
+		public string? Description
+		{
+			get => _Description;
+			set
+			{
+				_Description = value;
+				OnPropertyChanged(nameof(Description));
+			}
+		}
+		#endregion
 
 		public ObservableCollection<ISeries>? Series
 		{
 			get; set;
 		}
-		public ISeries[] SeriesCollection
+		public ISeries[]? SeriesCollection
 		{
 			get; set;
 		}
@@ -113,7 +114,7 @@ namespace SNT2_WPF.ViewModel.Graph
 		public bool IsReading { get; set; } = true;
 
 		public GraphCurrentViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
-      {
+		{
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
 			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
@@ -159,7 +160,7 @@ namespace SNT2_WPF.ViewModel.Graph
 				{
 					if (_values.Count != 0)
 					{
-						var histotyData = _userRepositoriesDB.GetLastHistoryData(NumberCounter);
+						var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
 						_values.Add(new DateTimePoint(histotyData.Item1, histotyData.Item2));
 
 						var dateFirst = _values.First().DateTime;
@@ -174,7 +175,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					}
 					else
 					{
-						var tempTouple = _userRepositoriesDB.GetHistoryData(NumberCounter);
+						var tempTouple = _userRepositoriesDB.GetHistoryData(HashId);
 						
 						foreach (var item in tempTouple)
 							_values.Add(new DateTimePoint(item.Item1, item.Item2));
@@ -192,17 +193,11 @@ namespace SNT2_WPF.ViewModel.Graph
 			return new double[]
 			{
 				now.AddMinutes(-60).Ticks,
-				//now.AddMinutes(-55).Ticks,
 				now.AddMinutes(-50).Ticks,
-				//now.AddMinutes(-45).Ticks,
 				now.AddMinutes(-40).Ticks,
-				//now.AddMinutes(-35).Ticks,
 				now.AddMinutes(-30).Ticks,
-				//now.AddMinutes(-25).Ticks,
 				now.AddMinutes(-20).Ticks,
-				//now.AddMinutes(-15).Ticks,
 				now.AddMinutes(-10).Ticks,
-				//now.AddMinutes(-5).Ticks,
 				now.Ticks
 			};
 		}
@@ -216,8 +211,8 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		private void OnReceiveMessage(Message message)
 		{
-			NumberCounter = message.TestText;
-			TestText = message.Description;
+			HashId = message.HashId;
+			Description = message.Description;
 			Dispose();
 		}
 

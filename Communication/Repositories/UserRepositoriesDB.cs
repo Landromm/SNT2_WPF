@@ -64,8 +64,11 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		return !value.Equals("0");
 	}
 
-	public List<Tuple<DateTime, double>> GetHistoryData(string hash)
+	public List<Tuple<DateTime, double>> GetHistoryData(string? hash)
 	{
+		if (hash == null)
+			return new List<Tuple<DateTime, double>>{ new (DateTime.Now, -25.0) };
+
 		var hashInt = Convert.ToInt32(hash);
 
 		var historyData = new List<Tuple<DateTime, double>>();
@@ -83,47 +86,27 @@ internal class UserRepositoriesDB : IRepositoriesDB
 						 };
 
 			foreach (var item in result)
-				historyData.Add(new (item.DateTime, Convert.ToDouble(item.Value)));
+				historyData.Add(new(item.DateTime, Convert.ToDouble(item.Value)));
 		}
 		return historyData;
 	}
 
-	public (DateTime, double) GetLastHistoryData(string hash)
+	public (DateTime, double) GetLastHistoryData(string? hash)
 	{
-		var hashInt = Convert.ToInt32(hash);
+		if (hash == null) 
+			return new (DateTime.Now, -25.0);
 
+		var hashInt = Convert.ToInt32(hash);
 		(DateTime, double) historyData = new();
 		using var context = new DataContext();
 		{
 			var result = context.ListValues
 				.Where(d => d.Hash == hashInt)
-				.Select(val => 	val.Value)
+				.Select(val => val.Value)
 				.ToList()
 				.Last();
 			historyData = (DateTime.Now, Convert.ToDouble(result));
 		}
 		return historyData;
 	}
-
-	//public (DateTime, double) GetLastHistoryData(string hash)
-	//{
-	//	var hashInt = Convert.ToInt32(hash);
-
-	//	(DateTime, double) historyData = new();
-	//	using var context = new DataContext();
-	//	{
-	//		var result = context.History
-	//			.Where(d => d.HashId == hashInt && d.DateTime > DateTime.Now.AddMinutes(-30))
-	//			.OrderBy(date => date.DateTime)
-	//			.Select(val => new
-	//			{
-	//				val.DateTime,
-	//				val.Value
-	//			})
-	//			.ToList()
-	//			.Last();
-	//		historyData = (result.DateTime, Convert.ToDouble(result.Value));
-	//	}
-	//	return historyData;
-	//}
 }
