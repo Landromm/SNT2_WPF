@@ -142,7 +142,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				InitializeDataValues(listCounters);
 				while (IsReading)
 				{
-					await Task.Delay(5000);
+					await Task.Delay(3000);
 
 					// Because we are updating the chart from a different thread 
 					// we need to use a lock to access the chart data. 
@@ -152,7 +152,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 						GetAllDataValues(listCounters);
 					}
 				}
-			}            
+			}
 		}
 
 		private void RunGenerationThread()
@@ -279,7 +279,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
 
@@ -299,7 +299,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch1));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch1, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
 		#endregion
@@ -318,7 +318,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch1));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch1, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
 		#endregion
@@ -337,7 +337,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch2));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch2, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
 		#endregion
@@ -356,7 +356,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch2));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch2, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
 		#endregion
@@ -375,7 +375,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
         #endregion

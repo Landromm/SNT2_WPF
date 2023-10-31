@@ -6,4 +6,15 @@ using System.Threading.Tasks;
 
 namespace SNT2_WPF.Models.DataModel;
 
-public record Message(string? Text);
+public class Message
+{
+	public Message(string? testText, string? description)
+	{
+		TestText = testText;
+		Description = description;
+	}
+
+	public string? TestText { get; set; }
+	public string? Description { get; set;}
+
+}
