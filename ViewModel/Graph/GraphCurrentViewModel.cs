@@ -42,6 +42,27 @@ namespace SNT2_WPF.ViewModel.Graph
 				}
 		}
 
+
+		#region NumberCounter : string? - Номер счетчика
+
+		/// <summary>Номер счетчика - поле.</summary>
+		private string? _NumberCounter;
+
+		/// <summary>Номер счетчика - свойство.</summary>
+		public string? NumberCounter
+		{
+			get => _NumberCounter;
+			set
+			{
+				_NumberCounter = value;
+				OnPropertyChanged(nameof(NumberCounter));
+			}
+		}
+		#endregion
+
+
+
+
 		public ObservableCollection<ISeries>? Series
 		{
 			get; set;
@@ -73,8 +94,8 @@ namespace SNT2_WPF.ViewModel.Graph
 
 						LabelsPaint = new SolidColorPaint(SKColors.Blue),
 						TextSize = 14,
-						MinLimit = 0,
-						MaxLimit = 60,
+						//MinLimit = 0,
+						//MaxLimit = 100,
 						SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
 						{
 							StrokeThickness = 1,
@@ -108,7 +129,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					GeometryFill = new SolidColorPaint(SKColors.AliceBlue),
 					GeometryStroke = new SolidColorPaint(SKColors.Gray) { StrokeThickness = 1 },
 					LineSmoothness = 0,
-					GeometrySize = 2
+					GeometrySize = 0
 				}
 			};
 
@@ -131,19 +152,19 @@ namespace SNT2_WPF.ViewModel.Graph
 
 			while (IsReading)
 			{
-				await Task.Delay(1000);
 				var labelDate = new List<string>();
+				await Task.Delay(5000);
 
 				lock (Sync)
 				{
 					if (_values.Count != 0)
 					{
-						var histotyData = _userRepositoriesDB.GetLastHistoryData(TestText);
+						var histotyData = _userRepositoriesDB.GetLastHistoryData(NumberCounter);
 						_values.Add(new DateTimePoint(histotyData.Item1, histotyData.Item2));
 
 						var dateFirst = _values.First().DateTime;
 						var dateLast = _values.Last().DateTime;
-						var resultbool = TimeSpan.Compare( dateLast.Subtract(dateFirst), new TimeSpan(00,30,00)) > 0;
+						var resultbool = TimeSpan.Compare( dateLast.Subtract(dateFirst), new TimeSpan(00,60,00)) > 0;
 						
 						if (resultbool)
 							_values.RemoveAt(0);
@@ -153,7 +174,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					}
 					else
 					{
-						var tempTouple = _userRepositoriesDB.GetHistoryData(TestText);
+						var tempTouple = _userRepositoriesDB.GetHistoryData(NumberCounter);
 						
 						foreach (var item in tempTouple)
 							_values.Add(new DateTimePoint(item.Item1, item.Item2));
@@ -170,12 +191,18 @@ namespace SNT2_WPF.ViewModel.Graph
 
 			return new double[]
 			{
+				now.AddMinutes(-60).Ticks,
+				//now.AddMinutes(-55).Ticks,
+				now.AddMinutes(-50).Ticks,
+				//now.AddMinutes(-45).Ticks,
+				now.AddMinutes(-40).Ticks,
+				//now.AddMinutes(-35).Ticks,
 				now.AddMinutes(-30).Ticks,
-				now.AddMinutes(-25).Ticks,
+				//now.AddMinutes(-25).Ticks,
 				now.AddMinutes(-20).Ticks,
-				now.AddMinutes(-15).Ticks,
+				//now.AddMinutes(-15).Ticks,
 				now.AddMinutes(-10).Ticks,
-				now.AddMinutes(-5).Ticks,
+				//now.AddMinutes(-5).Ticks,
 				now.Ticks
 			};
 		}
@@ -189,7 +216,8 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		private void OnReceiveMessage(Message message)
 		{
-			TestText = message.Text;
+			NumberCounter = message.TestText;
+			TestText = message.Description;
 			Dispose();
 		}
 

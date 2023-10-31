@@ -73,7 +73,7 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		{
 			var result = from historyH in context.History
 						 where historyH.HashId == hashInt &&
-						 historyH.DateTime > DateTime.Now.AddMinutes(-30) &&
+						 historyH.DateTime > DateTime.Now.AddMinutes(-60) &&
 						 historyH.DateTime <= DateTime.Now
 						 orderby historyH.DateTime
 						 select new
