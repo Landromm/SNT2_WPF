@@ -57,6 +57,5 @@ namespace SNT2_WPF
             WindowState = prevState;
         }
 
-
     }
 }

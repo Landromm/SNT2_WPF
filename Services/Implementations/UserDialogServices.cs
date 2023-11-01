@@ -32,7 +32,7 @@ internal class UserDialogServices  : IUserDialog
 		window.Show();
 	}
 
-	private GraphCurrentDataView _graphCurrrent = null!;	
+	private GraphCurrentDataView _graphCurrrent = null!;
 	public void OpenCurrentGrapf()
 	{
 		var window = _service.GetRequiredService<GraphCurrentDataView>();
@@ -40,5 +40,4 @@ internal class UserDialogServices  : IUserDialog
 		_graphCurrrent = window;
 		window.Show();
 	}
-
 }

@@ -752,4 +752,55 @@
 
     <!--#endregion-->
 
+    <!--#region Стиль окна текущего графика-->
+    <!--Главный Border-->
+    <Style x:Key="MainBorderCurrentGraph" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource primaryBackColorDark}"/>
+        <Setter Property="CornerRadius" Value="10,10,0,10"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
+    </Style>
+    <!--Кнопка закрытия окна графика текущих данных-->
+    <Style x:Key="buttonCloseAppCurrentGraph" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDark}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource panelOverColorDark}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30" 
+                            Height="30"
+                            CornerRadius="0,10,0,0">
+
+                        <fa:IconImage   Icon="X"
+                                        Foreground="{StaticResource mainFontColorDark}"
+                                        Width="15" 
+                                        Height="15"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color1Dark}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource color2Dark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
+    <Style x:Key="StackPanelHeaderControlCurrentGraph" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+    </Style>
+    <!--#endregion-->
+
 </ResourceDictionary>
