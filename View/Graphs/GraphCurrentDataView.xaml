@@ -7,27 +7,72 @@
         xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph"         
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
-        Title="GraphCurrentData" 
-        Height="450" 
-        Width="600">
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
+        Height="350" 
+        Width="600"
+        WindowStyle="None"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True">
 
-        <lvc:CartesianChart Grid.Row="1"
-                            DrawMarginFrame="{Binding DrawMarginFrame}"
-                            SyncContext="{Binding Sync}"
-                            Series="{Binding Series}"
-                            XAxes="{Binding XAxes}"
-                            YAxes="{Binding YAxes}"
-                            BorderThickness="1"
-                            ZoomMode="None">
-        </lvc:CartesianChart>
+    <Border Style="{DynamicResource MainBorderCurrentGraph}">
 
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Header-->
+            <Border Grid.Row="0"
+                    Style="{DynamicResource GridHeaderBorder}"
+                    MouseLeftButtonDown="grdHeader_MouseLeftButtonDown">
+
+                <!--Общий Grid Header'а-->
+                <Grid x:Name="grdHeader">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Пенель наименования программы-->
+                    <StackPanel Grid.Column="0"
+                                Margin="15,0,0,0"
+                                Style="{DynamicResource StackPanelHeaderNameProgramm}">
+
+                        <TextBlock  Text="{Binding Description}"                                    
+                                    Style="{DynamicResource TextBlockNameProgramm}"/>
+
+                    </StackPanel>
+
+                    <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
+                    <StackPanel Grid.Column="1"
+                                Style="{DynamicResource StackPanelHeaderControlCurrentGraph}">
+
+                        <!--Кнопка закрытия окна-->
+                        <Button x:Name="btnClose"
+                                Style="{DynamicResource buttonCloseAppCurrentGraph}"
+                                Click="btnClose_Click">
+
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <lvc:CartesianChart Grid.Row="1"
+                        DrawMarginFrame="{Binding DrawMarginFrame}"
+                        SyncContext="{Binding Sync}"
+                        Series="{Binding Series}"
+                        XAxes="{Binding XAxes}"
+                        YAxes="{Binding YAxes}"
+                        BorderThickness="1"
+                        ZoomMode="None"/>
+
+        </Grid>
+
+    </Border>
     
 </Window>

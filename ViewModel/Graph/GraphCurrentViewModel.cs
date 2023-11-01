@@ -9,12 +9,14 @@ using SNT2_WPF.Models.DataModel;
 using SNT2_WPF.Models.DBModel;
 using SNT2_WPF.Services;
 using SNT2_WPF.ViewModel.Base;
+using SNT2_WPF.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SNT2_WPF.ViewModel.Graph
@@ -120,6 +122,20 @@ namespace SNT2_WPF.ViewModel.Graph
 			_subscription = MessageBus.RegisterHandler<Message>(OnReceiveMessage);
 			_userRepositoriesDB = new UserRepositoriesDB();
 
+			_customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
+			{
+				CustomSeparators = GetSeparators(),
+				AnimationsSpeed = TimeSpan.FromMilliseconds(0),
+				SeparatorsPaint = new SolidColorPaint(SKColors.Gray.WithAlpha(100))
+			};
+
+			InitializationCartesianChart(_customAxis);
+
+			_ = ReadData();
+		}
+
+		private void InitializationCartesianChart(DateTimeAxis _axis)
+		{
 			Series = new ObservableCollection<ISeries>
 			{
 				new LineSeries<DateTimePoint>
@@ -134,17 +150,8 @@ namespace SNT2_WPF.ViewModel.Graph
 				}
 			};
 
-			_customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
-			{
-				CustomSeparators = GetSeparators(),
-				AnimationsSpeed = TimeSpan.FromMilliseconds(0),
-				SeparatorsPaint = new SolidColorPaint(SKColors.Black.WithAlpha(100))
-			};
-
-			XAxes = new Axis[] { _customAxis };
-			_ = ReadData();
+			XAxes = new Axis[] { _axis };
 		}
-
 
 		private async Task ReadData()
 		{
@@ -153,8 +160,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 			while (IsReading)
 			{
-				var labelDate = new List<string>();
-				await Task.Delay(5000);
+				await Task.Delay(3000);
 
 				lock (Sync)
 				{
