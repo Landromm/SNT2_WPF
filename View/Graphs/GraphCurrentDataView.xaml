@@ -63,13 +63,15 @@
             </Border>
 
             <lvc:CartesianChart Grid.Row="1"
-                        DrawMarginFrame="{Binding DrawMarginFrame}"
-                        SyncContext="{Binding Sync}"
-                        Series="{Binding Series}"
-                        XAxes="{Binding XAxes}"
-                        YAxes="{Binding YAxes}"
-                        BorderThickness="1"
-                        ZoomMode="None"/>
+                                DrawMarginFrame="{Binding DrawMarginFrame}"
+                                SyncContext="{Binding Sync}"
+                                Series="{Binding Series}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}"
+                                BorderThickness="1"
+                                ZoomMode="None">
+                
+            </lvc:CartesianChart>
 
         </Grid>
 

@@ -80,12 +80,17 @@ namespace SNT2_WPF.ViewModel.Graph
 				{
 					 new Axis
 					 {
-						  NamePaint = new SolidColorPaint(SKColors.Black),
+						NamePaint = new SolidColorPaint(SKColors.Black),
 
-						  LabelsPaint = new SolidColorPaint(SKColors.Blue),
-						  TextSize = 10,
+						LabelsPaint = new SolidColorPaint(new SKColor(61, 61, 61), 2),
+						TextSize = 10,
 
-						  SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray) { StrokeThickness = 1 }
+						SeparatorsPaint = new SolidColorPaint(SKColors.Black.WithAlpha(80), 1)
+						{
+							StrokeThickness = 1,
+							PathEffect = new DashEffect(new float[] { 2, 2 })
+						}
+						//SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray) { StrokeThickness = 1 }
 					 }
 				};
 		public Axis[] YAxes { get; set; }
@@ -95,11 +100,9 @@ namespace SNT2_WPF.ViewModel.Graph
 					{
 						NamePaint = new SolidColorPaint(SKColors.Black),
 
-						LabelsPaint = new SolidColorPaint(SKColors.Blue),
-						TextSize = 14,
-						//MinLimit = 0,
-						//MaxLimit = 100,
-						SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
+						LabelsPaint = new SolidColorPaint(new SKColor(61, 61, 61), 4),
+						TextSize = 16,
+						SeparatorsPaint = new SolidColorPaint(SKColors.Black.WithAlpha(80), 1)
 						{
 							StrokeThickness = 1,
 							PathEffect = new DashEffect(new float[] { 2, 2 })
@@ -108,8 +111,8 @@ namespace SNT2_WPF.ViewModel.Graph
 			};
 		public DrawMarginFrame DrawMarginFrame => new()
 		{
-			Fill = new SolidColorPaint(SKColors.AliceBlue),
-			Stroke = new SolidColorPaint(SKColors.Gray, 1)
+			Fill = new SolidColorPaint(new SKColor(153, 153, 153)),
+			Stroke = new SolidColorPaint(SKColors.Black.WithAlpha(90), 1)
 		};
 
 		public object Sync { get; } = new object();
