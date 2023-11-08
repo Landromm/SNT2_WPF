@@ -11,7 +11,8 @@ namespace SNT2_WPF.Models.DataModel.DataControl
     {
         delegate string InvertedString(string input);
 
-        private DateTime _dateTime;
+		#region Поля Data_RTC
+		private DateTime _dateTime;
         private string? _timeAndDate;                    //Текущее время и дата.
         private string? _serialNumber;                   //Заводской номер.
         private string? _accessCode;                     //Код доступа.
@@ -44,8 +45,10 @@ namespace SNT2_WPF.Models.DataModel.DataControl
         private string? _defectTime;                     //Неисправность (время).
         private string? _noPowerTime;                    //Отсутствие питания (время).
         private string? _maxSensorsPressure;             //Максимум датчиков давления.
+		#endregion
 
-        public int Id { get; set; }
+		#region Свойства Data_RTC
+		public int Id { get; set; }
         public DateTime DateTimes
         {
             get => _dateTime;
@@ -387,8 +390,13 @@ namespace SNT2_WPF.Models.DataModel.DataControl
                 }
             }
         }
+		#endregion
 
-        InvertedString invertedString = inputStr =>
+		#region InvertedString - инверсия строки данных в обратном порядке.
+		/// <summary>
+		/// Инверсия полученной строки в обратном порядке по байтам.
+		/// </summary>
+		InvertedString invertedString = inputStr =>
         {
             string tempstr = "";
             for (int i = 0; i < inputStr.Length; i += 2)
@@ -397,5 +405,6 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             }
             return tempstr;
         };
-    }
+		#endregion
+	}
 }
