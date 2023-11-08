@@ -114,7 +114,6 @@ namespace SNT2_WPF.Models.GenerationModel
             dictionary[1] = new List<int>() { 101, 91, 144, 105, 140, 171, 106, 167};
             dictionary[2] = new List<int>() { 190, 180, 233, 194, 229, 260, 195, 156};
             dictionary[3] = new List<int>() { 279, 269, 322, 253, 318, 349, 284, 345};
-
         }
     }
 }

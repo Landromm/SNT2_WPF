@@ -1,4 +1,5 @@
-﻿using SNT2_WPF.Models.DataConEF;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using SNT2_WPF.Models.DataConEF;
 using System;
 using System.Collections.Generic;
 using System.Linq;

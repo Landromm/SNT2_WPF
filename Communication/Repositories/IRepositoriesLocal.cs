@@ -7,5 +7,9 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.Repositories;
 internal interface IRepositoriesLocal
 {
+	/// <summary>
+	/// Инициализация списка счетчиков.
+	/// </summary>
+	/// <returns></returns>
 	List<string> InitializeCounters();
 }

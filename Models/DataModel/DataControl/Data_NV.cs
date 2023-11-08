@@ -12,7 +12,7 @@ namespace SNT2_WPF.Models.DataModel.DataControl
     {
         delegate string InvertedString(string? input);
         
-        #region Fields Data_NV
+        #region Поля Data_NV
         //Поля
         private DateTime _dateTime;
         //-ОБЩИЕ--------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ namespace SNT2_WPF.Models.DataModel.DataControl
         private string? _viscosity_ch2;                 //Вязкость - канал №2.
         #endregion
 
-        #region Properties Data_NV
+        #region Свойства Data_NV
 
         //Свойста.
         public int Id { get; set; }

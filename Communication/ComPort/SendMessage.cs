@@ -19,7 +19,7 @@ namespace SNT2_WPF.Communication.ComPort
         private string[]? sendWritePage128Hex;   //Массив команд записи данных на страницу счетчика 128 байт. 
         private string[]? sendWritePage256Hex;   //Массив команд записи данных на страницу счетчика 256 байт
         private string[]? sendReadDataHex;       //Массив команд чтения данных со счетчика.
-        private List<string> numberCounters = new List<string>();
+        private List<string> numberCounters = new List<string>();   //Список счетчиков.
 
         public int CountNumberCounter
         {
@@ -96,8 +96,13 @@ namespace SNT2_WPF.Communication.ComPort
             }
         }
 
-        //Метод подсчета CRC - пакета данных 128 байт.
-        private string CheckSumCRC(string dataString, int extraByte)
+		/// <summary>
+		/// Метод подсчета CRC - пакета данных 128 байт.
+		/// </summary>
+		/// <param name="dataString"></param>
+		/// <param name="extraByte"></param>
+		/// <returns></returns>
+		private string CheckSumCRC(string dataString, int extraByte)
         {
             int resultCRC = 0x00;
             for (int i = 0; i < dataString.Length - 1; i += 2)
