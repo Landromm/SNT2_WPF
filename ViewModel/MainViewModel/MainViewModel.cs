@@ -378,11 +378,28 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2, SelectedMainDataModels.DescriptionCounter));
 			}
 		}
-        #endregion
+		#endregion
 
 
-        //Метод установления стиля в зависимости от принятых параметров.
-        private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
+		#region Command OpenArchiveGraphsCommand - Открытие окна графиков архивных данных
+
+		/// <summary>Открытие окна графиков архивных данных</summary>
+		private LambdaCommand? _OpenArchiveGraphsCommand;
+
+		/// <summary>Открытие окна графиков архивных данных</summary>
+		public ICommand OpenArchiveGraphsCommand => _OpenArchiveGraphsCommand ??= new(ExecutedOpenArchiveGraphsCommand);
+
+		/// <summary>Логика выполнения - Открытие окна графиков архивных данных</summary>
+		private void ExecutedOpenArchiveGraphsCommand()
+		{
+			_userDialog.OpenArchiveGraph();
+		}
+		#endregion
+
+
+
+		//Метод установления стиля в зависимости от принятых параметров.
+		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
         {
             var uri = new Uri(@pathStyle, UriKind.Relative);
             ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;

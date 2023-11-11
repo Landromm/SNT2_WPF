@@ -788,4 +788,104 @@
     </Style>
     <!--#endregion-->
     
+    <!--#region Стиль окна архивных графиков-->
+    <!--Кнопка закрытия окна-->
+    <Style x:Key="buttonCloseArchiveGraph" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDefault}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDefault}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30" 
+                            Height="30"
+                            CornerRadius="0,10,0,0">
+
+                        <fa:IconImage   Icon="X"
+                                        Foreground="{StaticResource mainFontColorDefault}"
+                                        Width="15" 
+                                        Height="15"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color1Default}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Стиль кнопки максимизации размера окна-->
+    <Style x:Key="buttonMaximizeArchiveGraph" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDefault}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDefault}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30" 
+                            Height="30"
+                            CornerRadius="0,0,0,0">
+
+                        <fa:IconImage   Icon="WindowMaximize"
+                                        Foreground="{StaticResource mainFontColorDefault}"
+                                        Width="15" 
+                                        Height="15"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelActiveColorDefault}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--Стиль кнопки минимизации размера окна-->
+    <Style x:Key="buttonMinimizeArchiveGraph" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource mainFontColorDefault}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource panelColorDefault}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30" 
+                            Height="30"
+                            CornerRadius="10,0,0,0">
+
+                        <fa:IconImage   Icon="WindowMinimize"
+                                        Foreground="{StaticResource mainFontColorDefault}"
+                                        Width="15" 
+                                        Height="15"
+                                        VerticalAlignment="Bottom"
+                                        Margin="0,0,0,8"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelActiveColorDefault}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>    
+    
+    <!--#endregion-->
+    
 </ResourceDictionary>

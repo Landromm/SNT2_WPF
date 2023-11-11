@@ -1,0 +1,165 @@
+﻿<Window x:Class="SNT2_WPF.View.Graphs.GraphArchiveDataView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:local="clr-namespace:SNT2_WPF"
+        xmlns:localGraph="clr-namespace:SNT2_WPF.View.Graphs"
+        xmlns:viewModel="clr-namespace:SNT2_WPF.ViewModel.MainViewModel" 
+        xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph" 
+        xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="720" Width="1280"
+        MinHeight="720" MinWidth="1280"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Border Style="{DynamicResource MainBorder}">
+        
+        <!--Общий грид-->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            
+            <!--Область управления окном-->
+            <!--Header-->
+            <Border Grid.Row="0"
+                    Style="{DynamicResource GridHeaderBorder}"
+                    MouseLeftButtonDown="grdHeader_MouseLeftButtonDown">
+
+                <!--Общий Grid Header'а-->
+                <Grid x:Name="grdHeader">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Пенель наименования окна-->
+                    <StackPanel Grid.Column="0"
+                                Margin="15,0,0,0"
+                                Style="{DynamicResource StackPanelHeaderNameProgramm}">
+
+                        <TextBlock  Text="Графики архивных данных"
+                                    Style="{DynamicResource TextBlockNameProgramm}"/>
+
+                    </StackPanel>
+
+                    <!--Панель кнопок управления окном (Закрыть, свернуть и т.д.)-->
+                    <StackPanel Grid.Column="1"
+                                Style="{DynamicResource StackPanelHeaderControl}">
+
+                        <!--Кнопка закрытия приложения.-->
+                        <Button x:Name="btnMinimize"
+                                Style="{DynamicResource buttonMinimizeArchiveGraph}"
+                                Click="btnMinimize_Сlick">
+
+                        </Button>
+
+                        <!--Кнопка закрытия приложения.-->
+                        <Button x:Name="btnMaximize"
+                                Style="{DynamicResource buttonMaximizeArchiveGraph}"
+                                Click="btnMaximize_Click">
+
+                        </Button>
+
+                        <!--Кнопка закрытия приложения.-->
+                        <Button x:Name="btnClose"
+                                Style="{DynamicResource buttonCloseArchiveGraph}"
+                                Click="btnClose_Click">
+
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <!--Резервная область панели инструментов-->
+            <Grid Grid.Row="1">
+                <Border BorderThickness="0,0,0,1"
+                        BorderBrush="Black"/>
+            </Grid>
+            
+            <!--ОСНОВНАЯ РАБОЧАЯ ОБЛАСТЬ-->
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Область выбора канала и даты-->
+                <Grid
+                    Grid.Column="0"
+                    Margin="5,0,0,2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Панель выбора даты-->
+                    <Viewbox
+                        Grid.Row="0">
+                        
+                        <Calendar />
+                        
+                    </Viewbox>
+                    
+                    <!--Панель выбора каналов-->
+                    <GroupBox
+                        Grid.Row="1"
+                        Header="Список каналов">
+
+                        <TreeView ItemsSource="{Binding ContextTreeView}">
+                            
+                        </TreeView>
+                        
+                    </GroupBox>
+
+                </Grid>
+                
+                <!--область отрисовки графиков-->
+                <Grid
+                    Grid.Column="1">
+
+                    <lvc:CartesianChart
+                        Series="{Binding Series}"
+                        YAxes="{Binding YAxes}"
+                        LegendPosition="Left"
+                        LegendBackgroundPaint="{Binding LedgendBackgroundPaint}"
+                        LegendTextPaint="{Binding LegendTextPaint}"
+                        LegendTextSize="16">
+                    </lvc:CartesianChart>
+
+                </Grid>
+                
+
+                
+                
+            </Grid>
+
+            <!--Footer-->
+            <Grid Grid.Row="3">
+                <Border BorderThickness="0,1,0,0"
+                        BorderBrush="Black"/>
+            </Grid>
+
+        </Grid>
+        
+    </Border>
+    
+</Window>

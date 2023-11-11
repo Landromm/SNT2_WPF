@@ -5,6 +5,7 @@ using SNT2_WPF.View.Graphs;
 using SNT2_WPF.ViewModel.Graph;
 using SNT2_WPF.ViewModel.MainViewModel;
 using System;
+using System.Threading;
 using System.Windows;
 
 namespace SNT2_WPF
@@ -21,10 +22,10 @@ namespace SNT2_WPF
 
             services.AddSingleton<MainViewModel>();
             services.AddScoped<GraphCurrentViewModel>();
+            services.AddSingleton<GraphArchiveViewModel>();
 
 			services.AddSingleton<IUserDialog, UserDialogServices>();
 			services.AddSingleton<IMessageBus, MessageBusService>();
-
 
 			services.AddTransient(
             s =>
@@ -46,6 +47,17 @@ namespace SNT2_WPF
 
 					return window;
             });
+            services.AddTransient(
+                s =>
+                {
+                    var scope = s.CreateScope();
+                    var model = scope.ServiceProvider.GetRequiredService<GraphArchiveViewModel>();
+                    var window = new GraphArchiveDataView { DataContext = model };
+                        model.DialogComplete += (_, _) => window.Close();
+                        window.Closed -= (_, _) => scope.Dispose();
+
+                        return window;
+                });
 
 			return services;
         }
