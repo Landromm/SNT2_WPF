@@ -392,7 +392,6 @@ namespace SNT2_WPF.Models.DataModel.DataControl
         }
 		#endregion
 
-		#region InvertedString - инверсия строки данных в обратном порядке.
 		/// <summary>
 		/// Инверсия полученной строки в обратном порядке по байтам.
 		/// </summary>
@@ -405,6 +404,5 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             }
             return tempstr;
         };
-		#endregion
 	}
 }

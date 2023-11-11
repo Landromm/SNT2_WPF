@@ -120,7 +120,7 @@
                                 Background="Transparent">
 
                         <!--Кнопка открытия графиков-->
-                        <Button Command="{Binding OpenGraphsCommand}"
+                        <Button Command="{Binding OpenArchiveGraphsCommand}"
                                 Style="{DynamicResource ButtonsHiddenControlPanel}">
 
                             <!--Шаблон иконки внутри кнопки-->

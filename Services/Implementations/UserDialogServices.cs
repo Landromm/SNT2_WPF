@@ -32,12 +32,27 @@ internal class UserDialogServices  : IUserDialog
 		window.Show();
 	}
 
-	private GraphCurrentDataView _graphCurrrent = null!;
+	private GraphCurrentDataView? _graphCurrrent = null!;
 	public void OpenCurrentGrapf()
 	{
 		var window = _service.GetRequiredService<GraphCurrentDataView>();
 		window.Closed += (_, _) => _graphCurrrent = null;
 		_graphCurrrent = window;
+		window.Show();
+	}
+
+	private GraphArchiveDataView? _graphArchive = null!;
+	public void OpenArchiveGraph()
+	{
+		if(_graphArchive is { } window)
+		{
+			window.Show();
+			return;
+		}
+
+		window = _service.GetRequiredService<GraphArchiveDataView>();
+		window.Closed += (_, _) => _graphArchive = null;
+		_graphArchive = window;
 		window.Show();
 	}
 }
