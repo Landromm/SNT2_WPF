@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace SNT2_WPF.Communication.ComPort
         public enum TransmissionType { Text, Hex }
 
         //property variables
-        private string _baudRate = string.Empty;
-        private string _parity = string.Empty;
-        private string _stopBits = string.Empty;
-        private string _dataBits = string.Empty;
-        private string _portName = string.Empty;
+        private string? _baudRate = string.Empty;
+        private string? _parity = string.Empty;
+        private string? _stopBits = string.Empty;
+        private string? _dataBits = string.Empty;
+        private string? _portName = string.Empty;
         private int count;
         private List<string> _dataByteList;
 
@@ -40,7 +41,7 @@ namespace SNT2_WPF.Communication.ComPort
         /// Property to hold the BaudRate
         /// of our manager class
         /// </summary>
-        public string BaudRate
+        public string? BaudRate
         {
             get { return _baudRate; }
             set { _baudRate = value; }
@@ -49,7 +50,7 @@ namespace SNT2_WPF.Communication.ComPort
         /// property to hold the Parity
         /// of our manager class
         /// </summary>
-        public string Parity
+        public string? Parity
         {
             get { return _parity; }
             set { _parity = value; }
@@ -58,7 +59,7 @@ namespace SNT2_WPF.Communication.ComPort
         /// property to hold the StopBits
         /// of our manager class
         /// </summary>
-        public string StopBits
+        public string? StopBits
         {
             get { return _stopBits; }
             set { _stopBits = value; }
@@ -67,7 +68,7 @@ namespace SNT2_WPF.Communication.ComPort
         /// property to hold the DataBits
         /// of our manager class
         /// </summary>
-        public string DataBits
+        public string? DataBits
         {
             get { return _dataBits; }
             set { _dataBits = value; }
@@ -76,14 +77,14 @@ namespace SNT2_WPF.Communication.ComPort
         /// property to hold the PortName
         /// of our manager class
         /// </summary>
-        public string PortName
+        public string? PortName
         {
             get { return _portName; }
             set { _portName = value; }
         }
         #endregion
 
-        private SerialPort comPort = new SerialPort();
+        private SerialPort comPort = new();
 
         public CommunicationManager(string baud, string par, string sBits, string dBits, string name)
         {
@@ -125,18 +126,17 @@ namespace SNT2_WPF.Communication.ComPort
         /// <summary>
         /// Метод открытия COM-порта.
         /// </summary>
-        public bool OpenPort()
+        public bool OpenPort(string? _baudRate, string? _dataBits, string? _stopBits, string? _parity, string? _portName)
         {
-            try
+			try
             {
                 if (comPort.IsOpen) comPort.Close();
-                comPort.BaudRate = int.Parse(_baudRate);    //BaudRate
-                comPort.DataBits = int.Parse(_dataBits);    //DataBits
-                comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), _stopBits);    //StopBits
-                comPort.Parity = (Parity)Enum.Parse(typeof(Parity), _parity);    //Parity
-                comPort.PortName = _portName;   //PortName
-                //Console.WriteLine("Read_TimeOut = " + comPort.ReadTimeout);
-                //comPort.ReadTimeout = 1000;
+                comPort.BaudRate = int.Parse(_baudRate is not null ? _baudRate : "9600");
+                comPort.DataBits = int.Parse(_dataBits is not null ? _dataBits : "8");
+                comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), _stopBits is not null ? _stopBits : "One");
+                comPort.Parity = (Parity)Enum.Parse(typeof(Parity), _parity is not null ? _parity : "None");
+                comPort.PortName = _portName is not null ? _portName : "COM2";
+
                 comPort.Open();
 
                 Console.WriteLine(("Открытие COM-порта: " + comPort.PortName));

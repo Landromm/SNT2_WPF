@@ -10,8 +10,8 @@ namespace SNT2_WPF.Communication.ComPort
 {
     class SendMessage
     {
-        const string prefixSendhex = "AAAAAA";
-        string tempNumber = "";
+        const string? prefixSendhex = "AAAAAA";
+        string? tempNumber = "";
 
         private int countNumberCounter;
         private string[]? numbersCounters;       //Массив количества счетчиков.
@@ -19,7 +19,7 @@ namespace SNT2_WPF.Communication.ComPort
         private string[]? sendWritePage128Hex;   //Массив команд записи данных на страницу счетчика 128 байт. 
         private string[]? sendWritePage256Hex;   //Массив команд записи данных на страницу счетчика 256 байт
         private string[]? sendReadDataHex;       //Массив команд чтения данных со счетчика.
-        private List<string> numberCounters = new List<string>();   //Список счетчиков.
+        private readonly List<string> numberCounters = new();   //Список счетчиков.
 
         public int CountNumberCounter
         {
@@ -47,7 +47,7 @@ namespace SNT2_WPF.Communication.ComPort
             get { return sendReadDataHex; }
         }
 
-        IniFile INI = new IniFile(@ConfigurationManager.AppSettings["pathConfig"]);
+		readonly IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
 
         public SendMessage()
         {
@@ -57,8 +57,8 @@ namespace SNT2_WPF.Communication.ComPort
 
         public void Initialization()
         {
-            string tempNumberCounters = INI.ReadINI("SNTConfig", "NumberCounter");
-            string[] counters = tempNumberCounters.Replace(" ", "")
+            string? tempNumberCounters = INI.ReadINI("SNTConfig", "NumberCounter");
+            string[]? counters = tempNumberCounters.Replace(" ", "")
                                                 .Split(',');
             numbersCounters = counters;
 
@@ -85,10 +85,10 @@ namespace SNT2_WPF.Communication.ComPort
 
             for (int i = 0; i < numberCounters.Count; i++)
             {
-                string tempSendHex = CheckSumCRC(prefixSendhex + "0F" + numberCounters[i], 0x0F);
-                string tempWritePage128Hex = CheckSumCRC(prefixSendhex + "03" + numberCounters[i] + "0000", 0x0F);
-                string tempWritePage256Hex = CheckSumCRC(prefixSendhex + "03" + numberCounters[i] + "0040", 0x0F);
-                string tempReadDataHex = CheckSumCRC(prefixSendhex + "04" + numberCounters[i], 0x0F);
+                string? tempSendHex = CheckSumCRC(prefixSendhex + "0F" + numberCounters[i], 0x0F);
+                string? tempWritePage128Hex = CheckSumCRC(prefixSendhex + "03" + numberCounters[i] + "0000", 0x0F);
+                string? tempWritePage256Hex = CheckSumCRC(prefixSendhex + "03" + numberCounters[i] + "0040", 0x0F);
+                string? tempReadDataHex = CheckSumCRC(prefixSendhex + "04" + numberCounters[i], 0x0F);
                 sendStartSessionHex[i] += prefixSendhex + "0F" + numberCounters[i] + tempSendHex;
                 sendWritePage128Hex[i] += prefixSendhex + "03" + numberCounters[i] + "0000" + tempWritePage128Hex;
                 sendWritePage256Hex[i] += prefixSendhex + "03" + numberCounters[i] + "0040" + tempWritePage256Hex;
@@ -102,7 +102,7 @@ namespace SNT2_WPF.Communication.ComPort
 		/// <param name="dataString"></param>
 		/// <param name="extraByte"></param>
 		/// <returns></returns>
-		private string CheckSumCRC(string dataString, int extraByte)
+		private static string? CheckSumCRC(string dataString, int extraByte)
         {
             int resultCRC = 0x00;
             for (int i = 0; i < dataString.Length - 1; i += 2)
