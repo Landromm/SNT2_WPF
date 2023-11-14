@@ -21,13 +21,9 @@ namespace SNT2_WPF.Communication.Logger
         public LogWriter()
         {
             if (!Directory.Exists(@ConfigurationManager.AppSettings["pathLogData"]))
-            {
                 Directory.CreateDirectory(@ConfigurationManager.AppSettings["pathLogData"]);
-            }
             if (!Directory.Exists(@ConfigurationManager.AppSettings["pathLogInfo"]))
-            {
                 Directory.CreateDirectory(@ConfigurationManager.AppSettings["pathLogInfo"]);
-            }
         }
 
         /// <summary>

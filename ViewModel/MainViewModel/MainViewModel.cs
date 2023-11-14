@@ -20,6 +20,7 @@ using SNT2_WPF.ViewModel.Commands;
 using SNT2_WPF.Communication.Repositories;
 using LiveChartsCore.Defaults;
 using System.ComponentModel.DataAnnotations;
+using SNT2_WPF.Communication.ComPort;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
 {
@@ -43,6 +44,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		private readonly IDisposable _subscription = null!;
         private readonly IRepositoriesDB _userRepositoriesDB = null!;
         private readonly IRepositoriesLocal _userRepositoriesLocal = null!;
+		private readonly IReadCounters _readCounters = null!;
 
 		//Properties
 		//Состояние открытия скрытого меню.
@@ -108,8 +110,12 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
             InitializeCounters();
 
-			generationData = new GenerationData();
-            RunGenerationThread();
+			generationData = new GenerationData();            
+			RunGenerationThread();
+
+			_readCounters = new ReadCounters();
+			//_ = StartReadCounters();
+
             Thread.Sleep(1000);
 			_ = ReadData();
         }
@@ -129,6 +135,10 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				arrayCounters[i,5] = 1117 + (i * 1000);
 				arrayCounters[i,6] = 1265 + (i * 1000);
 			}
+		}
+		private async Task StartReadCounters()
+		{
+			await _readCounters.StartReadCounters();
 		}
 
         private async Task ReadData()
