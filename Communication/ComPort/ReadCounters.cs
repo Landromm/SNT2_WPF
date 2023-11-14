@@ -18,7 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace SNT2_WPF.Communication.ComPort;
-internal class ReadCounters
+internal class ReadCounters : IReadCounters
 {
 	static int timeoutSend;
 	static int timeoutRead;
@@ -53,7 +53,7 @@ internal class ReadCounters
 		tempStr = string.Empty;
 	}
 
-	public void StartReadCounters()
+	public Task StartReadCounters()
 	{
 		if(sendMsg.CountNumberCounter != 0)
 			InitializationDB(sendMsg.CountNumberCounter);
@@ -144,7 +144,7 @@ internal class ReadCounters
 	}
 
 	//Метод чтения параметров COM-порт из ini. файла
-	void ParamFromConfiguration_Load()
+	private void ParamFromConfiguration_Load()
 	{
 		try
 		{
@@ -166,14 +166,14 @@ internal class ReadCounters
 	}
 
 	//Метод открытия COM-порта.
-	public void OpenComPort()
+	private void OpenComPort()
 	{
-		//comm.Parity = temp_Parity is null ? "None" : temp_Parity;
-		//comm.StopBits = temp_StopBits is null ? "One" : temp_StopBits;
-		//comm.DataBits = temp_DataBits is null ? "8" : temp_StopBits;
-		//comm.BaudRate = temp_BaudRate is null ? "9600" : temp_BaudRate;
-		//comm.PortName = temp_PortName is null ? "COM2" : temp_PortName;
-		comm.OpenPort(_baudRate: temp_BaudRate, _dataBits: temp_DataBits, _stopBits: temp_StopBits, _parity: temp_Parity, _portName: temp_PortName);
+		comm.OpenPort(	_baudRate: temp_BaudRate, 
+						_dataBits: temp_DataBits, 
+						_stopBits: temp_StopBits, 
+						_parity: temp_Parity, 
+						_portName: temp_PortName);
+
 		if (comm.ComPortIsOpen())
 		{
 			string info = "Параметры COM-порта:\n" +
@@ -189,7 +189,7 @@ internal class ReadCounters
 	}
 
 	//Метод опроса счетчика - пакет данных 128 байт - RTC
-	void WriteDataRTC(string writePageMsg, string readDataMsg)
+	private void WriteDataRTC(string writePageMsg, string readDataMsg)
 	{
 		comm.WriteData(writePageMsg);  //Записи данных на страницу '0' в счетчике (128 байт).
 
@@ -204,7 +204,7 @@ internal class ReadCounters
 	}
 
 	//Метод опроса счетчика - пакет данных 256 байт - RTC
-	void WriteDataNV(string writePageMsg, string readDataMsg)
+	private void WriteDataNV(string writePageMsg, string readDataMsg)
 	{
 		comm.WriteData(writePageMsg);  //Записи данных на страницу '0' в счетчике (128 байт).
 
@@ -219,7 +219,7 @@ internal class ReadCounters
 	}
 
 	//Метод подсчета CRC - пакета данных 128 байт.
-	bool CheckSumCRC(List<string> dataList)
+	private bool CheckSumCRC(List<string> dataList)
 	{
 		int resultCRC = 0x00;
 		for (int i = 0; i < dataList.Count - 1; i++)
@@ -243,7 +243,7 @@ internal class ReadCounters
 	}
 
 	//Метод выборки байт из массива и преобразования их в строку по индексам.
-	static string FormatData(Range range)
+	private static string FormatData(Range range)
 	{
 		tempStr = string.Empty;
 		;
@@ -261,7 +261,7 @@ internal class ReadCounters
 	}
 
 	//Метод заполнения объекта данных 128 байт.
-	void FillingAnObject_RTC(int indexCount)
+	private void FillingAnObject_RTC(int indexCount)
 	{
 		Data_RTC data_RTC = new();
 
@@ -314,7 +314,11 @@ internal class ReadCounters
 			{
 				errorCount = 0;
 				comm.ClosePort();
-				comm.OpenPort();
+				comm.OpenPort(	_baudRate: temp_BaudRate, 
+								_dataBits: temp_DataBits, 
+								_stopBits: temp_StopBits, 
+								_parity: temp_Parity, 
+								_portName: temp_PortName);
 			}
 			else
 			{
@@ -323,12 +327,11 @@ internal class ReadCounters
 				//OutputConsole_Error("\n\nНе получены данные со счетчика!\n\n");
 				Console.WriteLine(error);
 				logWriter.WriteError($"Не получены данные со счетчика!\t" + error);
-
 			}
 		}
 	}
 	//Метод заполнения объекта данных 256 байт.
-	void FillingAnObject_NV(int indexCount)
+	private void FillingAnObject_NV(int indexCount)
 	{
 		Data_NV data_NV = new();
 		try
@@ -408,7 +411,11 @@ internal class ReadCounters
 			{
 				errorCount = 0;
 				comm.ClosePort();
-				comm.OpenPort();
+				comm.OpenPort(	_baudRate: temp_BaudRate, 
+								_dataBits: temp_DataBits,
+								_stopBits: temp_StopBits, 
+								_parity: temp_Parity, 
+								_portName: temp_PortName);
 			}
 			else
 			{
@@ -598,7 +605,6 @@ internal class ReadCounters
 		context.Database.ExecuteSqlRaw("update_cell @p0, @p1, @p2, @p3 output", param);
 		if (Convert.ToInt32(param[3].Value) == 1)
 			okResultProcedure++;
-
 		//Console.WriteLine($"Результат выполнения процедуры: - {param[3].Value}"); //Если возвращается "1" - значит процедура полностью выполнена.
 	}
 
