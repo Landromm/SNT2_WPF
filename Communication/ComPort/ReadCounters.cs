@@ -53,7 +53,7 @@ internal class ReadCounters : IReadCounters
 		tempStr = string.Empty;
 	}
 
-	public Task StartReadCounters()
+	public void StartReadCounters()
 	{
 		if(sendMsg.CountNumberCounter != 0)
 			InitializationDB(sendMsg.CountNumberCounter);
@@ -168,11 +168,12 @@ internal class ReadCounters : IReadCounters
 	//Метод открытия COM-порта.
 	private void OpenComPort()
 	{
-		comm.OpenPort(	_baudRate: temp_BaudRate, 
-						_dataBits: temp_DataBits, 
-						_stopBits: temp_StopBits, 
-						_parity: temp_Parity, 
-						_portName: temp_PortName);
+		comm.OpenPort(	
+			_baudRate: temp_BaudRate, 
+			_dataBits: temp_DataBits, 
+			_stopBits: temp_StopBits, 
+			_parity: temp_Parity, 
+			_portName: temp_PortName);
 
 		if (comm.ComPortIsOpen())
 		{
@@ -314,11 +315,12 @@ internal class ReadCounters : IReadCounters
 			{
 				errorCount = 0;
 				comm.ClosePort();
-				comm.OpenPort(	_baudRate: temp_BaudRate, 
-								_dataBits: temp_DataBits, 
-								_stopBits: temp_StopBits, 
-								_parity: temp_Parity, 
-								_portName: temp_PortName);
+				comm.OpenPort(
+					_baudRate: temp_BaudRate,
+					_dataBits: temp_DataBits,
+					_stopBits: temp_StopBits,
+					_parity: temp_Parity,
+					_portName: temp_PortName);
 			}
 			else
 			{
@@ -411,11 +413,12 @@ internal class ReadCounters : IReadCounters
 			{
 				errorCount = 0;
 				comm.ClosePort();
-				comm.OpenPort(	_baudRate: temp_BaudRate, 
-								_dataBits: temp_DataBits,
-								_stopBits: temp_StopBits, 
-								_parity: temp_Parity, 
-								_portName: temp_PortName);
+				comm.OpenPort(
+					_baudRate: temp_BaudRate,
+					_dataBits: temp_DataBits,
+					_stopBits: temp_StopBits,
+					_parity: temp_Parity,
+					_portName: temp_PortName);
 			}
 			else
 			{

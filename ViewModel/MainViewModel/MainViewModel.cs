@@ -110,15 +110,16 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
             InitializeCounters();
 
-			generationData = new GenerationData();            
-			RunGenerationThread();
+			generationData = new GenerationData();
+			//RunGenerationThread();
+			
 
 			_readCounters = new ReadCounters();
-			//_ = StartReadCounters();
+			StartReadCounters();
 
-            Thread.Sleep(1000);
+			Thread.Sleep(2000);
 			_ = ReadData();
-        }
+		}
 
         private void InitializeCounters()
         {
@@ -136,9 +137,18 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				arrayCounters[i,6] = 1265 + (i * 1000);
 			}
 		}
-		private async Task StartReadCounters()
+		private void StartReadCounters()
 		{
-			await _readCounters.StartReadCounters();
+			Thread thread = new Thread(() =>
+			{
+				while (true)
+				{
+					_readCounters.StartReadCounters();
+				}
+			});
+			thread.IsBackground = true;
+			thread.Start();
+			
 		}
 
         private async Task ReadData()

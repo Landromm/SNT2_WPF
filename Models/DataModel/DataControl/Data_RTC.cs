@@ -177,7 +177,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-                StringBuilder strBuilder = new StringBuilder();
+				if (tempStr.Contains("F"))
+				{
+					_temperatureChanel1 = "-1";
+					tempStr = null!;
+				}
+				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
                     strBuilder.Append(tempStr[0]);
@@ -198,7 +203,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-                StringBuilder strBuilder = new StringBuilder();
+				if (tempStr.Contains("F"))
+				{
+					_temperatureChanel2 = "-1";
+					tempStr = null!;
+				}
+				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
                     strBuilder.Append(tempStr[0]);

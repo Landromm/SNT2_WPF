@@ -12,10 +12,11 @@ internal class UserRepositoriesDB : IRepositoriesDB
 	public string? GetCounterId(string? numberCounter)
 	{
 		var counterId = string.Empty;
+		string fullNumberCounter = "00" + numberCounter;
 		using var contex = new DataContext();
 		{
 			counterId = contex.ListValues
-				.Where(id => id.Value == numberCounter)
+				.Where(id => id.Value == fullNumberCounter)
 				.Select(id => id.CounterId)
 				.ToList()
 				.First();
@@ -65,14 +66,15 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		return !value.Equals("0");
 	}
 
-	public List<Tuple<DateTime, double>> GetHistoryData(string? hash)
+	public List<(DateTime, double)> GetHistoryData(string? hash)
 	{
+
 		if (hash == null)
-			return new List<Tuple<DateTime, double>>{ new (DateTime.Now, -25.0) };
+			return new List<(DateTime, double)>{ new (DateTime.Now, -25.00) };
 
 		var hashInt = Convert.ToInt32(hash);
 
-		var historyData = new List<Tuple<DateTime, double>>();
+		var historyData = new List<(DateTime, double)>();
 		using var context = new DataContext();
 		{
 			var result = from historyH in context.History
@@ -87,7 +89,10 @@ internal class UserRepositoriesDB : IRepositoriesDB
 						 };
 
 			foreach (var item in result)
-				historyData.Add(new(item.DateTime, Convert.ToDouble(item.Value)));
+			{
+				(DateTime, double) items = (item.DateTime, Convert.ToDouble(item.Value.Replace(".",",")));
+				historyData.Add(items);
+			}
 		}
 		return historyData;
 	}
@@ -95,7 +100,7 @@ internal class UserRepositoriesDB : IRepositoriesDB
 	public (DateTime, double) GetLastHistoryData(string? hash)
 	{
 		if (hash == null) 
-			return new (DateTime.Now, -25.0);
+			return new (DateTime.Now, -25.00);
 
 		var hashInt = Convert.ToInt32(hash);
 		(DateTime, double) historyData = new();
@@ -106,6 +111,9 @@ internal class UserRepositoriesDB : IRepositoriesDB
 				.Select(val => val.Value)
 				.ToList()
 				.Last();
+			if(result is not null)
+				result = result.Replace(".", ",");
+
 			historyData = (DateTime.Now, Convert.ToDouble(result));
 		}
 		return historyData;

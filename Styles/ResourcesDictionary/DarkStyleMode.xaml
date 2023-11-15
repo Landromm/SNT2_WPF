@@ -493,7 +493,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Dark}"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="True">
+            <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="False">
                 <Setter Property="Background" Value="{StaticResource color4Dark}"/>
             </DataTrigger>
         </Style.Triggers>

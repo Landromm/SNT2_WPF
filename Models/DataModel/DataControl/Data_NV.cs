@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace SNT2_WPF.Models.DataModel.DataControl
 {
@@ -322,6 +323,11 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
+                if(tempStr.Contains("F"))
+                {
+                    _flowVolume = "-1";
+                    tempStr = null!;
+                }
                 StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
@@ -356,7 +362,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-                StringBuilder strBuilder = new StringBuilder();
+				if (tempStr.Contains("F"))
+				{
+					_flowMass = "-1";
+					tempStr = null!;
+				}
+				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
                     strBuilder.Append(tempStr[0]);
@@ -725,7 +736,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-                StringBuilder strBuilder = new StringBuilder();
+				if (tempStr.Contains("F"))
+				{
+					_flowVolume = "-1";
+					tempStr = null!;
+				}
+				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
                     strBuilder.Append(tempStr[0]);
@@ -759,7 +775,12 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-                StringBuilder strBuilder = new StringBuilder();
+				if (tempStr.Contains("F"))
+				{
+					_flowVolume = "-1";
+					tempStr = null!;
+				}
+				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
                     strBuilder.Append(tempStr[0]);

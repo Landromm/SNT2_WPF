@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.ComPort;
 public interface IReadCounters
 {
-	Task StartReadCounters();
+	void StartReadCounters();
 }
