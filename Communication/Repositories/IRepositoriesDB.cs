@@ -36,7 +36,7 @@ internal interface IRepositoriesDB
 	/// </summary>
 	/// <param name="hash"></param>
 	/// <returns></returns>
-	public List<Tuple<DateTime,double>> GetHistoryData(string? hash);
+	public List<(DateTime,double)> GetHistoryData(string? hash);
 	/// <summary>
 	/// Возвращает кортеж последних данных из онлайн таблицы по соответствующему хэшу.
 	/// </summary>
