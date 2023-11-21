@@ -299,7 +299,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1, SelectedMainDataModels.DescriptionCounter, "Давление P1"));
 			}
 		}
 
@@ -319,7 +319,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch1, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch1, SelectedMainDataModels.DescriptionCounter, "Температура T1"));
 			}
 		}
 		#endregion
@@ -338,7 +338,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch1, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch1, SelectedMainDataModels.DescriptionCounter, "Расход F1"));
 			}
 		}
 		#endregion
@@ -357,7 +357,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch2, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch2, SelectedMainDataModels.DescriptionCounter, "Давление P2"));
 			}
 		}
 		#endregion
@@ -376,7 +376,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch2, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashTemperature_ch2, SelectedMainDataModels.DescriptionCounter, "Температура T2"));
 			}
 		}
 		#endregion
@@ -395,7 +395,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2, SelectedMainDataModels.DescriptionCounter));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashFlow_ch2, SelectedMainDataModels.DescriptionCounter, "Расход F2"));
 			}
 		}
 		#endregion
@@ -415,8 +415,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			_userDialog.OpenArchiveGraph();
 		}
 		#endregion
-
-
 
 		//Метод установления стиля в зависимости от принятых параметров.
 		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)

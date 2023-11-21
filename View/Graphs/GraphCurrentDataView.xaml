@@ -32,7 +32,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
 
                     <!--Пенель наименования программы-->
@@ -40,8 +40,17 @@
                                 Margin="15,0,0,0"
                                 Style="{DynamicResource StackPanelHeaderNameProgramm}">
 
-                        <TextBlock  Text="{Binding Description}"                                    
-                                    Style="{DynamicResource TextBlockNameProgramm}"/>
+                        <TextBlock  
+                            Text="{Binding Description}"                                    
+                            Style="{DynamicResource TextBlockNameProgramm}"/>
+                        
+                        <TextBlock  
+                            Text="{Binding NameParametr}"                                    
+                            Style="{DynamicResource TextBlockNameProgramm}"/>
+                        
+                        <TextBlock  
+                            Text="{Binding LastCurrentValue}"                                    
+                            Style="{DynamicResource TextBlockNameProgramm}"/>
 
                     </StackPanel>
 

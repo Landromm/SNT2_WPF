@@ -66,6 +66,41 @@ namespace SNT2_WPF.ViewModel.Graph
 		}
 		#endregion
 
+		#region NameParametr : string? - Наименование параметра счетчика.
+
+		/// <summary>Наименование параметра счетчика. - поле.</summary>
+		private string? _nameParametr;
+
+		/// <summary>Наименование параметра счетчика. - свойство.</summary>
+		public string? NameParametr
+		{
+			get => _nameParametr;
+			set
+			{
+				_nameParametr = value;
+				OnPropertyChanged(nameof(NameParametr));
+			}
+		}
+		#endregion
+
+		#region LastCurrentValue : string? - Последнее прочитатое текущее значение параметра.
+
+		/// <summary>Последнее прочитатое текущее значение параметра. - поле.</summary>
+		private string? _lastCurrentValue;
+
+		/// <summary>Последнее прочитатое текущее значение параметра. - свойство.</summary>
+		public string? LastCurrentValue
+		{
+			get => _lastCurrentValue;
+			set
+			{
+				_lastCurrentValue = value;
+				OnPropertyChanged(nameof(LastCurrentValue));
+			}
+		}
+		#endregion
+
+
 		public ObservableCollection<ISeries>? Series
 		{
 			get; set;
@@ -174,6 +209,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 						var dateFirst = _values.First().DateTime;
 						var dateLast = _values.Last().DateTime;
+						LastCurrentValue = $":[{_values.Last().Value}])";
 						var resultbool = TimeSpan.Compare( dateLast.Subtract(dateFirst), new TimeSpan(00,60,00)) > 0;
 						
 						if (resultbool)
@@ -189,6 +225,7 @@ namespace SNT2_WPF.ViewModel.Graph
 						foreach (var item in tempTouple)
 							_values.Add(new DateTimePoint(item.Item1, item.Item2));
 
+						LastCurrentValue = $":[{_values.Last().Value}]";
 						_customAxis.CustomSeparators = GetSeparators();
 					}
 				}
@@ -222,6 +259,7 @@ namespace SNT2_WPF.ViewModel.Graph
 		{
 			HashId = message.HashId;
 			Description = message.Description;
+			NameParametr = $" - {message.NameParametr}";
 			Dispose();
 		}
 
