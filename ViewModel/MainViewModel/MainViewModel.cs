@@ -26,7 +26,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 {
     public class MainViewModel : DialogViewModel
     {
-        IniFile INI = new IniFile(@"Resources\Config.ini");
+        //IniFile INI = new IniFile(@"Resources\Config.ini");
         GenerationData generationData = null!;
 
         //Fields
@@ -273,15 +273,16 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         /// <summary>Логика выполнения - Выбор стиля приложения: темная или светлая тема.</summary>
         private void ExecutedSelectionModeStyleCommand()
         {
+
 			IsCheckedStyleMode = !IsCheckedStyleMode;
 			CheckActivetedHideMenu = false;
-			pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
-			pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
+			//pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
+			//pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
 
 			if (!IsCheckedStyleMode)
-				ChangeStyleThemes(pathDarkStyle, false);
+				ChangeStyleThemes(Properties.Settings.Default.PathDarkStyle, false);
 			else
-				ChangeStyleThemes(pathDefaultStyle, true);
+				ChangeStyleThemes(Properties.Settings.Default.PathDefaultStyle, true);
 		}
 		#endregion
 
@@ -424,20 +425,28 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             Application.Current.Resources.Clear();
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
 
-            INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
-            INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
-            INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
+			//INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
+			//INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
+			//INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
+			Properties.Settings.Default.pathStyleIsChecked = pathStyle;
+			Properties.Settings.Default.boolSelected_DefaultStyle = IsDefaultStyle;
+			Properties.Settings.Default.boolSelected_DarkStyle = !IsDefaultStyle;
+			Properties.Settings.Default.SelectedDefaultStyle = IsDefaultStyle;
+			Properties.Settings.Default.Save();
         }        
 
         // Метод инициализации стиля приложения
         private void InitializationStyleSNT2()
         {
-            string isCheckedStyleApplication = INI.ReadINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked");
-            //string isCheckedDefaultStyle = INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle");
+            //string isCheckedStyleApplication = INI.ReadINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked");
+            string isCheckedStyleApplication = Properties.Settings.Default.pathStyleIsChecked;
 
-            bool isCheckedDefaultStyle = Convert.ToBoolean(INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle"));
+			//string isCheckedDefaultStyle = INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle");
 
-            if (isCheckedDefaultStyle)
+			//bool isCheckedDefaultStyle = Convert.ToBoolean(INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle"));
+			bool isCheckedDefaultStyle = Properties.Settings.Default.SelectedDefaultStyle;
+
+			if (isCheckedDefaultStyle)
                 IsCheckedStyleMode = true;
             else
                 IsCheckedStyleMode = false;

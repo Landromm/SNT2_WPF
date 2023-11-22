@@ -86,7 +86,7 @@ namespace SNT2_WPF.ViewModel.Graph
 		#region LastCurrentValue : string? - Последнее прочитатое текущее значение параметра.
 
 		/// <summary>Последнее прочитатое текущее значение параметра. - поле.</summary>
-		private string? _lastCurrentValue;
+		private string? _lastCurrentValue = "0";
 
 		/// <summary>Последнее прочитатое текущее значение параметра. - свойство.</summary>
 		public string? LastCurrentValue
@@ -209,7 +209,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 						var dateFirst = _values.First().DateTime;
 						var dateLast = _values.Last().DateTime;
-						LastCurrentValue = $":[{_values.Last().Value}])";
+						LastCurrentValue = $":[{_values.Last().Value}]";
 						var resultbool = TimeSpan.Compare( dateLast.Subtract(dateFirst), new TimeSpan(00,60,00)) > 0;
 						
 						if (resultbool)

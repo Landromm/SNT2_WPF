@@ -33,11 +33,14 @@ namespace SNT2_WPF.Communication.Logger
         {
             try
             {
-                IniFile INI = new IniFile(@ConfigurationManager.AppSettings["pathConfig"]);
-                tempBoolLogData = bool.Parse(INI.ReadINI("LogFlag", "logData"));
-                tempBoolLogInfo = bool.Parse(INI.ReadINI("LogFlag", "logInfo"));
-                tempBoolHexWriteRead = bool.Parse(INI.ReadINI("LogFlag", "logHex"));
-            }
+                //IniFile INI = new IniFile(@ConfigurationManager.AppSettings["pathConfig"]);
+                //tempBoolLogData = bool.Parse(INI.ReadINI("LogFlag", "logData"));
+                //tempBoolLogInfo = bool.Parse(INI.ReadINI("LogFlag", "logInfo"));
+                //tempBoolHexWriteRead = bool.Parse(INI.ReadINI("LogFlag", "logHex"));
+                tempBoolLogData = Properties.Settings.Default.logData;
+				tempBoolLogInfo = Properties.Settings.Default.logInfo;
+                tempBoolHexWriteRead = Properties.Settings.Default.logHex;
+			}
             catch (Exception ex)
             {
                 Console.WriteLine("Ошибка чтения config.ini файла при логировании!\n" + ex);

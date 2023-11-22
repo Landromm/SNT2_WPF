@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="Resources\Config.ini" />
+    <None Remove="Resources\Config_Old.ini" />
+    <None Remove="Resources\db_List_Data.json" />
     <None Remove="Resources\Fonts\Andika-Bold.ttf" />
     <None Remove="Resources\Fonts\Andika-BoldItalic.ttf" />
     <None Remove="Resources\Fonts\Andika-Italic.ttf" />
@@ -21,7 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Config_Old.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Config.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\db_List_Data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\database_icon.ico">
@@ -63,9 +71,21 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
     <None Update="database_icon.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

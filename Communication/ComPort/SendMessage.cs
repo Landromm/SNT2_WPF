@@ -57,7 +57,7 @@ namespace SNT2_WPF.Communication.ComPort
 
         public void Initialization()
         {
-            string? tempNumberCounters = INI.ReadINI("SNTConfig", "NumberCounter");
+            string? tempNumberCounters = Properties.Settings.Default.NumberCounter;
             string[]? counters = tempNumberCounters.Replace(" ", "")
                                                 .Split(',');
             numbersCounters = counters;
