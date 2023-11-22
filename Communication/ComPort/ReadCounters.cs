@@ -25,6 +25,7 @@ internal class ReadCounters : IReadCounters
 	static int okResultProcedure;
 	static int errorCount;
 	static int limitErrorCom;
+	private int countReadData;
 	//--------------------------
 	private static string? temp_PortName;
 	private static string? temp_BaudRate;
@@ -38,7 +39,7 @@ internal class ReadCounters : IReadCounters
 	private static readonly CommunicationManager comm = new();
 	private static SendMessage sendMsg = new();
 	private static LogWriter logWriter = new();
-	private static ProjectObject projectObject = new();
+	private static ProjectObject projectObject = null!;
 	private static Dictionary<int, List<int>> dictionary = new();
 
 	public ReadCounters() 
@@ -51,6 +52,7 @@ internal class ReadCounters : IReadCounters
 		//--------------------------
 		checkSumCRC = false;
 		tempStr = string.Empty;
+		projectObject = new();
 	}
 
 	public void StartReadCounters()
@@ -60,17 +62,16 @@ internal class ReadCounters : IReadCounters
 
 		#region Цикл опроса счетчика.
 
-		for (int i = 0; i < sendMsg.CountNumberCounter; i++)
-		{
-			Console.WriteLine("Отправляемые пакеты данных для счетчика #{0}:", sendMsg.NumbersCounters[i]);
-			Console.WriteLine(sendMsg.SendStartSessionHex[i] + " - сообщение инициализации обмена.");
-			Console.WriteLine(sendMsg.SendWritePage128Hex[i] + " - сообщение записи страницы 128 байт данных.");
-			Console.WriteLine(sendMsg.SendWritePage256Hex[i] + " - сообщение записи страницы 256 байт данных.");
-			Console.WriteLine(sendMsg.SendReadDataHex[i] + " - сообщение чтения данных со страницы.");
-			Console.WriteLine("\n");
-		}
+		//for (int i = 0; i < sendMsg.CountNumberCounter; i++)
+		//{
+		//	Console.WriteLine("Отправляемые пакеты данных для счетчика #{0}:", sendMsg.NumbersCounters[i]);
+		//	Console.WriteLine(sendMsg.SendStartSessionHex[i] + " - сообщение инициализации обмена.");
+		//	Console.WriteLine(sendMsg.SendWritePage128Hex[i] + " - сообщение записи страницы 128 байт данных.");
+		//	Console.WriteLine(sendMsg.SendWritePage256Hex[i] + " - сообщение записи страницы 256 байт данных.");
+		//	Console.WriteLine(sendMsg.SendReadDataHex[i] + " - сообщение чтения данных со страницы.");
+		//	Console.WriteLine("\n");
+		//}
 		
-		int countReadData = 0;
 		ParamFromConfiguration_Load();
 		OpenComPort();
 
@@ -148,14 +149,22 @@ internal class ReadCounters : IReadCounters
 	{
 		try
 		{
-			IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
-			temp_PortName = INI.ReadINI("COMportSettings", "PortName");
-			temp_BaudRate = INI.ReadINI("COMportSettings", "BaudRate");
-			temp_Parity = INI.ReadINI("COMportSettings", "Parity");
-			temp_StopBits = INI.ReadINI("COMportSettings", "StopBits");
-			temp_DataBits = INI.ReadINI("COMportSettings", "DataBits");
-			timeoutRead = Convert.ToInt32(INI.ReadINI("COMportSettings", "Timeout"));
-			limitErrorCom = Convert.ToInt32(INI.ReadINI("SNTConfig", "LimitErrorCom"));
+			//IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
+			//temp_PortName = INI.ReadINI("COMportSettings", "PortName");
+			//temp_BaudRate = INI.ReadINI("COMportSettings", "BaudRate");
+			//temp_Parity = INI.ReadINI("COMportSettings", "Parity");
+			//temp_StopBits = INI.ReadINI("COMportSettings", "StopBits");
+			//temp_DataBits = INI.ReadINI("COMportSettings", "DataBits");
+			//timeoutRead = Convert.ToInt32(INI.ReadINI("COMportSettings", "Timeout"));
+			//limitErrorCom = Convert.ToInt32(INI.ReadINI("SNTConfig", "LimitErrorCom"));
+
+			temp_PortName = Properties.Settings.Default.PortName;
+			temp_BaudRate = Properties.Settings.Default.BaudRate.ToString();
+			temp_Parity = Properties.Settings.Default.Parity;
+			temp_StopBits = Properties.Settings.Default.StopBits;
+			temp_DataBits = Properties.Settings.Default.DataBits.ToString();
+			timeoutRead = Properties.Settings.Default.TimeOutRead;
+			limitErrorCom = Properties.Settings.Default.LimitErrorCom;
 
 			logWriter.LoadFlagLog();
 		}
@@ -326,7 +335,6 @@ internal class ReadCounters : IReadCounters
 			{
 				errorCount++;
 				string error = $"Количество накопительных ошибок: {errorCount} из {limitErrorCom}";
-				//OutputConsole_Error("\n\nНе получены данные со счетчика!\n\n");
 				Console.WriteLine(error);
 				logWriter.WriteError($"Не получены данные со счетчика!\t" + error);
 			}
@@ -336,6 +344,7 @@ internal class ReadCounters : IReadCounters
 	private void FillingAnObject_NV(int indexCount)
 	{
 		Data_NV data_NV = new();
+
 		try
 		{
 			data_NV.DateTimes = DateTime.Now;
@@ -400,7 +409,6 @@ internal class ReadCounters : IReadCounters
 			data_NV.Viscosity_ch2 = FormatData(253..255);
 			data_NV.ThermalEnergyGCall_ch2 = FormatData(200..204);
 
-			//OutputConsole_NV(data_NV);
 			SetValueDB_NV(data_NV, indexCount);
 		}
 		catch (Exception ex)
@@ -424,7 +432,6 @@ internal class ReadCounters : IReadCounters
 			{
 				errorCount++;
 				string error = $"Количество накопительных ошибок: {errorCount} из {limitErrorCom}";
-				//OutputConsole_Error("\n\nНе получены данные со счетчика!\n\n");
 				logWriter.WriteError($"Не получены данные со счетчика!\t\n {error}" + ex);
 			}
 		}
