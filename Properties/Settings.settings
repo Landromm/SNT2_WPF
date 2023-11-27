@@ -33,7 +33,7 @@
       <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="PortName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM2</Value>
+      <Value Profile="(Default)">COM3</Value>
     </Setting>
     <Setting Name="BaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>
@@ -48,7 +48,7 @@
       <Value Profile="(Default)">8</Value>
     </Setting>
     <Setting Name="TimeOutRead" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2500</Value>
+      <Value Profile="(Default)">3000</Value>
     </Setting>
     <Setting Name="NumberCounter" Type="System.String" Scope="User">
       <Value Profile="(Default)">1119, 1119</Value>

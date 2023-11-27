@@ -139,7 +139,7 @@ namespace SNT2_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
         public string PortName {
             get {
                 return ((string)(this["PortName"]));
@@ -199,7 +199,7 @@ namespace SNT2_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
         public int TimeOutRead {
             get {
                 return ((int)(this["TimeOutRead"]));

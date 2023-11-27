@@ -13,7 +13,7 @@ namespace SNT2_WPF.Communication.ComPort
 {
     internal class CommunicationManager
     {
-        static LogWriter logWriter = new LogWriter();
+        //static LogWriter logWriter = new LogWriter();
 
         public enum TransmissionType { Text, Hex }
 
@@ -139,17 +139,17 @@ namespace SNT2_WPF.Communication.ComPort
 
                 comPort.Open();
 
-                Console.WriteLine(("Открытие COM-порта: " + comPort.PortName));
+                //Console.WriteLine(("Открытие COM-порта: " + comPort.PortName));
                 Thread.Sleep(5000);
 
-                Console.WriteLine("COM-порт открыт в |" + DateTime.Now + "|\n");
+                //Console.WriteLine("COM-порт открыт в |" + DateTime.Now + "|\n");
                 return true;
             }
             catch (Exception ex)
             {
                 string error = "Не удалось открыть COM-Порт! \n" + ex;
-                ConsoleColorOutputError(error, ex);
-                logWriter.WriteError(error + ex);
+                //ConsoleColorOutputError(error, ex);
+                //logWriter.WriteError(error + ex);
                 return false;
             }
         }
@@ -170,15 +170,15 @@ namespace SNT2_WPF.Communication.ComPort
                 }
                 Console.WriteLine(("Закрытие COM-порта: " + comPort.PortName));
                 Console.WriteLine("COM-порт закрыт в |" + DateTime.Now + "|\n");
-                logWriter.WriteInformation("COM-порт закрыт в |" + DateTime.Now + "|\n");
-                logWriter.WriteError("COM-порт закрыт в |" + DateTime.Now + "|\n");
+                //logWriter.WriteInformation("COM-порт закрыт в |" + DateTime.Now + "|\n");
+                //logWriter.WriteError("COM-порт закрыт в |" + DateTime.Now + "|\n");
                 return true;
             }
             catch (Exception ex)
             {
                 string error = "Не удалось корректно закрыть COM-Порт! \n" + ex;
-                ConsoleColorOutputError(error, ex);
-                logWriter.WriteError(error + ex);
+                //ConsoleColorOutputError(error, ex);
+                //logWriter.WriteError(error + ex);
                 return false;
             }
         }
@@ -203,8 +203,8 @@ namespace SNT2_WPF.Communication.ComPort
             catch (Exception ex)
             {
                 string error = "Ошибка конвертации полученной строки в массив байтов! \n";
-                ConsoleColorOutputError(error, ex);
-                logWriter.WriteError(error + ex);
+                //ConsoleColorOutputError(error, ex);
+                //logWriter.WriteError(error + ex);
                 //протетсировать данноое возвращение!!!!!!!!!!!! Возможно наличие багов.
                 throw;
             }
@@ -230,8 +230,8 @@ namespace SNT2_WPF.Communication.ComPort
             catch (Exception ex)
             {
                 string error = "Ошибка конвертации массива байт в строку-hex! \n";
-                ConsoleColorOutputError(error, ex);
-                logWriter.WriteError(error + ex);
+                //ConsoleColorOutputError(error, ex);
+                //logWriter.WriteError(error + ex);
                 return string.Empty;
             }
         }
@@ -264,8 +264,8 @@ namespace SNT2_WPF.Communication.ComPort
                 catch (Exception ex)
                 {
                     string error = "Ошибка чтения с COM-порта.! \n";
-                    ConsoleColorOutputError(error, ex);
-                    logWriter.WriteError(error + ex);
+                    //ConsoleColorOutputError(error, ex);
+                    //logWriter.WriteError(error + ex);
                 }
             }
             else
@@ -294,8 +294,8 @@ namespace SNT2_WPF.Communication.ComPort
             catch (FormatException ex)
             {
                 string error = "Ошибка отправки hex - сообщения счетчику: \n";
-                ConsoleColorOutputError(error, ex);
-                logWriter.WriteError(error + ex);
+                //ConsoleColorOutputError(error, ex);
+                //logWriter.WriteError(error + ex);
                 byte[] newMsg = HexToByte(msg);
                 Console.WriteLine(ByteToHex(newMsg) + "\n\n");
             }

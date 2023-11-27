@@ -16,6 +16,8 @@ namespace SNT2_WPF.Models.DataModel.DataControl
         #region Поля Data_NV
         //Поля
         private DateTime _dateTime;
+        static private double bufferDoubleData;
+
         //-ОБЩИЕ--------------------------------------------------------------------------------------------
         private string? _flowVolume_Sum_Diff;           //Расход объемный сумма/разность.
         private string? _flowVolume_Sum_Diff_JunTetrad; //Младшая тетрада сумма/разность.
@@ -362,11 +364,7 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             set
             {
                 string tempStr = invertedString(value);
-				if (tempStr.Contains("F"))
-				{
-					_flowMass = "-1";
-					tempStr = null!;
-				}
+
 				StringBuilder strBuilder = new StringBuilder();
                 if (tempStr != null)
                 {
@@ -959,8 +957,32 @@ namespace SNT2_WPF.Models.DataModel.DataControl
             {
                 tempstr = tempstr.Insert(0, inputStr.Substring(i, 2));
             }
-            return tempstr;
+            if (double.TryParse(tempstr, out bufferDoubleData))
+                return tempstr!;
+
+            return null!;
         };
+
+   //     private string? invertedString(string? inputStr, ref string inputParametr)
+   //     {
+			//string? tempstr = "";
+   //         for (int i = 0; i < inputStr.Length; i += 2)
+   //         {
+   //             tempstr = tempstr.Insert(0, inputStr.Substring(i, 2));
+   //         }
+   //         if(tempstr.Any(c => c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'))
+   //         {
+   //             inputParametr = "-1";
+   //             tempstr = null!;
+   //         }
+   //         return tempstr;
+   //     }
+
+
+		static private bool CheckIncorrectData(string data)
+        {
+			return data.Any(c => c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
+		}
 
     }
 }
