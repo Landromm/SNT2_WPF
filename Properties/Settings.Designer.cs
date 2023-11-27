@@ -211,7 +211,7 @@ namespace SNT2_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1119, 1119")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1119")]
         public string NumberCounter {
             get {
                 return ((string)(this["NumberCounter"]));
