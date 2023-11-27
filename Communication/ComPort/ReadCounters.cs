@@ -584,8 +584,10 @@ internal class ReadCounters : IReadCounters
 	// Вызов процедуры с параметрами 'id', 'value', 'date'.
 	private void GetSqlProcedure(DataContext context, int idParam, string? valueParam, DateTime dateParam)
 	{
-		SqlParameter[] param =
-			{
+		if(valueParam != null) 
+		{
+			SqlParameter[] param =
+				{
 					new ()
 					{
 						ParameterName = "@p0",
@@ -598,6 +600,7 @@ internal class ReadCounters : IReadCounters
 						SqlDbType = System.Data.SqlDbType.VarChar,
 						Size = 50,
 						Value = valueParam
+
 					},
 					new ()
 					{
@@ -612,9 +615,11 @@ internal class ReadCounters : IReadCounters
 						Direction = System.Data.ParameterDirection.Output
 					}
 				};
-		context.Database.ExecuteSqlRaw("update_cell @p0, @p1, @p2, @p3 output", param);
-		if (Convert.ToInt32(param[3].Value) == 1)
-			okResultProcedure++;
+			context.Database.ExecuteSqlRaw("update_cell @p0, @p1, @p2, @p3 output", param);
+			if (Convert.ToInt32(param[3].Value) == 1)
+				okResultProcedure++;
+		}
+		
 		//Console.WriteLine($"Результат выполнения процедуры: - {param[3].Value}"); //Если возвращается "1" - значит процедура полностью выполнена.
 	}
 
