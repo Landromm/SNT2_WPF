@@ -5,6 +5,7 @@ using SNT2_WPF.Communication.Logger;
 using SNT2_WPF.Models.DataConEF;
 using SNT2_WPF.Models.DataModel.DataControl;
 using SNT2_WPF.Models.DBModel;
+using SNT2_WPF.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,12 +19,12 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace SNT2_WPF.Communication.ComPort;
-internal class ReadCounters : IReadCounters
+internal class ReadCounters : DialogViewModel, IReadCounters
 {
 	static int timeoutSend;
 	static int timeoutRead;
 	static int okResultProcedure;
-	static int errorCount;
+	private static int _errorCount;
 	static int limitErrorCom;
 	private int countReadData;
 	//--------------------------
@@ -38,16 +39,27 @@ internal class ReadCounters : IReadCounters
 	//--------------------------
 	private static readonly CommunicationManager comm = new();
 	private static SendMessage sendMsg = new();
-	private static LogWriter logWriter = new();
+	private LogWriter logWriter = new();
 	private static ProjectObject projectObject = null!;
 	private static Dictionary<int, List<int>> dictionary = new();
+
+	//Свойство подсчета ошибок.
+	public int CountErrorRead
+	{
+		get => _errorCount;
+		set
+		{
+			_errorCount = value;
+			OnPropertyChanged(nameof(CountErrorRead));
+		}
+	}
 
 	public ReadCounters() 
 	{
 		timeoutSend = 250;
 		timeoutRead = 1000;
 		okResultProcedure = 0;
-		errorCount = 0;
+		CountErrorRead = 0;
 		limitErrorCom = 0;
 		//--------------------------
 		checkSumCRC = false;
@@ -61,16 +73,6 @@ internal class ReadCounters : IReadCounters
 			InitializationDB(sendMsg.CountNumberCounter);
 
 		#region Цикл опроса счетчика.
-
-		//for (int i = 0; i < sendMsg.CountNumberCounter; i++)
-		//{
-		//	Console.WriteLine("Отправляемые пакеты данных для счетчика #{0}:", sendMsg.NumbersCounters[i]);
-		//	Console.WriteLine(sendMsg.SendStartSessionHex[i] + " - сообщение инициализации обмена.");
-		//	Console.WriteLine(sendMsg.SendWritePage128Hex[i] + " - сообщение записи страницы 128 байт данных.");
-		//	Console.WriteLine(sendMsg.SendWritePage256Hex[i] + " - сообщение записи страницы 256 байт данных.");
-		//	Console.WriteLine(sendMsg.SendReadDataHex[i] + " - сообщение чтения данных со страницы.");
-		//	Console.WriteLine("\n");
-		//}
 		
 		ParamFromConfiguration_Load();
 		OpenComPort();
@@ -149,15 +151,6 @@ internal class ReadCounters : IReadCounters
 	{
 		try
 		{
-			//IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
-			//temp_PortName = INI.ReadINI("COMportSettings", "PortName");
-			//temp_BaudRate = INI.ReadINI("COMportSettings", "BaudRate");
-			//temp_Parity = INI.ReadINI("COMportSettings", "Parity");
-			//temp_StopBits = INI.ReadINI("COMportSettings", "StopBits");
-			//temp_DataBits = INI.ReadINI("COMportSettings", "DataBits");
-			//timeoutRead = Convert.ToInt32(INI.ReadINI("COMportSettings", "Timeout"));
-			//limitErrorCom = Convert.ToInt32(INI.ReadINI("SNTConfig", "LimitErrorCom"));
-
 			temp_PortName = Properties.Settings.Default.PortName;
 			temp_BaudRate = Properties.Settings.Default.BaudRate.ToString();
 			temp_Parity = Properties.Settings.Default.Parity;
@@ -320,9 +313,9 @@ internal class ReadCounters : IReadCounters
 			{
 				GetSqlProcedure(context, dictionary[indexCount][11], "1", DateTime.Now);
 			}
-			if (errorCount >= limitErrorCom)
+			if (CountErrorRead >= limitErrorCom)
 			{
-				errorCount = 0;
+				CountErrorRead = 0;
 				comm.ClosePort();
 				comm.OpenPort(
 					_baudRate: temp_BaudRate,
@@ -333,8 +326,8 @@ internal class ReadCounters : IReadCounters
 			}
 			else
 			{
-				errorCount++;
-				string error = $"Количество накопительных ошибок: {errorCount} из {limitErrorCom}";
+				CountErrorRead++;
+				string error = $"Количество накопительных ошибок: {CountErrorRead} из {limitErrorCom}";
 				Console.WriteLine(error);
 				logWriter.WriteError($"Не получены данные со счетчика!\t" + error);
 			}
@@ -417,9 +410,9 @@ internal class ReadCounters : IReadCounters
 			{
 				GetSqlProcedure(context, dictionary[indexCount][11], "1", DateTime.Now);
 			}
-			if (errorCount >= limitErrorCom)
+			if (CountErrorRead >= limitErrorCom)
 			{
-				errorCount = 0;
+				CountErrorRead = 0;
 				comm.ClosePort();
 				comm.OpenPort(
 					_baudRate: temp_BaudRate,
@@ -430,8 +423,8 @@ internal class ReadCounters : IReadCounters
 			}
 			else
 			{
-				errorCount++;
-				string error = $"Количество накопительных ошибок: {errorCount} из {limitErrorCom}";
+				CountErrorRead++;
+				string error = $"Количество накопительных ошибок: {CountErrorRead} из {limitErrorCom}";
 				logWriter.WriteError($"Не получены данные со счетчика!\t\n {error}" + ex);
 			}
 		}

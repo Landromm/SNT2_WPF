@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Windows.Themes;
 using SNT2_WPF.View.Graphs;
+using SNT2_WPF.View.MainViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,21 @@ internal class UserDialogServices  : IUserDialog
 		window = _service.GetRequiredService<GraphArchiveDataView>();
 		window.Closed += (_, _) => _graphArchive = null;
 		_graphArchive = window;
+		window.Show();
+	}
+
+	private SettingsWindowView? _settingsView = null!;
+	public void OpenSettingsWindow()
+	{
+		if (_settingsView is { } window)
+		{
+			window.Show();
+			return;
+		}
+
+		window = _service.GetRequiredService<SettingsWindowView>();
+		window.Closed += (_, _) => _settingsView = null;
+		_settingsView = window;
 		window.Show();
 	}
 }

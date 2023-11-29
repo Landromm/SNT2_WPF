@@ -11,7 +11,6 @@
         xmlns:viewModelGraph="clr-namespace:SNT2_WPF.ViewModel.Graph" 
         xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
-        Title="MainWindow"
         Height="495" Width="570"
         MinHeight="270" MinWidth="320"
         WindowStartupLocation="CenterScreen"
@@ -60,7 +59,8 @@
 
                         <ToggleButton Width="30"
                                       Command="{Binding SelectionModeStyleCommand}"
-                                      Style="{DynamicResource ToggleButtonChangeThemes}">
+                                      Style="{DynamicResource ToggleButtonChangeThemes}"
+                                      Visibility="Hidden">
                             
                         </ToggleButton>
 
@@ -185,6 +185,5 @@
         </Grid>
         
     </Border>
-
 
 </Window>
