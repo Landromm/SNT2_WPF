@@ -2,8 +2,10 @@
 using SNT2_WPF.Services;
 using SNT2_WPF.Services.Implementations;
 using SNT2_WPF.View.Graphs;
+using SNT2_WPF.View.MainViews;
 using SNT2_WPF.ViewModel.Graph;
 using SNT2_WPF.ViewModel.MainViewModel;
+using SNT2_WPF.ViewModel.Settings;
 using System;
 using System.Threading;
 using System.Windows;
@@ -23,6 +25,7 @@ namespace SNT2_WPF
             services.AddSingleton<MainViewModel>();
             services.AddScoped<GraphCurrentViewModel>();
             services.AddSingleton<GraphArchiveViewModel>();
+            services.AddSingleton<SettingsWindowViewModel>();
 
 			services.AddSingleton<IUserDialog, UserDialogServices>();
 			services.AddSingleton<IMessageBus, MessageBusService>();
@@ -34,7 +37,7 @@ namespace SNT2_WPF
                 var window = new MainWindow { DataContext = model };
 					model.DialogComplete += (_, _) => window.Close();
 
-					return window;
+				return window;
             });
             services.AddTransient(
             s =>
@@ -45,7 +48,7 @@ namespace SNT2_WPF
 					model.DialogComplete += (_, _) => window.Close();
 					window.Closed += (_, _) => scope.Dispose();
 
-					return window;
+				return window;
             });
             services.AddTransient(
                 s =>
@@ -56,7 +59,16 @@ namespace SNT2_WPF
                         model.DialogComplete += (_, _) => window.Close();
                         window.Closed -= (_, _) => scope.Dispose();
 
-                        return window;
+                    return window;
+                });
+            services.AddTransient(
+                s =>
+                {
+                    var model = s.GetRequiredService<SettingsWindowViewModel>();
+                    var window = new SettingsWindowView { DataContext = model };
+                        model.DialogComplete += (_, _) => window.Close();
+
+                    return window;
                 });
 
 			return services;

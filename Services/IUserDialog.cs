@@ -10,4 +10,5 @@ public interface IUserDialog
 	void OpenMainWindow();
 	void OpenCurrentGrapf();
 	void OpenArchiveGraph();
+	void OpenSettingsWindow();
 }

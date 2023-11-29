@@ -60,26 +60,20 @@
                     <StackPanel Grid.Column="1"
                                 Style="{DynamicResource StackPanelHeaderControl}">
 
-                        <!--Кнопка закрытия приложения.-->
+                        <!--Кнопка сворачивания окна.-->
                         <Button x:Name="btnMinimize"
                                 Style="{DynamicResource buttonMinimizeArchiveGraph}"
-                                Click="btnMinimize_Сlick">
+                                Click="btnMinimize_Сlick"/>
 
-                        </Button>
-
-                        <!--Кнопка закрытия приложения.-->
+                        <!--Кнопка максимизации размера окна.-->
                         <Button x:Name="btnMaximize"
                                 Style="{DynamicResource buttonMaximizeArchiveGraph}"
-                                Click="btnMaximize_Click">
+                                Click="btnMaximize_Click"/>
 
-                        </Button>
-
-                        <!--Кнопка закрытия приложения.-->
+                        <!--Кнопка закрытия окна.-->
                         <Button x:Name="btnClose"
                                 Style="{DynamicResource buttonCloseArchiveGraph}"
-                                Click="btnClose_Click">
-
-                        </Button>
+                                Click="btnClose_Click"/>
 
                     </StackPanel>
 

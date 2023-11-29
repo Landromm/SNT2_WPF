@@ -36,8 +36,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         private string pathDarkStyle = "";
         private ObservableCollection<MainDataModel> _mainData = null!;
         private MainDataModel? _selectedMainData = null!;
-        private ViewModelBase _currentChildView = null!;
         private int[,] arrayCounters = null!;
+		private string _countErrorReader;
 
 		private readonly IUserDialog _userDialog = null!;
 		private readonly IMessageBus _messageBus = null!;
@@ -85,15 +85,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
                 OnPropertyChanged(nameof(SelectedMainDataModels));
             }
         }
-        public ViewModelBase CurrentChildView
-        {
-            get => _currentChildView;
-            set
-            {
-                _currentChildView = value;
-                OnPropertyChanged(nameof(CurrentChildView));
-            }
-        }
 
 		public object Sync { get; } = new object();
 		public bool IsReading { get; set; } = true;
@@ -111,12 +102,11 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             InitializeCounters();
 
 			generationData = new GenerationData();
-			//RunGenerationThread();
-			
+			//RunGenerationThread();			
 
 			_readCounters = new ReadCounters();
 			StartReadCounters();
-
+			
 			Thread.Sleep(2000);
 			_ = ReadData();
 		}
@@ -416,6 +406,23 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			_userDialog.OpenArchiveGraph();
 		}
 		#endregion
+
+
+		#region Command OpenSettingsCommand - открытие окна настроек приложения.
+
+		/// <summary>открытие окна настроек приложения.</summary>
+		private LambdaCommand? _OpenSettingsCommand;
+
+		/// <summary>открытие окна настроек приложения.</summary>
+		public ICommand OpenSettingsCommand => _OpenSettingsCommand ??= new(ExecutedOpenSettingsCommand);
+
+		/// <summary>Логика выполнения - открытие окна настроек приложения.</summary>
+		private void ExecutedOpenSettingsCommand()
+		{
+			_userDialog.OpenSettingsWindow();
+		}
+		#endregion
+
 
 		//Метод установления стиля в зависимости от принятых параметров.
 		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
