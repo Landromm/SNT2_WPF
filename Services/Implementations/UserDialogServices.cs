@@ -2,11 +2,13 @@
 using Microsoft.Windows.Themes;
 using SNT2_WPF.View.Graphs;
 using SNT2_WPF.View.MainViews;
+using SNT2_WPF.View.Settings.UserControlView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SNT2_WPF.Services.Implementations;
 internal class UserDialogServices  : IUserDialog
