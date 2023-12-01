@@ -27,7 +27,7 @@ namespace SNT2_WPF
             services.AddSingleton<MainViewModel>();
             services.AddScoped<GraphCurrentViewModel>();
             services.AddSingleton<GraphArchiveViewModel>();
-            services.AddSingleton<SettingsWindowViewModel>();
+            services.AddScoped<SettingsWindowViewModel>();
 
 			services.AddSingleton<IUserDialog, UserDialogServices>();
 			services.AddSingleton<IMessageBus, MessageBusService>();
@@ -66,11 +66,13 @@ namespace SNT2_WPF
             services.AddTransient(
                 s =>
                 {
-                    var model = s.GetRequiredService<SettingsWindowViewModel>();
+                    var scope = s.CreateScope();
+                    var model = scope.ServiceProvider.GetRequiredService<SettingsWindowViewModel>();
                     var window = new SettingsWindowView { DataContext = model };
                         model.DialogComplete += (_, _) => window.Close();
+					    window.Closed += (_, _) => scope.Dispose();
 
-                    return window;
+					return window;
                 });
 
 			return services;
