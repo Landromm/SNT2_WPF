@@ -30,6 +30,7 @@ public class SettingsWindowViewModel : DialogViewModel
 	public SettingsWindowViewModel(IUserDialog UserDialog)
 	{
 		_userDialog = UserDialog;
+		CurrentChildView = null!;
 	}
 
 	#region Command ShowComViewCommand - Открытие фрэйма настройки COM порта.
