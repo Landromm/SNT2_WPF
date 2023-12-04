@@ -9,17 +9,121 @@
              d:DesignWidth="800"
              MinHeight="100">
 
+    <UserControl.Resources>
+
+
+        
+    </UserControl.Resources>
+
     <Grid>
 
         <Border Background="{StaticResource panelColorDefault}"
                 CornerRadius="0,10,10,10">
 
-            <StackPanel Orientation="Vertical">
-                
-                
+            <Grid Margin="20,0,0,0">
 
-            </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
+                <!--Описание полей ввода данных-->
+                <StackPanel Grid.Column="0"
+                            Orientation="Vertical"
+                            VerticalAlignment="Top"
+                            Margin="20,20,20,0">
+
+                    <TextBox Tag="PortName"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                    <TextBox Tag="BaudRate"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                    <TextBox Tag="Parity"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                    <TextBox Tag="StopBits"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                    <TextBox Tag="DataBits"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                    <TextBox Tag="Timeout"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             Style="{DynamicResource TextBlockSettingStyle}"/>
+
+                </StackPanel>
+
+                <!--Поля ввода данных-->
+                <StackPanel Grid.Column="1"
+                            Orientation="Vertical"
+                            VerticalAlignment="Top"
+                            Margin="20,20,20,0">
+
+                    <TextBox Tag="Имя порта"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                    <TextBox Tag="Скорость"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                    <TextBox Tag="Четность"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                    <TextBox Tag="Стоповые биты"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                    <TextBox Tag="Биты данных"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                    <TextBox Tag="Время задержки"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Margin="0,10,0,0"
+                             TextWrapping="NoWrap"
+                             Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                </StackPanel>
+
+            </Grid>
+            
         </Border>
 
     </Grid>
