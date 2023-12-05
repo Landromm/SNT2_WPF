@@ -11,8 +11,136 @@
 
     <UserControl.Resources>
 
+        <Style x:Key="ButtonOkSettingStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="5.2 3"/>
+            <Setter Property="Background" Value="{StaticResource buttonOverColorDefault}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource mainFontColorDefault}"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{StaticResource color3Default}"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="MaxHeight" Value="40"/>
+            <Setter Property="MaxWidth" Value="200"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
 
-        
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BorderButton"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="2"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="5"
+                                MaxHeight="{TemplateBinding MaxHeight}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
+                                SnapsToDevicePixels="True">
+
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource buttonActiveColorDefault}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource color3Default}"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="0.5"></DropShadowEffect>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--Стиль кнопки при наведении-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
+                </Trigger>
+                <!--Стиль кнопки при активации-->
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource panelActiveColorDefault}"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonCancelSettingStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="5.2 3"/>
+            <Setter Property="Background" Value="{StaticResource buttonOverColorDefault}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource mainFontColorDefault}"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{DynamicResource color1Default}"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="MaxHeight" Value="40"/>
+            <Setter Property="MaxWidth" Value="200"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BorderButton"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="2"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        CornerRadius="5"
+                        MaxHeight="{TemplateBinding MaxHeight}"
+                        MaxWidth="{TemplateBinding MaxWidth}"
+                        SnapsToDevicePixels="True">
+
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource buttonActiveColorDefault}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource color1Default}"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="0.5"></DropShadowEffect>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--Стиль кнопки при наведении-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource color1Default}"/>
+                </Trigger>
+                <!--Стиль кнопки при активации-->
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource panelActiveColorDefault}"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
     </UserControl.Resources>
 
     <Grid>
@@ -83,6 +211,7 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding PortName}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
 
                     <TextBox Tag="Скорость"
@@ -90,6 +219,7 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding BaudRate}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
 
                     <TextBox Tag="Четность"
@@ -97,6 +227,7 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding Parity}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
 
                     <TextBox Tag="Стоповые биты"
@@ -104,6 +235,7 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding StopBits}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
 
                     <TextBox Tag="Биты данных"
@@ -111,6 +243,7 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding DataBits}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
 
                     <TextBox Tag="Время задержки"
@@ -118,7 +251,36 @@
                              VerticalAlignment="Center"
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
+                             Text="{Binding Timeout}"
                              Style="{DynamicResource TextBoxSettingStyle}"/>
+
+                </StackPanel>
+                
+                <!--Кнопки управления-->
+                <StackPanel Grid.Column="2"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Left"
+                            Margin="50,20,20,0">
+
+                    <Button Content="Сохранить"
+                            x:Name="btnSave"
+                            Command="{Binding SaveCommand}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="0,9,0,0"
+                            Style="{DynamicResource ButtonOkSettingStyle}">
+
+                    </Button>
+
+                    <Button Content="Сброс"
+                            x:Name="btnReset"
+                            Command="{Binding ResetCommand}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,10,0,0"
+                            Style="{DynamicResource ButtonCancelSettingStyle}">
+
+                    </Button>
 
                 </StackPanel>
 
