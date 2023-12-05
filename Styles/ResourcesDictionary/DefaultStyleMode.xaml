@@ -20,7 +20,7 @@
     <Style x:Key="StackPanelHeaderNameProgramm" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>        
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     <Style x:Key="TextBlockNameProgramm" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource mainFontColorDefault}"/>
