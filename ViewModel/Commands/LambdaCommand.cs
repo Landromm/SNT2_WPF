@@ -127,9 +127,7 @@ namespace SNT2_WPF.ViewModel.Commands
 					break;
 			}
 		}
-
 	}
-
 }
 
 

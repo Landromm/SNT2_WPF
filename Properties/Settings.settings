@@ -32,9 +32,6 @@
     <Setting Name="LimitErrorCom" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="PortName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM3</Value>
-    </Setting>
     <Setting Name="BaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>
     </Setting>
@@ -52,6 +49,9 @@
     </Setting>
     <Setting Name="NumberCounter" Type="System.String" Scope="User">
       <Value Profile="(Default)">1119</Value>
+    </Setting>
+    <Setting Name="PortName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -212,7 +212,26 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding PortName}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">
+                                <Border Background="Transparent"
+                                        CornerRadius="5">                                    
+                                    <StackPanel>
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>COM1</TextBlock>
+                                        <TextBlock>COM2</TextBlock>
+                                        <TextBlock>COM3</TextBlock>
+                                        <TextBlock>COM4</TextBlock>
+                                        <TextBlock>COM5</TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                     <TextBox Tag="Скорость"
                              HorizontalAlignment="Left"
@@ -220,7 +239,25 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding BaudRate}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">                                
+                                <Border Background="Transparent"
+                                        CornerRadius="5">                                    
+                                    <StackPanel>                                        
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>4800</TextBlock>
+                                        <TextBlock>9600</TextBlock>
+                                        <TextBlock>38400</TextBlock>
+                                        <TextBlock>57600</TextBlock>                                        
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                     <TextBox Tag="Четность"
                              HorizontalAlignment="Left"
@@ -228,7 +265,26 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding Parity}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">
+                                <Border Background="Transparent"
+                                        CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>Even</TextBlock>
+                                        <TextBlock>Odd</TextBlock>
+                                        <TextBlock>None</TextBlock>
+                                        <TextBlock>Mark</TextBlock>
+                                        <TextBlock>Space</TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                     <TextBox Tag="Стоповые биты"
                              HorizontalAlignment="Left"
@@ -236,7 +292,23 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding StopBits}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">
+                                <Border Background="Transparent"
+                                        CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>One</TextBlock>
+                                        <TextBlock>Two</TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                     <TextBox Tag="Биты данных"
                              HorizontalAlignment="Left"
@@ -244,7 +316,25 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding DataBits}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">
+                                <Border Background="Transparent"
+                                        CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>5</TextBlock>
+                                        <TextBlock>6</TextBlock>
+                                        <TextBlock>7</TextBlock>
+                                        <TextBlock>8</TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                     <TextBox Tag="Время задержки"
                              HorizontalAlignment="Left"
@@ -252,7 +342,25 @@
                              Margin="0,10,0,0"
                              TextWrapping="NoWrap"
                              Text="{Binding Timeout}"
-                             Style="{DynamicResource TextBoxSettingStyle}"/>
+                             Style="{DynamicResource TextBoxSettingStyle}">
+                        <TextBox.ToolTip>
+                            <ToolTip HasDropShadow="False"
+                                     VerticalOffset="10"
+                                     Background="{StaticResource activeSecondaryBackColorDark}"
+                                     Foreground="{StaticResource mainFontColorDefault}">
+                                <Border Background="Transparent"
+                                        CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock>Примеры записи:</TextBlock>
+                                        <TextBlock>500</TextBlock>
+                                        <TextBlock>1000</TextBlock>
+                                        <TextBlock>2000</TextBlock>
+                                        <TextBlock>3000</TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
 
                 </StackPanel>
                 
