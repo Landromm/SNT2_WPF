@@ -419,7 +419,11 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		/// <summary>Логика выполнения - открытие окна настроек приложения.</summary>
 		private void ExecutedOpenSettingsCommand()
 		{
-			_userDialog.OpenSettingsWindow();
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					_userDialog.OpenSettingsWindow();
+				});
+			
 		}
 		#endregion
 
