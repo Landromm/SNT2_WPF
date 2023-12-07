@@ -12,7 +12,7 @@
     <Grid>
 
         <Border Background="{StaticResource panelColorDefault}"
-            CornerRadius="0,10,10,10">
+            CornerRadius="10">
 
             <StackPanel Orientation="Vertical">
 
