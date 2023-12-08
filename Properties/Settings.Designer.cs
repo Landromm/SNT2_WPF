@@ -220,5 +220,17 @@ namespace SNT2_WPF.Properties {
                 this["PortName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int CountCounters {
+            get {
+                return ((int)(this["CountCounters"]));
+            }
+            set {
+                this["CountCounters"] = value;
+            }
+        }
     }
 }
