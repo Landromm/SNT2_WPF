@@ -206,7 +206,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				MainDataModels.Add(counterData);
 			}
 		}
-		private void GetAllDataValues( List<string> listCounters)
+		private void GetAllDataValues(List<string> listCounters)
         {
             for (int i = 0; i < listCounters.Count; i++)
             {
@@ -391,7 +391,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		}
 		#endregion
 
-
 		#region Command OpenArchiveGraphsCommand - Открытие окна графиков архивных данных
 
 		/// <summary>Открытие окна графиков архивных данных</summary>
@@ -406,7 +405,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			_userDialog.OpenArchiveGraph();
 		}
 		#endregion
-
 
 		#region Command OpenSettingsCommand - открытие окна настроек приложения.
 

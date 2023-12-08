@@ -53,5 +53,8 @@
     <Setting Name="PortName" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM3</Value>
     </Setting>
+    <Setting Name="CountCounters" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

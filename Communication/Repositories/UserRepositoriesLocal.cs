@@ -20,6 +20,9 @@ internal class UserRepositoriesLocal : IRepositoriesLocal
 		foreach (string counter in counters)
 			numbersCounters.Add(counter);
 
+		Properties.Settings.Default.CountCounters = numbersCounters.Count;
+		Properties.Settings.Default.Save();
+
 		return numbersCounters;
 	}
 }

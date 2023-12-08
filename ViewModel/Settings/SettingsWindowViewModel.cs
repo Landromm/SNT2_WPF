@@ -59,7 +59,18 @@ public class SettingsWindowViewModel : DialogViewModel
 	/// <summary>Логика выполнения - Открытие фрэйма настройки каналов.</summary>
 	private void ExecutedShowTagsViewCommand()
 	{
-		CurrentChildView = new SettingTagsViewModel();
+		var countCounters = Properties.Settings.Default.CountCounters;
+		var viewModel = new SettingTagsViewModel();
+		//Не удалять - Универсальная формула отображения количества счетчиков в окне настроек каналов.
+		//for(int i = 0; i < countCounters; i++)
+		//{
+		//	viewModel.Items.Add(new ItemTabControlTagViewModel($"Счетчик №{i+1}", $"СНТ-2 №{i+1}"));
+		//}
+		viewModel.Items.Add(new ItemTabControlTagViewModel($"Счетчик №{1}", $"СНТ-2 №{1}"));
+		viewModel.Items.Add(new ItemTabControlTagViewModel($"Счетчик №{2}", $"СНТ-2 №{2}"));
+		viewModel.Items.Add(new ItemTabControlTagViewModel($"Счетчик №{3}", $"СНТ-2 №{3}"));
+
+		CurrentChildView = viewModel;
 	}
 	#endregion
 
