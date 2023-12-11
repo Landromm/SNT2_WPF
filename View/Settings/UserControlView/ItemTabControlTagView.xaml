@@ -6,9 +6,373 @@
              xmlns:local="clr-namespace:SNT2_WPF.View.Settings.UserControlView"
              d:DataContext="{d:DesignInstance Type=local:ItemTabControlTagView}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="{Binding CounterNumber}"
-                   FontSize="48"/>
-    </Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto"
+                      Height="573">
+
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text="String str"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                </StackPanel>
+
+                <Border Background="{StaticResource secondaryBackColorDefault}"
+                    Margin="5 20"
+                    CornerRadius="2"
+                    Height="5"
+                    />
+
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        Height="50">
+                    <TextBox Text=" asdasdf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" sadf"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                    <TextBox Text=" LsadfsadfAST"
+            FontSize="24"
+            Grid.Column="0"
+            Grid.Row="0"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal"
+                        Height="100">
+                    <TextBox Text=" LAST"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text=" LAST"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                    <TextBox Text=" LAST"
+                            FontSize="24"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+                </StackPanel>
+
+
+            </StackPanel>
+
+        </ScrollViewer>
+
 </UserControl>

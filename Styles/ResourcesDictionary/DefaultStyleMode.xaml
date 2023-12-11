@@ -1465,7 +1465,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_Border" Property="BorderBrush" Value="#063b59" />
-                            <Setter TargetName="PART_Border" Property="BorderThickness" Value="2"/>
+                            <Setter Property="Background" Value="{StaticResource buttonColorDark}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
