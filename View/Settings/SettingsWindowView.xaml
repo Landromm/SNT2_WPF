@@ -11,7 +11,7 @@
         MinHeight="400" MinWidth="900"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
 
@@ -73,10 +73,10 @@
                                 Style="{DynamicResource buttonMinimizeSettings}"
                                 Click="btnMinimize_Click"/>
 
-                        <!--Кнопка максимизации окна настроек.-->
+                        <!--Кнопка максимизации окна настроек.--><!--
                         <Button x:Name="btnMaximize"
                                 Style="{DynamicResource buttonMaximizeSettings}"
-                                Click="btnMaximize_Click"/>
+                                Click="btnMaximize_Click"/>-->
 
                         <!--Кнопка закрытие окна настроек.-->
                         <Button x:Name="btnClose"

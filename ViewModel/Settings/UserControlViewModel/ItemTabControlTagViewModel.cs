@@ -27,9 +27,6 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	}
 	#endregion
 
-
-
-
 	public ItemTabControlTagViewModel(string tabName, string countName)
 	{
 		TabName = tabName;
