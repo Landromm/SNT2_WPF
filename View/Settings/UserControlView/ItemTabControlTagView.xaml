@@ -6,373 +6,209 @@
              xmlns:local="clr-namespace:SNT2_WPF.View.Settings.UserControlView"
              d:DataContext="{d:DesignInstance Type=local:ItemTabControlTagView}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             >
+             d:DesignHeight="450" d:DesignWidth="555">
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Auto"
-                      Height="573">
+    <UserControl.Resources>
 
-            <StackPanel>
+        <Style x:Key="TextBoxTitleTagSetting" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Andika"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
 
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text="String str"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                </StackPanel>
+        <Style x:Key="TextBoxValueTagSetting" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Andika"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
 
-                <Border Background="{StaticResource secondaryBackColorDefault}"
-                    Margin="5 20"
-                    CornerRadius="2"
-                    Height="5"
-                    />
+    </UserControl.Resources>
 
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                        Height="50">
-                    <TextBox Text=" asdasdf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" sadf"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                    <TextBox Text=" LsadfsadfAST"
-            FontSize="24"
-            Grid.Column="0"
-            Grid.Row="0"/>
-                </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Auto"
+                    Height="574">
 
+        <StackPanel>
 
-                <StackPanel Orientation="Horizontal"
-                        Height="100">
-                    <TextBox Text=" LAST"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text=" LAST"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                    <TextBox Text=" LAST"
-                            FontSize="24"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
-                </StackPanel>
+            <!--Header-->
+            <Grid Height="160">
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="235"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            </StackPanel>
+                <!--Header - Левая часть-->
+                <Grid Grid.Column="0">
 
-        </ScrollViewer>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Title счетчика (Наименование, Дата и Время из прибора)-->
+                    <Border Grid.Row="0"
+                            BorderThickness="0,0,5,5"
+                            BorderBrush="{StaticResource BorderColor1Default}"
+                            CornerRadius="0,0,10,0"
+                            Margin="0">
+
+                        <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Left">
+
+                            <TextBlock Text="Наименование счетчика."
+                                       FontSize="18"
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="Дата и время счетчика:"
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="23-12-12 08:15:35."
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+                    <StackPanel Orientation="Vertical"
+                                Grid.Row="1">
+
+                        <!--Время простоя.-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Время простоя: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="344877"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Время наработки.-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Время наработки: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="884877"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Header - Правая часть-->
+                <Grid Grid.Column="1">
+
+                    <StackPanel Orientation="Vertical"
+                                Margin="5,3,0,0">
+                        <!--Заводской номер.-->
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <TextBlock Text="Заводской номер: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+                            
+                            <TextBlock Text="1525"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Интерфейс.-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Интерфейс: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="152533"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Ввод в эксплуатацию.-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Ввод в эксплуатацию: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="13-07-12:11"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Максимум датчиков давления.-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Максимум датчиков давления: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="2.5"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Расход максимальный - канал №1-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Расход максимальный - канал №1: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="1525"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Расход максимальный - канал №2-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Расход максимальный - канал №2: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="152533"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Расход граничный - канал №1-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Расход граничный - канал №1: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="1525"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        <!--Расход граничный - канал №2-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Расход граничный - канал №2: "
+                                       Style="{DynamicResource TextBoxTitleTagSetting}"/>
+
+                            <TextBlock Text="152533"
+                                       Style="{DynamicResource TextBoxValueTagSetting}"/>
+
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+                </Grid>
+                
+            </Grid>
+
+            <!--Разграничитель (Separator)-->
+            <Border Background="{StaticResource secondaryBackColorDefault}"
+                Margin="0 5"
+                Height="5"/>
+
+            <!--Body-->
+            <Grid>
+                
+                
+                
+            </Grid>
+
+        </StackPanel>
+
+    </ScrollViewer>
 
 </UserControl>

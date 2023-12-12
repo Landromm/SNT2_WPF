@@ -1350,8 +1350,8 @@
                 <ControlTemplate TargetType="{x:Type TabControl}">
 
                     <Grid ClipToBounds="True" 
-                              SnapsToDevicePixels="True" 
-                              KeyboardNavigation.TabNavigation="Local">
+                          SnapsToDevicePixels="True" 
+                          KeyboardNavigation.TabNavigation="Local">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Name="ColumnDefinition0" />
@@ -1378,24 +1378,24 @@
                         </Border>
 
                         <Grid Name="ContentPanel"
-                                  KeyboardNavigation.TabIndex="2"
-                                  KeyboardNavigation.TabNavigation="Local"
-                                  KeyboardNavigation.DirectionalNavigation="Contained"
-                                  Grid.Column="0"
-                                  Grid.Row="1">
+                              KeyboardNavigation.TabIndex="2"
+                              KeyboardNavigation.TabNavigation="Local"
+                              KeyboardNavigation.DirectionalNavigation="Contained"
+                              Grid.Column="0"
+                              Grid.Row="1">
 
                             <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="10"
-                                        Margin="5 0">
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10"
+                                    Margin="5 0">
                                 <ContentPresenter Content="{TemplateBinding SelectedContent}"
-                                              ContentTemplate="{TemplateBinding SelectedContentTemplate}"
-                                              ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
-                                              ContentSource="SelectedContent"
-                                              Name="PART_SelectedContentHost"
-                                              Margin="5"
-                                              SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                                                  ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                                  ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
+                                                  ContentSource="SelectedContent"
+                                                  Name="PART_SelectedContentHost"
+                                                  Margin="-1 0"
+                                                  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                             </Border>
                         </Grid>
                     </Grid>
