@@ -138,7 +138,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			});
 			thread.IsBackground = true;
 			thread.Start();
-			
 		}
 
         private async Task ReadData()

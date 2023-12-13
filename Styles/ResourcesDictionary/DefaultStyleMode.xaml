@@ -437,6 +437,7 @@
 
         </Border>
     </DataTemplate>
+    
     <!--Стиль контейнера ListView-->
     <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -463,7 +464,8 @@
                 <Setter Property="BorderBrush" Value="{x:Null}" />
             </Trigger>
         </Style.Triggers>
-    </Style>    
+    </Style>
+    
     <!--#region Стили элементов шаблона контейнера ListView-->
     <!--Основной BorderItem-->
     <Style x:Key="ItemMainBorder" TargetType="Border">
@@ -1340,7 +1342,7 @@
     <!--Стиль TabControl-->
     <Style x:Key="TabControllSetting" TargetType="{x:Type TabControl}">
         <Setter Property="TabStripPlacement" Value="Left" />
-        <Setter Property="Margin" Value="5" />
+        <Setter Property="Margin" Value="10,10,5,5" />
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="{StaticResource primaryBackColorDefault}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Default}"/>
