@@ -8,13 +8,6 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              MinHeight="100">
-    
-    <UserControl.Resources>
-        
-
-
-        
-    </UserControl.Resources>
 
     <Grid>
 
@@ -37,7 +30,6 @@
                         </DataTemplate>
                     </TabControl.ItemTemplate>
 
-
                 </TabControl>
 
             </StackPanel>
@@ -45,4 +37,5 @@
         </Border>
 
     </Grid>
+    
 </UserControl>

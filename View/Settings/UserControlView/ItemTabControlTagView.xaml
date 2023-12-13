@@ -58,17 +58,18 @@
                             CornerRadius="0,0,10,0"
                             Margin="0">
 
+                        <!--Наименование и Дата-->
                         <StackPanel Orientation="Vertical"
                                     HorizontalAlignment="Left">
 
-                            <TextBlock Text="Наименование счетчика."
+                            <TextBlock Text="{Binding DiscriptionCounter}"
                                        FontSize="18"
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
                             <TextBlock Text="Дата и время счетчика:"
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="23-12-12 08:15:35."
+                            <TextBlock Text="{Binding TimeAndDate}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -84,7 +85,7 @@
                             <TextBlock Text="Время простоя: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="344877"
+                            <TextBlock Text="{Binding DownTime}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -94,7 +95,7 @@
                             <TextBlock Text="Время наработки: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="884877"
+                            <TextBlock Text="{Binding RunningTime}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -114,7 +115,7 @@
                             <TextBlock Text="Заводской номер: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
                             
-                            <TextBlock Text="1525"
+                            <TextBlock Text="{Binding SerialNumber}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -124,7 +125,7 @@
                             <TextBlock Text="Интерфейс: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="152533"
+                            <TextBlock Text="{Binding InterfaceNumber}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -134,7 +135,7 @@
                             <TextBlock Text="Ввод в эксплуатацию: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="13-07-12:11"
+                            <TextBlock Text="{Binding Commissioning}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -144,7 +145,7 @@
                             <TextBlock Text="Максимум датчиков давления: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="2.5"
+                            <TextBlock Text="{Binding MaxSensorsPressure}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -154,7 +155,7 @@
                             <TextBlock Text="Расход максимальный - канал №1: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="1525"
+                            <TextBlock Text="{Binding FlowMax_ch1}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -164,7 +165,7 @@
                             <TextBlock Text="Расход максимальный - канал №2: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="152533"
+                            <TextBlock Text="{Binding FlowMax_ch2}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -174,7 +175,7 @@
                             <TextBlock Text="Расход граничный - канал №1: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="1525"
+                            <TextBlock Text="{Binding FlowBoundary_ch1}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
@@ -184,7 +185,7 @@
                             <TextBlock Text="Расход граничный - канал №2: "
                                        Style="{DynamicResource TextBoxTitleTagSetting}"/>
 
-                            <TextBlock Text="152533"
+                            <TextBlock Text="{Binding FlowBoundary_ch2}"
                                        Style="{DynamicResource TextBoxValueTagSetting}"/>
 
                         </StackPanel>
