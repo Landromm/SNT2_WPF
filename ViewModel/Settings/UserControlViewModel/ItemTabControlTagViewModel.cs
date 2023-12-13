@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.Windows.Themes;
 using SNT2_WPF.Communication.Repositories;
 using System;
 using System.Collections.Generic;
@@ -295,7 +296,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 			Commissioning = _userRepositoriesDB.GetValueChanel(_hash[3]);
 			DownTime = _userRepositoriesDB.GetValueChanel(_hash[4]);
 			RunningTime = _userRepositoriesDB.GetValueChanel(_hash[5]);
-			MaxSensorsPressure = _userRepositoriesDB.GetValueChanel(_hash[6]);
+			MaxSensorsPressure = _userRepositoriesDB.GetValueChanel(_hash[6])!.Insert(1, ".");
 			FlowMax_ch1 = _userRepositoriesDB.GetValueChanel(_hash[7]);
 			FlowBoundary_ch1 = _userRepositoriesDB.GetValueChanel(_hash[8]);
 			FlowMax_ch2 = _userRepositoriesDB.GetValueChanel(_hash[9]);
