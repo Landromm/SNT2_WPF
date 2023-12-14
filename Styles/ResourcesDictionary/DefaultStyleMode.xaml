@@ -1493,6 +1493,173 @@
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+
+    <!--Наименование канала в списке настроек каналов.-->
+    <Style x:Key="TextBlockBodyTagSetting" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <!--Min - Max - Textblock в списке настроек каналов.-->
+    <Style x:Key="TextBlockMiniBodyTagSetting" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Tahoma"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="5 0"/>
+    </Style>
+    <!--Первый Textblock в списке настроек каналов.-->
+    <Style x:Key="TextBlockMiniLongBodyTagSetting" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Tahoma"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <!--Поле ввода граничных значений-->
+    <Style x:Key="TextBoxBodyTagSetting" TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource secondaryBackColorDefault}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource mainFontColorDefault}"/>
+        <Setter Property="Padding" Value="5 3"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MaxLength" Value="6"/>
+        <Setter Property="Cursor" Value="IBeam"/>
+        <Setter Property="Foreground" Value="{DynamicResource color5Dark}"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Width" Value="70"/>
+        <Setter Property="MaxHeight" Value="40"/>
+        <Setter Property="MaxWidth" Value="200"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+
+                    <Border x:Name="txtBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                MaxHeight="{TemplateBinding MaxHeight}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="True">
+
+                        <Grid Margin="{TemplateBinding Padding}">
+
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                              Focusable="False"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Hidden"
+                                              Margin="-2 2"/>
+
+                            <Label x:Name="WaterMarkerLabel"
+                                       Content="{TemplateBinding Tag}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       Visibility="Collapsed"
+                                       Foreground="#807e7e"
+                                       Padding="{TemplateBinding Padding}"/>
+
+                        </Grid>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value=""/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" TargetName="WaterMarkerLabel" Value="Visible"/>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource activeSecondaryBackColorDefault}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource color5Dark}"/>
+                            <Setter Property="Background" Value="{DynamicResource activeSecondaryBackColorDefault}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Кнопка сохранения параметров канала-->
+    <Style x:Key="ButtonOkTagSettingStyle" TargetType="{x:Type Button}">
+        <Setter Property="Content" Value="save"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="5.2 3"/>
+        <Setter Property="Background" Value="{StaticResource buttonColorDefault}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource mainFontColorDefault}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="{StaticResource color3Default}"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="MaxHeight" Value="40"/>
+        <Setter Property="MaxWidth" Value="200"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="BorderButton"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="5"
+                            MaxHeight="{TemplateBinding MaxHeight}"
+                            MaxWidth="{TemplateBinding MaxWidth}"
+                            SnapsToDevicePixels="True">
+
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource buttonOverColorDefault}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource color3Default}"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0.5"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!--Стиль кнопки при наведении-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
+            </Trigger>
+            <!--Стиль кнопки при активации-->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource panelActiveColorDefault}"/>
+
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--#endregion-->
     
     <!--#endregion-->
