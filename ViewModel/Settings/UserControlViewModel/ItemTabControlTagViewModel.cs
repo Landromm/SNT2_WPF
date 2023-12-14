@@ -293,7 +293,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 			TimeAndDate = _userRepositoriesDB.GetValueChanel(_hash[0]);
 			SerialNumber = _userRepositoriesDB.GetValueChanel(_hash[1]);
 			InterfaceNumber = _userRepositoriesDB.GetValueChanel(_hash[2]);
-			Commissioning = _userRepositoriesDB.GetValueChanel(_hash[3]);
+			Commissioning = _userRepositoriesDB.GetValueChanel(_hash[3])!.Insert(2, "-").Insert(5, "-").Insert(8, ":");
 			DownTime = _userRepositoriesDB.GetValueChanel(_hash[4]);
 			RunningTime = _userRepositoriesDB.GetValueChanel(_hash[5]);
 			MaxSensorsPressure = _userRepositoriesDB.GetValueChanel(_hash[6])!.Insert(1, ".");
@@ -303,7 +303,5 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 			FlowBoundary_ch2 = _userRepositoriesDB.GetValueChanel(_hash[10]);
 		}
 	}
-
-
 
 }
