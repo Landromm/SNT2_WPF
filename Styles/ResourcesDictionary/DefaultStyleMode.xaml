@@ -153,7 +153,6 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemContainerStyle" Value="{DynamicResource ListViewItemStyle}"/>
     </Style>
-
     <!--Шаблон контейнера ListView-->
     <DataTemplate x:Key="DefaultTemplateItem">
         <Border x:Name="borderItem"
@@ -436,8 +435,7 @@
             </Grid>
 
         </Border>
-    </DataTemplate>
-    
+    </DataTemplate>    
     <!--Стиль контейнера ListView-->
     <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -466,137 +464,137 @@
         </Style.Triggers>
     </Style>
     
-    <!--#region Стили элементов шаблона контейнера ListView-->
-    <!--Основной BorderItem-->
-    <Style x:Key="ItemMainBorder" TargetType="Border">
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Default}"/>
-        <Setter Property="CornerRadius" Value="10"/>
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="1,1" EndPoint="1,0">
-                    <GradientStop Color="{StaticResource gradientBackColor1Default}" Offset="0"/>
-                    <GradientStop Color="{StaticResource gradientBackColor2Default}" Offset="0.40"/>
-                    <GradientStop Color="{StaticResource gradientBackColor2Default}" Offset="0.60"/>
-                    <GradientStop Color="{StaticResource gradientBackColor1Default}" Offset="1"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-    </Style>
+        <!--#region Стили элементов шаблона контейнера ListView-->
+        <!--Основной BorderItem-->
+        <Style x:Key="ItemMainBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Default}"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="1,1" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource gradientBackColor1Default}" Offset="0"/>
+                        <GradientStop Color="{StaticResource gradientBackColor2Default}" Offset="0.40"/>
+                        <GradientStop Color="{StaticResource gradientBackColor2Default}" Offset="0.60"/>
+                        <GradientStop Color="{StaticResource gradientBackColor1Default}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
         
-    <!--#region HeaderItem-->
-    <!--Индикатор связи со счетчиком-->
-    <Style x:Key="ItemCheckConnectStyle" TargetType="Border">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Background" Value="{StaticResource color2Default}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Default}"/>
-        <Setter Property="CornerRadius" Value="10"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                <Setter Property="Background" Value="{StaticResource color4Default}"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-    <!--Наименование счётчика-->
-    <Style x:Key="ItemNameCounter" TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Andika"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
-    </Style>
-    <!--#endregion-->
+            <!--#region HeaderItem-->
+            <!--Индикатор связи со счетчиком-->
+            <Style x:Key="ItemCheckConnectStyle" TargetType="Border">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Background" Value="{StaticResource color2Default}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderColor1Default}"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CheckErrorConection, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                        <Setter Property="Background" Value="{StaticResource color4Default}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <!--Наименование счётчика-->
+            <Style x:Key="ItemNameCounter" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Andika"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
+            </Style>
+            <!--#endregion-->
     
-    <!--#region BodyItem-->
-    <Style x:Key="ItemChanelStackPanel" TargetType="StackPanel">
-        <Setter Property="Orientation" Value="Vertical"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    <!--Текстовое поле обозначения канала и его единицы измерения-->
-    <Style x:Key="ItemNameChanelTextBlock" TargetType="TextBlock">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Andika"/>
-        <Setter Property="FontSize" Value="10"/>
-        <Setter Property="Foreground" Value="{StaticResource blackFontColorDefault}"/>
-    </Style>
-    <!--Кнопка показания значения Расхода-->
-    <Style x:Key="ItemChanelButton" TargetType="Button">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="BorderBrush" Value="{StaticResource buttonActiveColorDefault}"/>
-        <Setter Property="Background" Value="{StaticResource color5Default}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-
-                <ControlTemplate TargetType="Button">
-
-                    <Border x:Name="BorderContent"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="5">
-
-                        <ContentPresenter   Name="ContentPresenter"
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Margin="0,0,0,0"/>
-
-                    </Border>
-
-                </ControlTemplate>
-
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
+            <!--#region BodyItem-->
+            <Style x:Key="ItemChanelStackPanel" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Vertical"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <!--Текстовое поле обозначения канала и его единицы измерения-->
+            <Style x:Key="ItemNameChanelTextBlock" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Andika"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Foreground" Value="{StaticResource blackFontColorDefault}"/>
+            </Style>
+            <!--Кнопка показания значения Расхода-->
+            <Style x:Key="ItemChanelButton" TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderBrush" Value="{StaticResource buttonActiveColorDefault}"/>
                 <Setter Property="Background" Value="{StaticResource color5Default}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
-                <Setter Property="Effect">
+                <Setter Property="Template">
                     <Setter.Value>
-                        <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+
+                        <ControlTemplate TargetType="Button">
+
+                            <Border x:Name="BorderContent"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="5">
+
+                                <ContentPresenter   Name="ContentPresenter"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,0,0"/>
+
+                            </Border>
+
+                        </ControlTemplate>
+
                     </Setter.Value>
                 </Setter>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource color6Default}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource color5Default}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{StaticResource color6Default}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource color3Default}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-    <!--Шаблон кнопки показания занчения-->
-    <Style x:Key="ItemContentButtonStyle" TargetType="TextBlock">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Arial"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-    </Style>
-    <!--#endregion-->    
+            <!--Шаблон кнопки показания значения-->
+            <Style x:Key="ItemContentButtonStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+            <!--#endregion-->    
     
-    <!--#region FooterItem-->
-    <!--Заводской номер счётчика-->
-    <Style x:Key="ItemSerialNumberStackPanel" TargetType="StackPanel">
-        <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-    </Style>
-    <Style x:Key="ItemSerialNumberTextBlock" TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Andika"/>
-        <Setter Property="FontSize" Value="10"/>
-        <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
-    </Style>
-    <!--#endregion-->
+            <!--#region FooterItem-->
+            <!--Заводской номер счётчика-->
+            <Style x:Key="ItemSerialNumberStackPanel" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="ItemSerialNumberTextBlock" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Andika"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Foreground" Value="{StaticResource secondFontColorDefault}"/>
+            </Style>
+            <!--#endregion-->
 
-    <!--#endregion-->
+        <!--#endregion-->
 
     <!--Скрытая панель дополнительных функциональных кнопок-->
     <Style x:Key="HiddenControlPanel" TargetType="Border">
@@ -1439,8 +1437,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    
+    </Style>    
     <!--Стиль TabItem-->
     <Style x:Key="TabItemSetting" TargetType="{x:Type TabItem}">
         <Setter Property="Background" Value="Transparent" />
@@ -1453,7 +1450,7 @@
                                 BorderThickness="1" 
                                 BorderBrush="{StaticResource BorderColor1Default}" 
                                 CornerRadius="7"
-                                Margin="0 2"
+                                Margin="2"
                                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <ContentPresenter ContentSource="Header" 
                                               Margin="5"
@@ -1479,6 +1476,22 @@
                 <Setter Property="Background" Value="{StaticResource buttonColorDark}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>    
+    <!--Стиль полей данных в Header-->
+    <Style x:Key="TextBlockTitleTagSetting" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Andika"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+    <Style x:Key="TextBlockValueTagSetting" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
     <!--#endregion-->
     
