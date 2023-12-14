@@ -16,6 +16,8 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	//Инициализация наименования вкладок в "TabControl".
     public string TabName { get; init; }
 
+	#region Свойства неизменных параметров счетчика.
+
 	#region CounterId : string? - ID Счетчика.
 
 	/// <summary>ID Счетчика. - поле.</summary>
@@ -235,6 +237,14 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 			OnPropertyChanged(nameof(FlowBoundary_ch2));
 		}
 	}
+	#endregion
+
+	#endregion
+
+	#region Свойства изменяемых параметров счетчика.
+
+
+
 	#endregion
 
 	private readonly IRepositoriesDB _userRepositoriesDB = null!;
