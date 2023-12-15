@@ -243,8 +243,414 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 	#region Свойства изменяемых параметров счетчика.
 
+	#region Temperature_ch1_Max : string? - Температура максимальная - канал №1.
 
+	/// <summary>Температура максимальная - канал №1. - поле.</summary>
+	private string? _temperature_ch1_Max;
 
+	/// <summary>Температура максимальная - канал №1. - свойство.</summary>
+	public string? Temperature_ch1_Max
+	{
+		get => _temperature_ch1_Max;
+		set
+		{
+			_temperature_ch1_Max = value;
+			OnPropertyChanged(nameof(Temperature_ch1_Max));
+		}
+	}
+	#endregion
+
+	#region Temperature_ch1_Min : string? - Температура минимальная - канал №1.
+
+	/// <summary>Температура минимальная - канал №1. - поле.</summary>
+	private string? _temperature_ch1_Min;
+
+	/// <summary>Температура манимальная - канал №1. - свойство.</summary>
+	public string? Temperature_ch1_Min
+	{
+		get => _temperature_ch1_Min;
+		set
+		{
+			_temperature_ch1_Min = value;
+			OnPropertyChanged(nameof(Temperature_ch1_Min));
+		}
+	}
+	#endregion
+
+	#region Temperature_ch1_CDAD : string? - Кол-во знаков после запятой, Температура - канал №1.
+
+	/// <summary>Кол-во знаков после запятой, Температура - канал №1. - поле.</summary>
+	private string? _temperature_ch1_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Температура - канал №1. - свойство.</summary>
+	public string? Temperature_ch1_CDAD
+	{
+		get => _temperature_ch1_CDAD;
+		set
+		{
+			_temperature_ch1_CDAD = value;
+			OnPropertyChanged(nameof(Temperature_ch1_CDAD));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch1_Max : string? - Расход объемный максимальный - канал №1
+
+	/// <summary>Расход объемный максимальный - канал №1 - поле.</summary>
+	private string? _flowVolume_ch1_Max;
+
+	/// <summary>Расход объемный максимальный - канал №1 - свойство.</summary>
+	public string? FlowVolume_ch1_Max
+	{
+		get => _flowVolume_ch1_Max;
+		set
+		{
+			_flowVolume_ch1_Max = value;
+			OnPropertyChanged(nameof(FlowVolume_ch1_Max));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch1_Min : string? - Расход объемный минимальный - канал №1
+
+	/// <summary>Расход объемный минимальный - канал №1 - поле.</summary>
+	private string? _flowVolume_ch1_Min;
+
+	/// <summary>Расход объемный минимальный - канал №1 - свойство.</summary>
+	public string? FlowVolume_ch1_Min
+	{
+		get => _flowVolume_ch1_Min;
+		set
+		{
+			_flowVolume_ch1_Min = value;
+			OnPropertyChanged(nameof(FlowVolume_ch1_Min));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch1_CDAD : string? - Кол-во знаков после запятой, Расход объемный - канал №1
+
+	/// <summary>Кол-во знаков после запятой, Расход объемный - канал №1 - поле.</summary>
+	private string? _flowVolume_ch1_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Расход объемный - канал №1 - свойство.</summary>
+	public string? FlowVolume_ch1_CDAD
+	{
+		get => _flowVolume_ch1_CDAD;
+		set
+		{
+			_flowVolume_ch1_CDAD = value;
+			OnPropertyChanged(nameof(FlowVolume_ch1_CDAD));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch1_Max : string? - Расход массовый максимальный - канал №1
+
+	/// <summary>Расход массовый максимальный - канал №1 - поле.</summary>
+	private string? _flowMass_ch1_Max;
+
+	/// <summary>Расход массовый максимальный - канал №1 - свойство.</summary>
+	public string? FlowMass_ch1_Max
+	{
+		get => _flowMass_ch1_Max;
+		set
+		{
+			_flowMass_ch1_Max = value;
+			OnPropertyChanged(nameof(FlowMass_ch1_Max));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch1_Min : string? - Расход массовый минимальный - канал №1
+
+	/// <summary>Расход массовый минимальный - канал №1 - поле.</summary>
+	private string? _flowMass_ch1_Min;
+
+	/// <summary>Расход массовый минимальный - канал №1 - свойство.</summary>
+	public string? FlowMass_ch1_Min
+	{
+		get => _flowMass_ch1_Min;
+		set
+		{
+			_flowMass_ch1_Min = value;
+			OnPropertyChanged(nameof(FlowMass_ch1_Min));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch1_CDAD : string? - Кол-во знаков после запятой, Расход массовый - канал №1
+
+	/// <summary>Кол-во знаков после запятой, Расход массовый - канал №1 - поле.</summary>
+	private string? _flowMass_ch1_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Расход массовый - канал №1 - свойство.</summary>
+	public string? FlowMass_ch1_CDAD
+	{
+		get => _flowMass_ch1_CDAD;
+		set
+		{
+			_flowMass_ch1_CDAD = value;
+			OnPropertyChanged(nameof(FlowMass_ch1_CDAD));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch1_Max : string? - Давление максимальное - канал №1.
+
+	/// <summary>Давление максимальное - канал №1. - поле.</summary>
+	private string? _pressure_ch1_Max;
+
+	/// <summary>Давление максимальное - канал №1. - свойство.</summary>
+	public string? Pressure_ch1_Max
+	{
+		get => _pressure_ch1_Max;
+		set
+		{
+			_pressure_ch1_Max = value;
+			OnPropertyChanged(nameof(Pressure_ch1_Max));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch1_Min : string? - Давление минимальное - канал №1.
+
+	/// <summary>Давление минимальное - канал №1. - поле.</summary>
+	private string? _pressure_ch1_Min;
+
+	/// <summary>Давление минимальное - канал №1. - свойство.</summary>
+	public string? Pressure_ch1_Min
+	{
+		get => _pressure_ch1_Min;
+		set
+		{
+			_pressure_ch1_Min = value;
+			OnPropertyChanged(nameof(Pressure_ch1_Min));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch1_CDAD : string? - Кол-во знаков после запятой, Давление - канал №1.
+
+	/// <summary>Кол-во знаков после запятой, Давление - канал №1. - поле.</summary>
+	private string? _pressure_ch1_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Давление - канал №1. - свойство.</summary>
+	public string? Pressure_ch1_CDAD
+	{
+		get => _pressure_ch1_CDAD;
+		set
+		{
+			_pressure_ch1_CDAD = value;
+			OnPropertyChanged(nameof(Pressure_ch1_CDAD));
+		}
+	}
+	#endregion
+
+	#region Temperature_ch2_Max : string? - Температура максимальная - канал №2.
+
+	/// <summary>Температура максимальная - канал №2. - поле.</summary>
+	private string? _temperature_ch2_Max;
+
+	/// <summary>Температура максимальная - канал №2. - свойство.</summary>
+	public string? Temperature_ch2_Max
+	{
+		get => _temperature_ch2_Max;
+		set
+		{
+			_temperature_ch2_Max = value;
+			OnPropertyChanged(nameof(Temperature_ch2_Max));
+		}
+	}
+	#endregion
+
+	#region Temperature_ch2_Min : string? - Температура минимальная - канал №2.
+
+	/// <summary>Температура минимальная - канал №2. - поле.</summary>
+	private string? _temperature_ch2_Min;
+
+	/// <summary>Температура манимальная - канал №2. - свойство.</summary>
+	public string? Temperature_ch2_Min
+	{
+		get => _temperature_ch2_Min;
+		set
+		{
+			_temperature_ch2_Min = value;
+			OnPropertyChanged(nameof(Temperature_ch2_Min));
+		}
+	}
+	#endregion
+
+	#region Temperature_ch2_CDAD : string? - Кол-во знаков после запятой, Температура - канал №2.
+
+	/// <summary>Кол-во знаков после запятой, Температура - канал №2. - поле.</summary>
+	private string? _temperature_ch2_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Температура - канал №2. - свойство.</summary>
+	public string? Temperature_ch2_CDAD
+	{
+		get => _temperature_ch2_CDAD;
+		set
+		{
+			_temperature_ch2_CDAD = value;
+			OnPropertyChanged(nameof(Temperature_ch2_CDAD));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch2_Max : string? - Расход объемный максимальный - канал №2
+
+	/// <summary>Расход объемный максимальный - канал №2 - поле.</summary>
+	private string? _flowVolume_ch2_Max;
+
+	/// <summary>Расход объемный максимальный - канал №2 - свойство.</summary>
+	public string? FlowVolume_ch2_Max
+	{
+		get => _flowVolume_ch2_Max;
+		set
+		{
+			_flowVolume_ch2_Max = value;
+			OnPropertyChanged(nameof(FlowVolume_ch2_Max));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch2_Min : string? - Расход объемный минимальный - канал №2
+
+	/// <summary>Расход объемный минимальный - канал №2 - поле.</summary>
+	private string? _flowVolume_ch2_Min;
+
+	/// <summary>Расход объемный минимальный - канал №2 - свойство.</summary>
+	public string? FlowVolume_ch2_Min
+	{
+		get => _flowVolume_ch2_Min;
+		set
+		{
+			_flowVolume_ch2_Min = value;
+			OnPropertyChanged(nameof(FlowVolume_ch2_Min));
+		}
+	}
+	#endregion
+
+	#region FlowVolume_ch2_CDAD : string2 - Кол-во знаков после запятой, Расход объемный - канал №2
+
+	/// <summary>Кол-во знаков после запятой, Расход объемный - канал №2 - поле.</summary>
+	private string? _flowVolume_ch2_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Расход объемный - канал №2 - свойство.</summary>
+	public string? FlowVolume_ch2_CDAD
+	{
+		get => _flowVolume_ch2_CDAD;
+		set
+		{
+			_flowVolume_ch2_CDAD = value;
+			OnPropertyChanged(nameof(FlowVolume_ch2_CDAD));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch2_Max : string? - Расход массовый максимальный - канал №2
+
+	/// <summary>Расход массовый максимальный - канал №2 - поле.</summary>
+	private string? _flowMass_ch2_Max;
+
+	/// <summary>Расход массовый максимальный - канал №2 - свойство.</summary>
+	public string? FlowMass_ch2_Max
+	{
+		get => _flowMass_ch2_Max;
+		set
+		{
+			_flowMass_ch2_Max = value;
+			OnPropertyChanged(nameof(FlowMass_ch2_Max));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch2_Min : string? - Расход массовый минимальный - канал №2
+
+	/// <summary>Расход массовый минимальный - канал №2 - поле.</summary>
+	private string? _flowMass_ch2_Min;
+
+	/// <summary>Расход массовый минимальный - канал №2 - свойство.</summary>
+	public string? FlowMass_ch2_Min
+	{
+		get => _flowMass_ch2_Min;
+		set
+		{
+			_flowMass_ch2_Min = value;
+			OnPropertyChanged(nameof(FlowMass_ch2_Min));
+		}
+	}
+	#endregion
+
+	#region FlowMass_ch2_CDAD : string? - Кол-во знаков после запятой, Расход массовый - канал №2
+
+	/// <summary>Кол-во знаков после запятой, Расход массовый - канал №2 - поле.</summary>
+	private string? _flowMass_ch2_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Расход массовый - канал №2 - свойство.</summary>
+	public string? FlowMass_ch2_CDAD
+	{
+		get => _flowMass_ch2_CDAD;
+		set
+		{
+			_flowMass_ch2_CDAD = value;
+			OnPropertyChanged(nameof(FlowMass_ch2_CDAD));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch2_Max : string? - Давление максимальное - канал №2.
+
+	/// <summary>Давление максимальное - канал №2. - поле.</summary>
+	private string? _pressure_ch2_Max;
+
+	/// <summary>Давление максимальное - канал №2. - свойство.</summary>
+	public string? Pressure_ch2_Max
+	{
+		get => _pressure_ch2_Max;
+		set
+		{
+			_pressure_ch2_Max = value;
+			OnPropertyChanged(nameof(Pressure_ch2_Max));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch2_Min : string? - Давление минимальное - канал №2.
+
+	/// <summary>Давление минимальное - канал №2. - поле.</summary>
+	private string? _pressure_ch2_Min;
+
+	/// <summary>Давление минимальное - канал №2. - свойство.</summary>
+	public string? Pressure_ch2_Min
+	{
+		get => _pressure_ch2_Min;
+		set
+		{
+			_pressure_ch2_Min = value;
+			OnPropertyChanged(nameof(Pressure_ch2_Min));
+		}
+	}
+	#endregion
+
+	#region Pressure_ch2_CDAD : string? - Кол-во знаков после запятой, Давление - канал №2.
+
+	/// <summary>Кол-во знаков после запятой, Давление - канал №2. - поле.</summary>
+	private string? _pressure_ch2_CDAD;
+
+	/// <summary>Кол-во знаков после запятой, Давление - канал №2. - свойство.</summary>
+	public string? Pressure_ch2_CDAD
+	{
+		get => _pressure_ch2_CDAD;
+		set
+		{
+			_pressure_ch2_CDAD = value;
+			OnPropertyChanged(nameof(Pressure_ch2_CDAD));
+		}
+	}
+	#endregion
+	
 	#endregion
 
 	private readonly IRepositoriesDB _userRepositoriesDB = null!;

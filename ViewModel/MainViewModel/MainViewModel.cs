@@ -91,7 +91,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
         {
-            InitializationStyleSNT2();            
+            InitializationStyleSNT2();
 
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
@@ -102,7 +102,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             InitializeCounters();
 
 			generationData = new GenerationData();
-			//RunGenerationThread();			
+			//RunGenerationThread();
 
 			_readCounters = new ReadCounters();
 			StartReadCounters();

@@ -193,6 +193,7 @@
 
                 <StackPanel Orientation="Vertical">
 
+                    <!--Температура - канал №1.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -235,30 +236,30 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding Temperature_ch1_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding Temperature_ch1_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding Temperature_ch1_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
                         
-                    </Grid>
-                    
+                    </Grid>                    
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Расход объемный - канал №1.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -301,17 +302,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding FlowVolume_ch1_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding FlowVolume_ch1_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding FlowVolume_ch1_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -319,12 +320,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Расход массовый - канал №1.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -367,17 +368,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding FlowMass_ch1_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding FlowMass_ch1_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding FlowMass_ch1_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -385,12 +386,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Давление - канал №1.-->
                     <Grid Margin="10 0">
 
                         <Grid.RowDefinitions>
@@ -433,17 +434,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding Pressure_ch1_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding Pressure_ch1_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding Pressure_ch1_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -451,12 +452,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Температура - канал №2.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -499,17 +500,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding Temperature_ch2_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding Temperature_ch2_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding Temperature_ch2_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -517,12 +518,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Расход объемный - канал №2.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -565,17 +566,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding FlowVolume_ch2_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding FlowVolume_ch2_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding FlowVolume_ch2_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -583,12 +584,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Расход массовый - канал №2.-->
                     <Grid Margin="10, 0">
 
                         <Grid.RowDefinitions>
@@ -631,17 +632,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding FlowMass_ch2_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding FlowMass_ch2_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding FlowMass_ch2_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -649,12 +650,12 @@
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
-
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
                             Height="2"/>
 
+                    <!--Давление - канал №2.-->
                     <Grid Margin="10, 0, 10, 10">
 
                         <Grid.RowDefinitions>
@@ -697,17 +698,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="5"/>
+                                 Text="{Binding Pressure_ch2_CDAD}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999999"/>
+                                 Text="{Binding Pressure_ch2_Min}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="999"/>
+                                 Text="{Binding Pressure_ch2_Max}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -716,8 +717,7 @@
 
                     </Grid>
 
-                </StackPanel>
-                
+                </StackPanel>                
                 
             </Grid>
 
