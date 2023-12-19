@@ -23,10 +23,11 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	//Инициализация наименования вкладок в "TabControl".
     public string TabName { get; init; }
 
-	private Counters settingsCounter = null!;
+	private Counters? settingsCounter = null!;
 	private Counters changedSettingsCounter = null!;
 
-	readonly JsonSerializerOptions options = new (){ WriteIndented = true };
+	private readonly JsonSerializerOptions options = new (){ WriteIndented = true };
+	private readonly IRepositoriesDB _userRepositoriesDB = null!;
 
 	#region Свойства неизменных параметров счетчика.
 
@@ -665,15 +666,12 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	
 	#endregion
 
-	private readonly IRepositoriesDB _userRepositoriesDB = null!;
+	#region Command Temperature_ch1_SaveCommand - Сохранение параметров температуры - канал №1. 
 
-
-	#region Command Temperature_ch1_SaveCommand - Сохранение параметров температуры канала №1. 
-
-	/// <summary>Сохранение параметров температуры канала №1. </summary>
+	/// <summary>Сохранение параметров температуры - канал №1. </summary>
 	private LambdaCommand? _Temperature_ch1_SaveCommand;
 
-	/// <summary>Сохранение параметров температуры канала №1. </summary>
+	/// <summary>Сохранение параметров температуры - канал №1. </summary>
 	public ICommand Temperature_ch1_SaveCommand => _Temperature_ch1_SaveCommand ??= new(ExecutedTemperature_ch1_SaveCommand);
 
 	/// <summary>Логика выполнения - Сохранение параметров температуры канала №1. </summary>
@@ -681,23 +679,108 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	{
 		try
 		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
+			settingsCounter!.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch1_Max = Temperature_ch1_Max;
+			settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch1_Min = Temperature_ch1_Min;
+			settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch1_CDAD = Temperature_ch1_CDAD;
+			JsonSerializer.Serialize(fs, settingsCounter, options);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command FlowVolume_ch1_SaveCommand - Сохранение параметров расхода объемного - канал №1.
+
+	/// <summary>Сохранение параметров расхода объемного - канал №1.</summary>
+	private LambdaCommand? _FlowVolume_ch1_SaveCommand;
+
+	/// <summary>Сохранение параметров расхода объемного - канал №1.</summary>
+	public ICommand FlowVolume_ch1_SaveCommand => _FlowVolume_ch1_SaveCommand ??= new(ExecutedFlowVolume_ch1_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров расхода объемного - канал №1.</summary>
+	private void ExecutedFlowVolume_ch1_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
+			settingsCounter!.CountersList!
+				.Where(c => c.CounterId == CounterId)
+				.Select(p => p.SettingsCounterParameters)
+				.First()!
+				.FlowVolume_ch1_Max = FlowVolume_ch1_Max;
+			settingsCounter.CountersList!
+				.Where(c => c.CounterId == CounterId)
+				.Select(p => p.SettingsCounterParameters)
+				.First()!
+				.FlowVolume_ch1_Min = FlowVolume_ch1_Min;
+			settingsCounter.CountersList!
+				.Where(c => c.CounterId == CounterId)
+				.Select(p => p.SettingsCounterParameters)
+				.First()!
+				.FlowVolume_ch1_CDAD = FlowVolume_ch1_CDAD;
+			JsonSerializer.Serialize(fs, settingsCounter, options);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command FlowMass_ch1_SaveCommand - Сохранение параметров расхода массового - канала №1.
+
+	/// <summary>Сохранение параметров расхода массового - канала №1.</summary>
+	private LambdaCommand? _FlowMass_ch1_SaveCommand;
+
+	/// <summary>Сохранение параметров расхода массового - канала №1.</summary>
+	public ICommand FlowMass_ch1_SaveCommand => _FlowMass_ch1_SaveCommand ??= new(ExecutedFlowMass_ch1_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров расхода массового - канала №1.</summary>
+	private void ExecutedFlowMass_ch1_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
 				settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Temperature_ch1_Max = Temperature_ch1_Max;
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch1_Max = FlowMass_ch1_Max;
 				settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Temperature_ch1_Min = Temperature_ch1_Min;
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch1_Min = FlowMass_ch1_Min;
 				settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Temperature_ch1_CDAD = Temperature_ch1_CDAD;
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch1_CDAD = FlowMass_ch1_CDAD;
 				JsonSerializer.Serialize(fs, settingsCounter, options);
 			}
 		}
@@ -708,6 +791,220 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	}
 	#endregion
 
+	#region Command Pressure_ch1_SaveCommand - Сохранение параметров давления - канал №1.
+
+	/// <summary>Сохранение параметров давления - канал №1.</summary>
+	private LambdaCommand? _Pressure_ch1_SaveCommand;
+
+	/// <summary>Сохранение параметров давления - канал №1.</summary>
+	public ICommand Pressure_ch1_SaveCommand => _Pressure_ch1_SaveCommand ??= new(ExecutedPressure_ch1_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров давления - канал №1.</summary>
+	private void ExecutedPressure_ch1_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch1_Max = Pressure_ch1_Max;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch1_Min = Pressure_ch1_Min;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch1_CDAD = Pressure_ch1_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command Temperatura_ch2_SaveCommand - Сохранение параметров температуры - канал №2.
+
+	/// <summary>Сохранение параметров температуры - канал №2.</summary>
+	private LambdaCommand? _Temperatura_ch2_SaveCommand;
+
+	/// <summary>Сохранение параметров температуры - канал №2.</summary>
+	public ICommand Temperatura_ch2_SaveCommand => _Temperatura_ch2_SaveCommand ??= new(ExecutedTemperatura_ch2_SaveCommand);
+
+	/// <summary>Логика выполнение - Сохранения параметров температуры - канал №2.</summary>
+	private void ExecutedTemperatura_ch2_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch2_Max = Temperature_ch2_Max;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch2_Min = Temperature_ch2_Min;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Temperature_ch2_CDAD = Temperature_ch2_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command FlowVolume_ch2_SaveCommand - Сохранение параметров расхода объемного - канал №2.
+
+	/// <summary>Сохранение параметров расхода объемного - канал №2.</summary>
+	private LambdaCommand? _FlowVolume_ch2_SaveCommand;
+
+	/// <summary>Сохранение параметров расхода объемного - канал №2.</summary>
+	public ICommand FlowVolume_ch2_SaveCommand => _FlowVolume_ch2_SaveCommand ??= new(ExecutedFlowVolume_ch2_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров расхода объемного - канал №2.</summary>
+	private void ExecutedFlowVolume_ch2_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowVolume_ch2_Max = FlowVolume_ch2_Max;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowVolume_ch2_Min = FlowVolume_ch2_Min;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowVolume_ch2_CDAD = FlowVolume_ch2_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command FlowMass_ch2_SaveCommand - Сохранение параметров расхода массового - канала №2.
+
+	/// <summary>Сохранение параметров расхода массового - канала №2.</summary>
+	private LambdaCommand? _FlowMass_ch2_SaveCommand;
+
+	/// <summary>Сохранение параметров расхода массового - канала №2.</summary>
+	public ICommand FlowMass_ch2_SaveCommand => _FlowMass_ch2_SaveCommand ??= new(ExecutedFlowMass_ch2_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров расхода массового - канала №2.</summary>
+	private void ExecutedFlowMass_ch2_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch2_Max = FlowMass_ch2_Max;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch2_Min = FlowMass_ch2_Min;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.FlowMass_ch2_CDAD = FlowMass_ch2_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+	#region Command Pressure_ch2_SaveCommand - Сохранение параметров давления - канала №2.
+
+	/// <summary>Сохранение параметров давления - канала №2.</summary>
+	private LambdaCommand? _Pressure_ch2_SaveCommand;
+
+	/// <summary>Сохранение параметров давления - канала №2.</summary>
+	public ICommand Pressure_ch2_SaveCommand => _Pressure_ch2_SaveCommand ??= new(ExecutedPressure_ch2_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров давления - канала №2.</summary>
+	private void ExecutedPressure_ch2_SaveCommand()
+	{
+		try
+		{
+			if (settingsCounter is not null)
+				GetJsonSettingObject();
+
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch2_Max = Pressure_ch2_Max;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch2_Min = Pressure_ch2_Min;
+				settingsCounter.CountersList!
+					.Where(c => c.CounterId == CounterId)
+					.Select(p => p.SettingsCounterParameters)
+					.First()!
+					.Pressure_ch2_CDAD = Pressure_ch2_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
 
 	public ItemTabControlTagViewModel(string tabName, string countId)
 	{
@@ -798,6 +1095,25 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		catch (Exception ex)
 		{
 			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+
+	private void GetJsonSettingObject()
+	{
+		if (settingsCounter is not null)
+		{
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.Open))
+			{
+				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
+
+				if (settingsCounter is not null)
+				{
+					var listParametrs = settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First();
+				}
+			}
 		}
 	}
 
