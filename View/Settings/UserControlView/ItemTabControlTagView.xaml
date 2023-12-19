@@ -318,6 +318,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding FlowVolume_ch1_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -384,6 +385,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding FlowMass_ch1_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -450,6 +452,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding Pressure_ch1_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -516,6 +519,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding Temperatura_ch2_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -582,6 +586,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding FlowVolume_ch2_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -648,6 +653,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding FlowMass_ch2_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
@@ -714,6 +720,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding Pressure_ch2_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
 
                     </Grid>
