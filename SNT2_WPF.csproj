@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Config.ini" />
     <None Remove="Resources\Config_Old.ini" />
     <None Remove="Resources\db_List_Data.json" />
+    <None Remove="Resources\db_List_SettingsTeg.json" />
     <None Remove="Resources\Fonts\Andika-Bold.ttf" />
     <None Remove="Resources\Fonts\Andika-BoldItalic.ttf" />
     <None Remove="Resources\Fonts\Andika-Italic.ttf" />
@@ -26,10 +26,10 @@
     <Content Include="Resources\Config_Old.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Config.ini">
+    <Content Include="Resources\db_List_Data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\db_List_Data.json">
+    <Content Include="Resources\db_List_SettingsTeg.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\database_icon.ico">

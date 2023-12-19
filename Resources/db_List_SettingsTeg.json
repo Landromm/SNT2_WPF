@@ -1,0 +1,221 @@
+{
+	"CountersList": [
+		{
+			"CounterId": "СНТ-2 №1",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		},
+		{
+			"CounterId": "СНТ-2 №2",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		},
+		{
+			"CounterId": "СНТ-2 №3",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		},
+		{
+			"CounterId": "СНТ-2 №4",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		},
+		{
+			"CounterId": "СНТ-2 №5",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		},
+		{
+			"CounterId": "СНТ-2 №6",
+			"SettingsCounterParameters": {
+				"Temperature_ch1_Max": "999",
+				"Temperature_ch1_Min": "9",
+				"Temperature_ch1_CDAD": "1",
+
+				"FlowVolume_ch1_Max": "999",
+				"FlowVolume_ch1_Min": "9",
+				"FlowVolume_ch1_CDAD": "1",
+
+				"FlowMass_ch1_Max": "999",
+				"FlowMass_ch1_Min": "9",
+				"FlowMass_ch1_CDAD": "1",
+
+				"Pressure_ch1_Max": "999",
+				"Pressure_ch1_Min": "9",
+				"Pressure_ch1_CDAD": "1",
+
+				"Temperature_ch2_Max": "999",
+				"Temperature_ch2_Min": "9",
+				"Temperature_ch2_CDAD": "1",
+
+				"FlowVolume_ch2_Max": "999",
+				"FlowVolume_ch2_Min": "9",
+				"FlowVolume_ch2_CDAD": "1",
+
+				"FlowMass_ch2_Max": "999",
+				"FlowMass_ch2_Min": "9",
+				"FlowMass_ch2_CDAD": "1",
+
+				"Pressure_ch2_Max": "999",
+				"Pressure_ch2_Min": "9",
+				"Pressure_ch2_CDAD": "1"
+			}
+		}
+
+	]
+}
