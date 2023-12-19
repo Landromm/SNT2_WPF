@@ -1,12 +1,19 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.Windows.Themes;
+using SNT2_WPF.Communication.Logger;
 using SNT2_WPF.Communication.Repositories;
+using SNT2_WPF.Models.DataSettingsTeg;
+using SNT2_WPF.Models.DBModel;
+using SNT2_WPF.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SNT2_WPF.ViewModel.Settings.UserControlViewModel;
 internal class ItemTabControlTagViewModel : Base.ViewModel
@@ -15,6 +22,11 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	private List<int> _hash;
 	//Инициализация наименования вкладок в "TabControl".
     public string TabName { get; init; }
+
+	private Counters settingsCounter = null!;
+	private Counters changedSettingsCounter = null!;
+
+	readonly JsonSerializerOptions options = new (){ WriteIndented = true };
 
 	#region Свойства неизменных параметров счетчика.
 
@@ -656,16 +668,60 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	private readonly IRepositoriesDB _userRepositoriesDB = null!;
 
 
+	#region Command Temperature_ch1_SaveCommand - Сохранение параметров температуры канала №1. 
+
+	/// <summary>Сохранение параметров температуры канала №1. </summary>
+	private LambdaCommand? _Temperature_ch1_SaveCommand;
+
+	/// <summary>Сохранение параметров температуры канала №1. </summary>
+	public ICommand Temperature_ch1_SaveCommand => _Temperature_ch1_SaveCommand ??= new(ExecutedTemperature_ch1_SaveCommand);
+
+	/// <summary>Логика выполнения - Сохранение параметров температуры канала №1. </summary>
+	private void ExecutedTemperature_ch1_SaveCommand()
+	{
+		try
+		{
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_Max = Temperature_ch1_Max;
+				settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_Min = Temperature_ch1_Min;
+				settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD = Temperature_ch1_CDAD;
+				JsonSerializer.Serialize(fs, settingsCounter, options);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+	#endregion
+
+
 	public ItemTabControlTagViewModel(string tabName, string countId)
 	{
 		TabName = tabName;
 		CounterId = countId;
 		_hash = new List<int>();
+		settingsCounter = new();
+		changedSettingsCounter = new();
 
 		_userRepositoriesDB = new UserRepositoriesDB();
 
 		InitializeHashCounter();
 		InitializationData();
+		InitializationSettingsTegCounter();
 	}
 
 	private string? GetDiscriptionCounter(string? countId)
@@ -718,6 +774,59 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 			FlowMax_ch2 = _userRepositoriesDB.GetValueChanel(_hash[9]);
 			FlowBoundary_ch2 = _userRepositoriesDB.GetValueChanel(_hash[10]);
 		}
+	}
+
+	private void InitializationSettingsTegCounter()
+	{
+		try
+		{
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			{
+				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
+
+				if (settingsCounter is not null)
+				{
+					var listParametrs = settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First();
+
+					InitializationSettingsTeg(listParametrs!);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+		}
+	}
+
+	private void InitializationSettingsTeg(SettingsCounterParameters settingsCounterParameters)
+	{
+		Temperature_ch1_Max = settingsCounterParameters.Temperature_ch1_Max;
+		Temperature_ch1_Min = settingsCounterParameters.Temperature_ch1_Min;
+		Temperature_ch1_CDAD = settingsCounterParameters.Temperature_ch1_CDAD;
+		FlowVolume_ch1_Max = settingsCounterParameters.FlowVolume_ch1_Max;
+		FlowVolume_ch1_Min = settingsCounterParameters.FlowVolume_ch1_Min;
+		FlowVolume_ch1_CDAD = settingsCounterParameters.FlowVolume_ch1_CDAD;
+		FlowMass_ch1_Max = settingsCounterParameters.FlowMass_ch1_Max;
+		FlowMass_ch1_Min = settingsCounterParameters.FlowMass_ch1_Min;
+		FlowMass_ch1_CDAD = settingsCounterParameters.FlowMass_ch1_CDAD;
+		Pressure_ch1_Max = settingsCounterParameters.Pressure_ch1_Max;
+		Pressure_ch1_Min = settingsCounterParameters.Pressure_ch1_Min;
+		Pressure_ch1_CDAD = settingsCounterParameters.Pressure_ch1_CDAD;
+		Temperature_ch2_Max = settingsCounterParameters.Temperature_ch2_Max;
+		Temperature_ch2_Min = settingsCounterParameters.Temperature_ch2_Min;
+		Temperature_ch2_CDAD = settingsCounterParameters.Temperature_ch2_CDAD;
+		FlowVolume_ch2_Max = settingsCounterParameters.FlowVolume_ch2_Max;
+		FlowVolume_ch2_Min = settingsCounterParameters.FlowVolume_ch2_Min;
+		FlowVolume_ch2_CDAD = settingsCounterParameters.FlowVolume_ch2_CDAD;
+		FlowMass_ch2_Max = settingsCounterParameters.FlowMass_ch2_Max;
+		FlowMass_ch2_Min = settingsCounterParameters.FlowMass_ch2_Min;
+		FlowMass_ch2_CDAD = settingsCounterParameters.FlowMass_ch2_CDAD;
+		Pressure_ch2_Max = settingsCounterParameters.Pressure_ch2_Max;
+		Pressure_ch2_Min = settingsCounterParameters.Pressure_ch2_Min;
+		Pressure_ch2_CDAD = settingsCounterParameters.Pressure_ch2_CDAD;
 	}
 
 }

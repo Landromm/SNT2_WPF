@@ -251,6 +251,7 @@
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
+                                Command="{Binding Temperature_ch1_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
                         
                     </Grid>                    
