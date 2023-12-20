@@ -106,7 +106,7 @@
 
                 <!--Скрытая панель дополнительных функциональных кнопок-->
                 <Border Height="40" 
-                        Width="100"
+                        Width="50"
                         Margin="0,0,40,0"
                         Style="{DynamicResource HiddenControlPanel}">
 
@@ -121,7 +121,8 @@
 
                         <!--Кнопка открытия графиков-->
                         <Button Command="{Binding OpenArchiveGraphsCommand}"
-                                Style="{DynamicResource ButtonsHiddenControlPanel}">
+                                Style="{DynamicResource ButtonsHiddenControlPanel}"
+                                Visibility="Collapsed">
 
                             <!--Шаблон иконки внутри кнопки-->
                             <Button.Content>

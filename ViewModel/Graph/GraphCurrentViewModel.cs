@@ -205,7 +205,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					if (_values.Count != 0)
 					{
 						var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
-						_values.Add(new DateTimePoint(histotyData.Item1, histotyData.Item2));
+						_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(histotyData.Item2)));
 
 						var dateFirst = _values.First().DateTime;
 						var dateLast = _values.Last().DateTime;
@@ -223,7 +223,7 @@ namespace SNT2_WPF.ViewModel.Graph
 						var tempTouple = _userRepositoriesDB.GetHistoryData(HashId);
 						
 						foreach (var item in tempTouple)
-							_values.Add(new DateTimePoint(item.Item1, item.Item2));
+							_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(item.Item2)));
 
 						LastCurrentValue = $":[{_values.Last().Value}]";
 						_customAxis.CustomSeparators = GetSeparators();

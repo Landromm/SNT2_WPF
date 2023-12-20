@@ -66,15 +66,15 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		return !value.Equals("0");
 	}
 
-	public List<(DateTime, double)> GetHistoryData(string? hash)
+	public List<(DateTime, string)> GetHistoryData(string? hash)
 	{
 
 		if (hash == null)
-			return new List<(DateTime, double)>{ new (DateTime.Now, -25.00) };
+			return new List<(DateTime, string)>{ new (DateTime.Now, "-25.00") };
 
 		var hashInt = Convert.ToInt32(hash);
 
-		var historyData = new List<(DateTime, double)>();
+		var historyData = new List<(DateTime, string)>();
 		using var context = new DataContext();
 		{
 			var result = from historyH in context.History
@@ -90,20 +90,20 @@ internal class UserRepositoriesDB : IRepositoriesDB
 
 			foreach (var item in result)
 			{
-				(DateTime, double) items = (item.DateTime, Convert.ToDouble(item.Value.Replace(".",",")));
+				(DateTime, string) items = (item.DateTime, item.Value.Replace(".",","));
 				historyData.Add(items);
 			}
 		}
 		return historyData;
 	}
 
-	public (DateTime, double) GetLastHistoryData(string? hash)
+	public (DateTime, string?) GetLastHistoryData(string? hash)
 	{
 		if (hash == null) 
-			return new (DateTime.Now, -25.00);
+			return new (DateTime.Now, "-25.00");
 
 		var hashInt = Convert.ToInt32(hash);
-		(DateTime, double) historyData = new();
+		(DateTime, string?) historyData = new();
 		using var context = new DataContext();
 		{
 			var result = context.ListValues
@@ -114,7 +114,7 @@ internal class UserRepositoriesDB : IRepositoriesDB
 			if(result is not null)
 				result = result.Replace(".", ",");
 
-			historyData = (DateTime.Now, Convert.ToDouble(result));
+			historyData = (DateTime.Now, result);
 		}
 		return historyData;
 	}
