@@ -6,34 +6,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "1116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "1222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "1225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "1229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "1117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "1262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "1265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "1269"
 			}
 		},
 		{
@@ -42,34 +50,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "2116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "2222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "2225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "2229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "2117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "2262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "2265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "2269"
 			}
 		},
 		{
@@ -78,34 +94,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "3116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "3222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "3225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "3229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "3117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "3262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "3265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "3269"
 			}
 		},
 		{
@@ -114,34 +138,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "4116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "4222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "4225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "4229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "4117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "4262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "4265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "4269"
 			}
 		},
 		{
@@ -150,34 +182,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "5116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "5222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "5225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "5229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "5117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "5262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "5265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "5269"
 			}
 		},
 		{
@@ -186,34 +226,42 @@
 				"Temperature_ch1_Max": "999",
 				"Temperature_ch1_Min": "9",
 				"Temperature_ch1_CDAD": "1",
+				"Temperature_ch1_Hash": "6116",
 
 				"FlowVolume_ch1_Max": "999",
 				"FlowVolume_ch1_Min": "9",
 				"FlowVolume_ch1_CDAD": "1",
+				"FlowVolume_ch1_Hash": "6222",
 
 				"FlowMass_ch1_Max": "999",
 				"FlowMass_ch1_Min": "9",
 				"FlowMass_ch1_CDAD": "1",
+				"FlowMass_ch1_Hash": "6225",
 
 				"Pressure_ch1_Max": "999",
 				"Pressure_ch1_Min": "9",
 				"Pressure_ch1_CDAD": "1",
+				"Pressure_ch1_Hash": "6229",
 
 				"Temperature_ch2_Max": "999",
 				"Temperature_ch2_Min": "9",
 				"Temperature_ch2_CDAD": "1",
+				"Temperature_ch2_Hash": "6117",
 
 				"FlowVolume_ch2_Max": "999",
 				"FlowVolume_ch2_Min": "9",
 				"FlowVolume_ch2_CDAD": "1",
+				"FlowVolume_ch2_Hash": "6262",
 
 				"FlowMass_ch2_Max": "999",
 				"FlowMass_ch2_Min": "9",
 				"FlowMass_ch2_CDAD": "1",
+				"FlowMass_ch2_Hash": "6265",
 
 				"Pressure_ch2_Max": "999",
 				"Pressure_ch2_Min": "9",
-				"Pressure_ch2_CDAD": "1"
+				"Pressure_ch2_CDAD": "1",
+				"Pressure_ch2_Hash": "6269"
 			}
 		}
 
