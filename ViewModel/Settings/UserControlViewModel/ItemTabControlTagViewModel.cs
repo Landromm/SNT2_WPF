@@ -24,7 +24,6 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
     public string TabName { get; init; }
 
 	private Counters? settingsCounter = null!;
-	private Counters changedSettingsCounter = null!;
 
 	private readonly JsonSerializerOptions options = new (){ WriteIndented = true };
 	private readonly IRepositoriesDB _userRepositoriesDB = null!;
@@ -1012,7 +1011,6 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		CounterId = countId;
 		_hash = new List<int>();
 		settingsCounter = new();
-		changedSettingsCounter = new();
 
 		_userRepositoriesDB = new UserRepositoriesDB();
 

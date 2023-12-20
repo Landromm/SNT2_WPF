@@ -36,11 +36,11 @@ internal interface IRepositoriesDB
 	/// </summary>
 	/// <param name="hash"></param>
 	/// <returns></returns>
-	public List<(DateTime,double)> GetHistoryData(string? hash);
+	public List<(DateTime,string)> GetHistoryData(string? hash);
 	/// <summary>
 	/// Возвращает кортеж последних данных из онлайн таблицы по соответствующему хэшу.
 	/// </summary>
 	/// <param name="hash"></param>
 	/// <returns></returns>
-	public (DateTime,double) GetLastHistoryData(string? hash);
+	public (DateTime,string) GetLastHistoryData(string? hash);
 }

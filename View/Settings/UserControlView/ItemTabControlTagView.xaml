@@ -198,7 +198,7 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>                            
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -236,25 +236,25 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch1_CDAD}"/>
+                                 Text="{Binding Temperature_ch1_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch1_Min}"/>
+                                 Text="{Binding Temperature_ch1_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch1_Max}"/>
+                                 Text="{Binding Temperature_ch1_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
                                 Margin="10, 0, 0, 0"
                                 Command="{Binding Temperature_ch1_SaveCommand}"
                                 Style="{DynamicResource ButtonOkTagSettingStyle}"/>
-                        
-                    </Grid>                    
+
+                    </Grid>
                     <!--Разграничитель (Separator)-->
                     <Border Background="{StaticResource secondaryBackColorDefault}"
                             Margin="0 5"
@@ -303,17 +303,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch1_CDAD}"/>
+                                 Text="{Binding FlowVolume_ch1_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch1_Min}"/>
+                                 Text="{Binding FlowVolume_ch1_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch1_Max}"/>
+                                 Text="{Binding FlowVolume_ch1_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -370,17 +370,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch1_CDAD}"/>
+                                 Text="{Binding FlowMass_ch1_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch1_Min}"/>
+                                 Text="{Binding FlowMass_ch1_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch1_Max}"/>
+                                 Text="{Binding FlowMass_ch1_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -437,17 +437,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch1_CDAD}"/>
+                                 Text="{Binding Pressure_ch1_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch1_Min}"/>
+                                 Text="{Binding Pressure_ch1_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch1_Max}"/>
+                                 Text="{Binding Pressure_ch1_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -504,17 +504,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch2_CDAD}"/>
+                                 Text="{Binding Temperature_ch2_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch2_Min}"/>
+                                 Text="{Binding Temperature_ch2_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Temperature_ch2_Max}"/>
+                                 Text="{Binding Temperature_ch2_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -571,17 +571,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch2_CDAD}"/>
+                                 Text="{Binding FlowVolume_ch2_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch2_Min}"/>
+                                 Text="{Binding FlowVolume_ch2_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowVolume_ch2_Max}"/>
+                                 Text="{Binding FlowVolume_ch2_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -638,17 +638,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch2_CDAD}"/>
+                                 Text="{Binding FlowMass_ch2_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch2_Min}"/>
+                                 Text="{Binding FlowMass_ch2_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding FlowMass_ch2_Max}"/>
+                                 Text="{Binding FlowMass_ch2_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -705,17 +705,17 @@
                                  MaxLength="1"
                                  Width="50"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch2_CDAD}"/>
+                                 Text="{Binding Pressure_ch2_CDAD, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="3"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch2_Min}"/>
+                                 Text="{Binding Pressure_ch2_Min, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBox Grid.Column="5"
                                  Grid.Row="1"
                                  Style="{DynamicResource TextBoxBodyTagSetting}"
-                                 Text="{Binding Pressure_ch2_Max}"/>
+                                 Text="{Binding Pressure_ch2_Max, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Column="6"
                                 Grid.Row="1"
@@ -725,7 +725,7 @@
 
                     </Grid>
 
-                </StackPanel>                
+                </StackPanel>
                 
             </Grid>
 
