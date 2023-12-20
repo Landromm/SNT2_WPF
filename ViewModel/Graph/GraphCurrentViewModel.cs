@@ -6,6 +6,8 @@ using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using SkiaSharp;
 using SNT2_WPF.Communication.Repositories;
 using SNT2_WPF.Models.DataModel;
+using SNT2_WPF.Models.DataModel.DataControl;
+using SNT2_WPF.Models.DataSettingsTeg;
 using SNT2_WPF.Models.DBModel;
 using SNT2_WPF.Services;
 using SNT2_WPF.ViewModel.Base;
@@ -13,8 +15,10 @@ using SNT2_WPF.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -31,6 +35,14 @@ namespace SNT2_WPF.ViewModel.Graph
 		private readonly Random _random = new();
 		private readonly List<DateTimePoint> _values = new();
 		private readonly DateTimeAxis _customAxis;
+		private CDADModel? _cdadModel = null!;
+		private Counters? settingsCounter = null!;
+
+		public CDADModel? CdadModel
+		{
+			get => _cdadModel;
+			set => _cdadModel = value;
+		}
 
 		#region HashId : string? - Хэш-id параметра
 
@@ -99,7 +111,6 @@ namespace SNT2_WPF.ViewModel.Graph
 			}
 		}
 		#endregion
-
 
 		public ObservableCollection<ISeries>? Series
 		{
@@ -265,5 +276,82 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		public void Dispose() => _subscription.Dispose();
 
+		private void InitializationCDADValue(string? CounterId)
+		{
+			try
+			{
+				using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
+
+				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
+
+				if (settingsCounter is not null)
+				{
+					CdadModel!.Temperature_ch1_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD);
+
+					CdadModel!.FlowVolume_ch1_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD);
+
+					CdadModel!.FlowMass_ch1_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD);
+
+					CdadModel!.Pressure_ch1_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD);
+
+					CdadModel!.Temperature_ch2_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD);
+
+					CdadModel!.FlowVolume_ch2_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD);
+
+					CdadModel!.FlowMass_ch2_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD);
+
+					CdadModel!.Pressure_ch2_CDAD = Convert.ToInt32(
+					settingsCounter.CountersList!
+						.Where(c => c.CounterId == CounterId)
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD);
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			}
+		}
+
+		private string GetValueWithDot(string? value, int cdad)
+		{
+			return value is not null ? value.Insert(value.Length - cdad, ".") : "";
+		}
 	}
 }
