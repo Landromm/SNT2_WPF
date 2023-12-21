@@ -15,9 +15,11 @@ using SNT2_WPF.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -37,6 +39,9 @@ namespace SNT2_WPF.ViewModel.Graph
 		private readonly DateTimeAxis _customAxis;
 		private CDADModel? _cdadModel = null!;
 		private Counters? settingsCounter = null!;
+		private string? cdadParametr = string.Empty;
+
+		private Dictionary<string, string> HashCDAD = new();
 
 		public CDADModel? CdadModel
 		{
@@ -177,7 +182,7 @@ namespace SNT2_WPF.ViewModel.Graph
 				AnimationsSpeed = TimeSpan.FromMilliseconds(0),
 				SeparatorsPaint = new SolidColorPaint(SKColors.Gray.WithAlpha(100))
 			};
-
+			InitializDictionaryCDAD();
 			InitializationCartesianChart(_customAxis);
 
 			_ = ReadData();
@@ -215,8 +220,9 @@ namespace SNT2_WPF.ViewModel.Graph
 				{
 					if (_values.Count != 0)
 					{
+						GetCdadParametr(HashId!);
 						var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
-						_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(histotyData.Item2)));
+						_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(GetValueWithDot(histotyData.Item2, cdadParametr!))));
 
 						var dateFirst = _values.First().DateTime;
 						var dateLast = _values.Last().DateTime;
@@ -234,7 +240,7 @@ namespace SNT2_WPF.ViewModel.Graph
 						var tempTouple = _userRepositoriesDB.GetHistoryData(HashId);
 						
 						foreach (var item in tempTouple)
-							_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(item.Item2)));
+							_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!))));
 
 						LastCurrentValue = $":[{_values.Last().Value}]";
 						_customAxis.CustomSeparators = GetSeparators();
@@ -276,8 +282,20 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		public void Dispose() => _subscription.Dispose();
 
-		private void InitializationCDADValue(string? CounterId)
+		private void GetCdadParametr(string hashId)
 		{
+			cdadParametr = HashCDAD.GetValueOrDefault(hashId);
+		}
+
+		private string GetValueWithDot(string? value, string cdad)
+		{
+			var cdadInt = Convert.ToInt32(cdad);
+			return value is not null ? value.Insert(value.Length - cdadInt, ".") : "";
+		}
+
+		private void InitializDictionaryCDAD()
+		{
+			string? tempCdad = string.Empty;
 			try
 			{
 				using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
@@ -286,61 +304,348 @@ namespace SNT2_WPF.ViewModel.Graph
 
 				if (settingsCounter is not null)
 				{
-					CdadModel!.Temperature_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					#region CDAD СНТ-2 №1
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.Temperature_ch1_CDAD);
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("1116", tempCdad!);
 
-					CdadModel!.FlowVolume_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.FlowVolume_ch1_CDAD);
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("1222", tempCdad!);
 
-					CdadModel!.FlowMass_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.FlowMass_ch1_CDAD);
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("1225", tempCdad!);
 
-					CdadModel!.Pressure_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.Pressure_ch1_CDAD);
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("1229", tempCdad!);
 
-					CdadModel!.Temperature_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.Temperature_ch2_CDAD);
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("1117", tempCdad!);
 
-					CdadModel!.FlowVolume_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.FlowVolume_ch2_CDAD);
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("1262", tempCdad!);
 
-					CdadModel!.FlowMass_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.FlowMass_ch2_CDAD);
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("1265", tempCdad!);
 
-					CdadModel!.Pressure_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №1")
 						.Select(p => p.SettingsCounterParameters)
 						.First()!
-						.Pressure_ch2_CDAD);
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("1269", tempCdad!);
+					#endregion
+					#region CDAD СНТ-2 №2
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("2116", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("2222", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("2225", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("2229", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("2117", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("2262", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("2265", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №2")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("2269", tempCdad!);
+					#endregion
+					#region CDAD СНТ-2 №3
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("3116", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("3222", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("3225", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("3229", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("3117", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("3262", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("3265", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №3")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("3269", tempCdad!);
+					#endregion
+					#region CDAD СНТ-2 №4
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("4116", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("4222", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("4225", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("4229", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("4117", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("4262", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("4265", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №4")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("4269", tempCdad!);
+					#endregion
+					#region CDAD СНТ-2 №5
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("5116", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("5222", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("5225", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("5229", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("5117", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("5262", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("5265", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №5")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("5269", tempCdad!);
+					#endregion
+					#region CDAD СНТ-2 №6
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch1_CDAD;
+					HashCDAD.Add("6116", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch1_CDAD;
+					HashCDAD.Add("6222", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch1_CDAD;
+					HashCDAD.Add("6225", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch1_CDAD;
+					HashCDAD.Add("6229", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Temperature_ch2_CDAD;
+					HashCDAD.Add("6117", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowVolume_ch2_CDAD;
+					HashCDAD.Add("6262", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.FlowMass_ch2_CDAD;
+					HashCDAD.Add("6265", tempCdad!);
+
+					tempCdad = settingsCounter.CountersList!
+						.Where(c => c.CounterId == "СНТ-2 №6")
+						.Select(p => p.SettingsCounterParameters)
+						.First()!
+						.Pressure_ch2_CDAD;
+					HashCDAD.Add("6269", tempCdad!);
+					#endregion
 				}
 			}
 			catch (Exception ex)
@@ -349,9 +654,5 @@ namespace SNT2_WPF.ViewModel.Graph
 			}
 		}
 
-		private string GetValueWithDot(string? value, int cdad)
-		{
-			return value is not null ? value.Insert(value.Length - cdad, ".") : "";
-		}
 	}
 }
