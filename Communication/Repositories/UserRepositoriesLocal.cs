@@ -1,4 +1,4 @@
-﻿using SNT2_WPF.Communication.IniData;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.Repositories;
 internal class UserRepositoriesLocal : IRepositoriesLocal
 {
-	readonly IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
-
 	public List<string> InitializeCounters()
 	{
 		var numbersCounters = new List<string>();

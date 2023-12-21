@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SNT2_WPF.Communication.IniData;
 
 namespace SNT2_WPF.Communication.ComPort
 {
@@ -46,8 +45,6 @@ namespace SNT2_WPF.Communication.ComPort
         {
             get { return sendReadDataHex; }
         }
-
-		readonly IniFile INI = new(@ConfigurationManager.AppSettings["pathConfig"]);
 
         public SendMessage()
         {

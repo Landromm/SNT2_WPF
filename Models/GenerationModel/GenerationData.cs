@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using SNT2_WPF.Communication.IniData;
 using SNT2_WPF.Models.DataModel;
 using SNT2_WPF.Models.DataConEF;
 using System;
@@ -18,7 +17,6 @@ namespace SNT2_WPF.Models.GenerationModel
 {
     public class GenerationData
     {
-        private readonly IniFile INI = new(@"Resources\Config.ini");
         MainDataModel dataModel;
         static ProjectObject? projectObject;
         static Dictionary<int, List<int>> dictionary;
@@ -40,7 +38,7 @@ namespace SNT2_WPF.Models.GenerationModel
 
         private void InitializationCountCounter()
         {
-            string tempNumberCounters = INI.ReadINI("SNTConfig", "NumberCounter");
+            string tempNumberCounters = Properties.Settings.Default.NumberCounter;
             counters = tempNumberCounters.Replace(" ", "").Split(',');
             CountCounter = counters.Length;
         }
@@ -101,8 +99,6 @@ namespace SNT2_WPF.Models.GenerationModel
                     }
                 };
             context.Database.ExecuteSqlRaw("update_cell @p0, @p1, @p2, @p3 output", param);
-            //if (Convert.ToInt32(param[3].Value) == 1)
-            //    okResultProcedure++;
 
             //Console.WriteLine($"Результат выполнения процедуры: - {param[3].Value}"); //Если возвращается "1" - значит процедура полностью выполнена.
         }
