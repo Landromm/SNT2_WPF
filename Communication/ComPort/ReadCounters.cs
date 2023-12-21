@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using SNT2_WPF.Communication.IniData;
 using SNT2_WPF.Communication.Logger;
 using SNT2_WPF.Models.DataConEF;
 using SNT2_WPF.Models.DataModel.DataControl;

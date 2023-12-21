@@ -51,7 +51,6 @@ namespace SNT2_WPF.ViewModel.Graph
 		}
 
 		#region HashId : string? - Хэш-id параметра
-
 		/// <summary>Хэш-id параметра - поле.</summary>
 		private string? _HashId;
 
@@ -68,7 +67,6 @@ namespace SNT2_WPF.ViewModel.Graph
 		#endregion
 
 		#region Description : string? - Наименование счетчика.
-
 		/// <summary>Наименование счетчика. - поле.</summary>
 		private string? _Description;
 
@@ -85,7 +83,6 @@ namespace SNT2_WPF.ViewModel.Graph
 		#endregion
 
 		#region NameParametr : string? - Наименование параметра счетчика.
-
 		/// <summary>Наименование параметра счетчика. - поле.</summary>
 		private string? _nameParametr;
 
@@ -102,7 +99,6 @@ namespace SNT2_WPF.ViewModel.Graph
 		#endregion
 
 		#region LastCurrentValue : string? - Последнее прочитатое текущее значение параметра.
-
 		/// <summary>Последнее прочитатое текущее значение параметра. - поле.</summary>
 		private string? _lastCurrentValue = "0";
 
@@ -305,7 +301,6 @@ namespace SNT2_WPF.ViewModel.Graph
 				using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
 
 				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
-
 				if (settingsCounter is not null)
 				{
 					#region CDAD СНТ-2 №1

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SNT2_WPF.Communication.IniData;
 
 namespace SNT2_WPF.Communication.Logger
 {

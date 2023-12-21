@@ -1,5 +1,4 @@
-﻿using SNT2_WPF.Communication.IniData;
-using SNT2_WPF.Models.DataModel;
+﻿using SNT2_WPF.Models.DataModel;
 using SNT2_WPF.Models.GenerationModel;
 using SNT2_WPF.View.Graphs;
 using SNT2_WPF.ViewModel.Graph;
