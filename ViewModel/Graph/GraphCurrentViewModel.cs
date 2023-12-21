@@ -3,6 +3,7 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
+using Microsoft.IdentityModel.Tokens;
 using SkiaSharp;
 using SNT2_WPF.Communication.Repositories;
 using SNT2_WPF.Models.DataModel;
@@ -239,11 +240,14 @@ namespace SNT2_WPF.ViewModel.Graph
 					{
 						var tempTouple = _userRepositoriesDB.GetHistoryData(HashId);
 						
-						foreach (var item in tempTouple)
-							_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!))));
+						if(!tempTouple.IsNullOrEmpty())
+						{
+							foreach (var item in tempTouple)
+								_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!))));
 
-						LastCurrentValue = $":[{_values.Last().Value}]";
-						_customAxis.CustomSeparators = GetSeparators();
+							LastCurrentValue = $":[{_values.Last().Value}]";
+							_customAxis.CustomSeparators = GetSeparators();
+						}
 					}
 				}
 			}
