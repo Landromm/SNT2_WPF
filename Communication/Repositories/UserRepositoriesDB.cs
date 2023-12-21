@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.IdentityModel.Tokens;
 using SNT2_WPF.Models.DataConEF;
 using System;
 using System.Collections.Generic;
@@ -87,11 +88,13 @@ internal class UserRepositoriesDB : IRepositoriesDB
 							 historyH.DateTime,
 							 historyH.Value
 						 };
-
-			foreach (var item in result)
+			if(!result.IsNullOrEmpty())
 			{
-				(DateTime, string) items = (item.DateTime, item.Value.Replace(".",","));
-				historyData.Add(items);
+				foreach (var item in result!)
+				{
+					(DateTime, string) items = (item.DateTime, item.Value.Replace(".", ","));
+					historyData.Add(items);
+				}
 			}
 		}
 		return historyData;
