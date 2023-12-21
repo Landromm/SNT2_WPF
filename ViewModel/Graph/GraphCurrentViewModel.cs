@@ -100,7 +100,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		#region LastCurrentValue : string? - Последнее прочитатое текущее значение параметра.
 		/// <summary>Последнее прочитатое текущее значение параметра. - поле.</summary>
-		private string? _lastCurrentValue = " : [0]";
+		private string? _lastCurrentValue;
 
 		/// <summary>Последнее прочитатое текущее значение параметра. - свойство.</summary>
 		public string? LastCurrentValue
@@ -215,7 +215,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 				lock (Sync)
 				{
-					if (_values.Count != 0)
+					if (!_values.IsNullOrEmpty())
 					{
 						GetCdadParametr(HashId!);
 						var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
@@ -234,14 +234,31 @@ namespace SNT2_WPF.ViewModel.Graph
 					}
 					else
 					{
+						GetCdadParametr(HashId!);
 						var tempTouple = _userRepositoriesDB.GetHistoryData(HashId);
-						
-						if(!tempTouple.IsNullOrEmpty())
+
+						if (!tempTouple.IsNullOrEmpty())
 						{
 							foreach (var item in tempTouple)
 								_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!))));
 
 							LastCurrentValue = $":[{_values.Last().Value}]";
+							_customAxis.CustomSeparators = GetSeparators();
+						}
+						else
+						{
+							var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
+							_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(GetValueWithDot(histotyData.Item2, cdadParametr!))));
+
+							var dateFirst = _values.First().DateTime;
+							var dateLast = _values.Last().DateTime;
+							LastCurrentValue = $":[{_values.Last().Value}]";
+							var resultbool = TimeSpan.Compare(dateLast.Subtract(dateFirst), new TimeSpan(00, 60, 00)) > 0;
+
+							if (resultbool)
+								_values.RemoveAt(0);
+
+							// we need to update the separators every time we add a new point 
 							_customAxis.CustomSeparators = GetSeparators();
 						}
 					}

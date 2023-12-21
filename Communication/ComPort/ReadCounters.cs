@@ -85,9 +85,9 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 				{
 					try
 					{
-						comm.WriteData(sendMsg.SendStartSessionHex[i]);      //Инициализации обмена данными со счетчиком.
+						comm.WriteData(sendMsg.SendStartSessionHex![i]);      //Инициализации обмена данными со счетчиком.
 						Thread.Sleep(timeoutSend);
-						WriteDataRTC(sendMsg.SendWritePage128Hex[i], sendMsg.SendReadDataHex[i]);
+						WriteDataRTC(sendMsg.SendWritePage128Hex![i], sendMsg.SendReadDataHex![i]);
 
 						if (comm.DataByteList.Count != 0)
 							checkSumCRC = CheckSumCRC(comm.DataByteList);
@@ -116,9 +116,9 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 				{
 					try
 					{
-						comm.WriteData(sendMsg.SendStartSessionHex[i]);      //Инициализации обмена данными со счетчиком.
+						comm.WriteData(sendMsg.SendStartSessionHex![i]);      //Инициализации обмена данными со счетчиком.
 						Thread.Sleep(timeoutSend);
-						WriteDataNV(sendMsg.SendWritePage256Hex[i], sendMsg.SendReadDataHex[i]);
+						WriteDataNV(sendMsg.SendWritePage256Hex![i], sendMsg.SendReadDataHex![i]);
 
 						if (comm.DataByteList.Count != 0)
 							checkSumCRC = CheckSumCRC(comm.DataByteList);
