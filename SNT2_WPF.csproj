@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Config_Old.ini" />
     <None Remove="Resources\db_List_Data.json" />
     <None Remove="Resources\db_List_SettingsTeg.json" />
     <None Remove="Resources\Fonts\Andika-Bold.ttf" />
@@ -23,9 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Config_Old.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\db_List_Data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -86,6 +82,9 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\Config_Old.ini">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
