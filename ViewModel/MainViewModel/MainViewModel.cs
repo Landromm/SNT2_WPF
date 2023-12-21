@@ -341,7 +341,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (SelectedMainDataModels != null)
 			{
 				_userDialog.OpenCurrentGrapf();
-				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1, SelectedMainDataModels.DescriptionCounter, "Давление P1"));
+				_messageBus.Send(new Message(SelectedMainDataModels.HashPressure_ch1, SelectedMainDataModels.DescriptionCounter, "Давление P1."));
 			}
 		}
 

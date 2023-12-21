@@ -100,7 +100,7 @@ namespace SNT2_WPF.ViewModel.Graph
 
 		#region LastCurrentValue : string? - Последнее прочитатое текущее значение параметра.
 		/// <summary>Последнее прочитатое текущее значение параметра. - поле.</summary>
-		private string? _lastCurrentValue = "0";
+		private string? _lastCurrentValue = " : [0]";
 
 		/// <summary>Последнее прочитатое текущее значение параметра. - свойство.</summary>
 		public string? LastCurrentValue
