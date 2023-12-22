@@ -12,22 +12,26 @@ internal class UserRepositoriesDB : IRepositoriesDB
 {
 	public string? GetCounterId(string? numberCounter)
 	{
-		var counterId = string.Empty;
+		string? counterId = string.Empty;
+
 		using var contex1 = new DataContext();
 		{
-			counterId = contex1.ListValues
-				.Where(id => id.Value == numberCounter)
-				.Select(id => id.CounterId)
-				.ToList()
-				.First();
-		}
-		if (counterId.IsNullOrEmpty())
-		{
-			var fullNumberCounter = "00" + numberCounter;
-			using var contex2 = new DataContext();
+			try
 			{
-				counterId = contex2.ListValues
-					.Where(id => id.Value == fullNumberCounter)
+				var fullNumberCounter = "00" + numberCounter;
+				using var contex2 = new DataContext();
+				{
+					counterId = contex2.ListValues
+						.Where(id => id.Value == fullNumberCounter)
+						.Select(id => id.CounterId)
+						.ToList()
+						.First();
+				}
+			}
+			catch (Exception ex)
+			{
+				counterId = contex1.ListValues
+					.Where(id => id.Value == numberCounter)
 					.Select(id => id.CounterId)
 					.ToList()
 					.First();

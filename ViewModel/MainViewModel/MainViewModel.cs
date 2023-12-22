@@ -116,8 +116,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			//RunGenerationThread();
 
 			_readCounters = new ReadCounters();
-			//StartReadCounters();
-			RunGenerationThread();
+			StartReadCounters();
+			//RunGenerationThread();
 
 
 			Thread.Sleep(2000);
