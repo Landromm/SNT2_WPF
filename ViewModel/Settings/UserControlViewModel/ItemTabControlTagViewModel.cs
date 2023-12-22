@@ -765,7 +765,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!
@@ -808,7 +808,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!
@@ -851,7 +851,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!
@@ -894,7 +894,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!
@@ -937,7 +937,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!
@@ -980,7 +980,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 
 			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
-				settingsCounter.CountersList!
+				settingsCounter!.CountersList!
 					.Where(c => c.CounterId == CounterId)
 					.Select(p => p.SettingsCounterParameters)
 					.First()!

@@ -13,14 +13,25 @@ internal class UserRepositoriesDB : IRepositoriesDB
 	public string? GetCounterId(string? numberCounter)
 	{
 		var counterId = string.Empty;
-		string fullNumberCounter = "00" + numberCounter;
-		using var contex = new DataContext();
+		using var contex1 = new DataContext();
 		{
-			counterId = contex.ListValues
-				.Where(id => id.Value == fullNumberCounter)
+			counterId = contex1.ListValues
+				.Where(id => id.Value == numberCounter)
 				.Select(id => id.CounterId)
 				.ToList()
 				.First();
+		}
+		if (counterId.IsNullOrEmpty())
+		{
+			var fullNumberCounter = "00" + numberCounter;
+			using var contex2 = new DataContext();
+			{
+				counterId = contex2.ListValues
+					.Where(id => id.Value == fullNumberCounter)
+					.Select(id => id.CounterId)
+					.ToList()
+					.First();
+			}
 		}
 		return counterId;
 	}

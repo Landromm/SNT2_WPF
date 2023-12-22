@@ -218,19 +218,7 @@ namespace SNT2_WPF.ViewModel.Graph
 					if (!_values.IsNullOrEmpty())
 					{
 						GetCdadParametr(HashId!);
-						var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
-						_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(GetValueWithDot(histotyData.Item2, cdadParametr!))));
-
-						var dateFirst = _values.First().DateTime;
-						var dateLast = _values.Last().DateTime;
-						LastCurrentValue = $":[{_values.Last().Value}]";
-						var resultbool = TimeSpan.Compare( dateLast.Subtract(dateFirst), new TimeSpan(00,60,00)) > 0;
-						
-						if (resultbool)
-							_values.RemoveAt(0);
-
-						// we need to update the separators every time we add a new point 
-						_customAxis.CustomSeparators = GetSeparators();
+						GetLastListValueData(_values);
 					}
 					else
 					{
@@ -240,26 +228,18 @@ namespace SNT2_WPF.ViewModel.Graph
 						if (!tempTouple.IsNullOrEmpty())
 						{
 							foreach (var item in tempTouple)
-								_values.Add(new DateTimePoint(item.Item1, Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!))));
+							{
+								// Придумать обработку исключений.
+								var convertValue = Convert.ToDouble(GetValueWithDot(item.Item2, cdadParametr!));
+								_values.Add(new DateTimePoint(item.Item1, convertValue));
+							}
 
 							LastCurrentValue = $":[{_values.Last().Value}]";
 							_customAxis.CustomSeparators = GetSeparators();
 						}
 						else
 						{
-							var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
-							_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(GetValueWithDot(histotyData.Item2, cdadParametr!))));
-
-							var dateFirst = _values.First().DateTime;
-							var dateLast = _values.Last().DateTime;
-							LastCurrentValue = $":[{_values.Last().Value}]";
-							var resultbool = TimeSpan.Compare(dateLast.Subtract(dateFirst), new TimeSpan(00, 60, 00)) > 0;
-
-							if (resultbool)
-								_values.RemoveAt(0);
-
-							// we need to update the separators every time we add a new point 
-							_customAxis.CustomSeparators = GetSeparators();
+							GetLastListValueData(_values);
 						}
 					}
 				}
@@ -307,7 +287,13 @@ namespace SNT2_WPF.ViewModel.Graph
 		private string GetValueWithDot(string? value, string cdad)
 		{
 			var cdadInt = Convert.ToInt32(cdad);
-			return value is not null ? value.Insert(value.Length - cdadInt, ".") : "";
+			if(value is not null)
+			{
+				if (cdadInt == 0)
+					return value;
+				return value.Insert(value.Length - cdadInt, ",");
+			}
+			return value = "";
 		}
 
 		private void InitializDictionaryCDAD()
@@ -668,6 +654,23 @@ namespace SNT2_WPF.ViewModel.Graph
 			{
 				Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
 			}
+		}
+
+		private void GetLastListValueData(List<DateTimePoint> _values)
+		{
+			var histotyData = _userRepositoriesDB.GetLastHistoryData(HashId);
+			_values.Add(new DateTimePoint(histotyData.Item1, Convert.ToDouble(GetValueWithDot(histotyData.Item2, cdadParametr!))));
+
+			var dateFirst = _values.First().DateTime;
+			var dateLast = _values.Last().DateTime;
+			LastCurrentValue = $":[{_values.Last().Value}]";
+			var resultbool = TimeSpan.Compare(dateLast.Subtract(dateFirst), new TimeSpan(00, 60, 00)) > 0;
+
+			if (resultbool)
+				_values.RemoveAt(0);
+
+			// we need to update the separators every time we add a new point 
+			_customAxis.CustomSeparators = GetSeparators();
 		}
 
 	}

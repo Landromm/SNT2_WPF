@@ -116,8 +116,10 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			//RunGenerationThread();
 
 			_readCounters = new ReadCounters();
-			StartReadCounters();
-			
+			//StartReadCounters();
+			RunGenerationThread();
+
+
 			Thread.Sleep(2000);
 			_ = ReadData();
 		}
@@ -282,7 +284,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 				MainDataModels[i] = counterData;
 			}
-        }
+		}
 
 		public void Dispose() => _subscription.Dispose();
 
@@ -522,66 +524,68 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			try
 			{
 				using FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate);
-
 				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
 
 				if (settingsCounter is not null)
 				{
-					CdadModel!.Temperature_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Temperature_ch1_CDAD);
+					CdadModel = new()
+					{
+						Temperature_ch1_CDAD = Int32.Parse(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.Temperature_ch1_CDAD!),
 
-					CdadModel!.FlowVolume_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.FlowVolume_ch1_CDAD);
+						FlowVolume_ch1_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.FlowVolume_ch1_CDAD),
 
-					CdadModel!.FlowMass_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.FlowMass_ch1_CDAD);
+						FlowMass_ch1_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.FlowMass_ch1_CDAD),
 
-					CdadModel!.Pressure_ch1_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Pressure_ch1_CDAD);
+						Pressure_ch1_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.Pressure_ch1_CDAD),
 
-					CdadModel!.Temperature_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Temperature_ch2_CDAD);
+						Temperature_ch2_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.Temperature_ch2_CDAD),
 
-					CdadModel!.FlowVolume_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.FlowVolume_ch2_CDAD);
+						FlowVolume_ch2_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.FlowVolume_ch2_CDAD),
 
-					CdadModel!.FlowMass_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.FlowMass_ch2_CDAD);
+						FlowMass_ch2_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.FlowMass_ch2_CDAD),
 
-					CdadModel!.Pressure_ch2_CDAD = Convert.ToInt32(
-					settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First()!
-						.Pressure_ch2_CDAD);
+						Pressure_ch2_CDAD = Convert.ToInt32(
+						settingsCounter.CountersList!
+							.Where(c => c.CounterId == CounterId)
+							.Select(p => p.SettingsCounterParameters)
+							.First()!
+							.Pressure_ch2_CDAD)
+					};
 				}
 			}
 			catch (Exception ex)
@@ -592,7 +596,17 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		private string GetValueWithDot(string? value, int cdad)
 		{
-			return value is not null ? value.Insert(value.Length - cdad, ".") : "";
+			var cdadInt = Convert.ToInt32(cdad);
+			if (value is not null)
+			{
+				if (cdadInt == 0)
+				{
+					return Convert.ToDouble(value).ToString();
+				}
+					
+				return Convert.ToDouble(value.Insert(value.Length - cdadInt, ",")).ToString();
+			}
+			return value = "";
 		}
     }
 }
