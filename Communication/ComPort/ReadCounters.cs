@@ -38,7 +38,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 	//--------------------------
 	private static readonly CommunicationManager comm = new();
 	private static SendMessage sendMsg = new();
-	private LogWriter logWriter = new();
+	private LogWriter logWriter;
 	private static ProjectObject projectObject = null!;
 	private static Dictionary<int, List<int>> dictionary = new();
 
@@ -64,6 +64,8 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 		checkSumCRC = false;
 		tempStr = string.Empty;
 		projectObject = new();
+
+		logWriter = new();
 	}
 
 	public void StartReadCounters()
@@ -104,8 +106,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 					}
 					catch (Exception ex)
 					{
-						Console.WriteLine(ex);
-						//errorCount++;
+						logWriter.WriteError($"[ReadCountrs.cs].StartReadCounters() - RTC часть. \n\t {ex}");
 						continue;
 					}
 				}
@@ -135,7 +136,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 					}
 					catch (Exception ex)
 					{
-						Console.WriteLine(ex);
+						logWriter.WriteError($"[ReadCountrs.cs].StartReadCounters() - NV часть. \n\t {ex}");
 						continue;
 					}
 				}
@@ -158,11 +159,13 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 			timeoutRead = Properties.Settings.Default.TimeOutRead;
 			limitErrorCom = Properties.Settings.Default.LimitErrorCom;
 
-			logWriter.LoadFlagLog();
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine("Ошибка чтения config.ini файла!\n" + ex);
+			logWriter.WriteError(
+				$"Ошибка чтения настроек для инициализации настроект COM-порта. " +
+				$"[ReadCountrs.cs].ParamFromConfiguration_Load()\n\t" +
+				$"{ex}");
 		}
 	}
 
@@ -185,7 +188,6 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 				 "Бит в секунду: " + temp_BaudRate + "\n" +
 				 "Таймаут: " + timeoutRead + "\n";
 
-			Console.WriteLine(info);
 			logWriter.WriteInformation(info);
 		}
 	}
@@ -306,13 +308,15 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 					_stopBits: temp_StopBits,
 					_parity: temp_Parity,
 					_portName: temp_PortName);
+				logWriter.WriteInformation(
+					$"Достигнуто установленое количество ошибок.\n" +
+					$"Перезапуск COM-порта.\n");
 			}
 			else
 			{
 				CountErrorRead++;
 				string error = $"Количество накопительных ошибок: {CountErrorRead} из {limitErrorCom}";
-				Console.WriteLine(error);
-				logWriter.WriteError($"Не получены данные со счетчика!\t" + error);
+				logWriter.WriteError($"Не получены данные со счетчика!\n\t{error}\n\t{ex}");
 			}
 		}
 	}
@@ -403,12 +407,16 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 					_stopBits: temp_StopBits,
 					_parity: temp_Parity,
 					_portName: temp_PortName);
+
+				logWriter.WriteInformation(
+					$"Достигнуто установленое количество ошибок.\n" +
+					$"Перезапуск COM-порта.\n");
 			}
 			else
 			{
 				CountErrorRead++;
 				string error = $"Количество накопительных ошибок: {CountErrorRead} из {limitErrorCom}";
-				logWriter.WriteError($"Не получены данные со счетчика!\t\n {error}" + ex);
+				logWriter.WriteError($"Не получены данные со счетчика!\n\t{error}\n\t{ex}");
 			}
 		}
 	}
@@ -453,17 +461,6 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 				GetSqlProcedure(context, dictionary[indexCount][29], data_RTC.DefectTime, data_RTC.DateTimes);
 				GetSqlProcedure(context, dictionary[indexCount][30], data_RTC.NoPowerTime, data_RTC.DateTimes);
 				GetSqlProcedure(context, dictionary[indexCount][31], data_RTC.MaxSensorsPressure, data_RTC.DateTimes);
-			}
-
-			if (okResultProcedure > 0)
-			{
-				Console.WriteLine($"Выполнено процедур: {okResultProcedure}");
-				okResultProcedure = 0;
-			}
-			else
-			{
-				Console.WriteLine($"Процедуры не выполнены.!!!");
-				okResultProcedure = 0;
 			}
 		}
 		catch (Exception ex)
@@ -538,17 +535,6 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 				GetSqlProcedure(context, dictionary[indexCount][87], data_NV.Viscosity_ch2, data_NV.DateTimes);
 				GetSqlProcedure(context, dictionary[indexCount][88], data_NV.ThermalEnergyGCall_ch2, data_NV.DateTimes);
 			}
-
-			if (okResultProcedure > 0)
-			{
-				Console.WriteLine($"Выполнено процедур: {okResultProcedure}");
-				okResultProcedure = 0;
-			}
-			else
-			{
-				Console.WriteLine($"Процедуры не выполнены.!!!");
-				okResultProcedure = 0;
-			}
 		}
 		catch (Exception ex)
 		{
@@ -604,15 +590,12 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 	{
 		try
 		{
-			using (FileStream fs = new FileStream(@"Resources\\db_List_Data.json", FileMode.OpenOrCreate))
-			{
-				projectObject = JsonSerializer.Deserialize<ProjectObject>(fs);
-			}
+			using FileStream fs = new FileStream(@"Resources\\db_List_Data.json", FileMode.OpenOrCreate);
+			projectObject = JsonSerializer.Deserialize<ProjectObject>(fs)!;
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
-			logWriter.WriteError($"{ex}");
+			logWriter.WriteError($"Этап 1 - Ошибка чтения json-файла. \n\t{ex}.");
 		}
 
 		try
@@ -644,8 +627,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 2 - Ошибка на этапе подключения к БД.");
-			logWriter.WriteError($"{ex}");
+			logWriter.WriteError($"Этап 2 - Ошибка на этапе подключения к БД.\n\t{ex}.");
 		}
 	}
 }
