@@ -83,6 +83,5 @@ namespace SNT2_WPF
 			base.OnStartup(e);
             Services.GetRequiredService<IUserDialog>().OpenMainWindow();
 		}
-
 	}
 }

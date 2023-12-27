@@ -12,10 +12,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="logData" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="logInfo" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="logHex" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -45,7 +45,7 @@
       <Value Profile="(Default)">8</Value>
     </Setting>
     <Setting Name="TimeOutRead" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3000</Value>
+      <Value Profile="(Default)">2000</Value>
     </Setting>
     <Setting Name="NumberCounter" Type="System.String" Scope="User">
       <Value Profile="(Default)">1119</Value>
@@ -54,7 +54,7 @@
       <Value Profile="(Default)">COM3</Value>
     </Setting>
     <Setting Name="CountCounters" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

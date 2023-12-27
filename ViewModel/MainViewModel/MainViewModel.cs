@@ -113,12 +113,10 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             InitializeCounters();
 
 			generationData = new GenerationData();
-			//RunGenerationThread();
-
 			_readCounters = new ReadCounters();
+
 			StartReadCounters();
 			//RunGenerationThread();
-
 
 			Thread.Sleep(2000);
 			_ = ReadData();
@@ -157,15 +155,14 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 		{
             // to keep this sample simple, we run the next infinite loop 
             // in a real application you should stop the loop/task when the view is disposed 
-            var listCounters = _userRepositoriesLocal.InitializeCounters();			
-			//listCounters = _userRepositoriesLocal.InitializeCounters();
+            var listCounters = _userRepositoriesLocal.InitializeCounters();
+
             if(listCounters != null)
             {
 				InitializeDataValues(listCounters);
 				while (IsReading)
 				{
 					await Task.Delay(3000);
-
 					// Because we are updating the chart from a different thread 
 					// we need to use a lock to access the chart data. 
 					// this is not necessary if your changes are made in the UI thread. 
@@ -238,6 +235,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				MainDataModels.Add(counterData);
 			}
 		}
+
 		private void GetAllDataValues(List<string> listCounters)
         {
             for (int i = 0; i < listCounters.Count; i++)
@@ -487,9 +485,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             Application.Current.Resources.Clear();
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
 
-			//INI.WriteINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked", pathStyle);
-			//INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle", $"{IsDefaultStyle}");
-			//INI.WriteINI("StyleThemeSNT2IsChecked", "boolSelected_DarkStyle", $"{!IsDefaultStyle}");
 			Properties.Settings.Default.pathStyleIsChecked = pathStyle;
 			Properties.Settings.Default.boolSelected_DefaultStyle = IsDefaultStyle;
 			Properties.Settings.Default.boolSelected_DarkStyle = !IsDefaultStyle;
@@ -500,12 +495,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         // Метод инициализации стиля приложения
         private void InitializationStyleSNT2()
         {
-            //string isCheckedStyleApplication = INI.ReadINI("StyleThemeSNT2IsChecked", "pathStyleIsChecked");
             string isCheckedStyleApplication = Properties.Settings.Default.pathStyleIsChecked;
-
-			//string isCheckedDefaultStyle = INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle");
-
-			//bool isCheckedDefaultStyle = Convert.ToBoolean(INI.ReadINI("StyleThemeSNT2IsChecked", "boolSelected_DefaultStyle"));
 			bool isCheckedDefaultStyle = Properties.Settings.Default.SelectedDefaultStyle;
 
 			if (isCheckedDefaultStyle)
@@ -600,9 +590,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			if (value is not null)
 			{
 				if (cdadInt == 0)
-				{
 					return Convert.ToDouble(value).ToString();
-				}
 					
 				return Convert.ToDouble(value.Insert(value.Length - cdadInt, ",")).ToString();
 			}
