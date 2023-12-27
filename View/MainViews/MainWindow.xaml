@@ -57,13 +57,6 @@
                     <StackPanel Grid.Column="1"
                                 Style="{DynamicResource StackPanelHeaderControl}">
 
-                        <ToggleButton Width="30"
-                                      Command="{Binding SelectionModeStyleCommand}"
-                                      Style="{DynamicResource ToggleButtonChangeThemes}"
-                                      Visibility="Hidden">
-                            
-                        </ToggleButton>
-
                         <tb:TaskbarIcon Visibility="Visible"
                                         Width="30"                                       
                                         ToolTipText="Драйвер СНТ2"

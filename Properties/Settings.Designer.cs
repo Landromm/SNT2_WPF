@@ -32,27 +32,6 @@ namespace SNT2_WPF.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\Styles\\ResourcesDictionary\\DarkStyleMode.xaml")]
-        public string PathDarkStyle {
-            get {
-                return ((string)(this["PathDarkStyle"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SelectedDefaultStyle {
-            get {
-                return ((bool)(this["SelectedDefaultStyle"]));
-            }
-            set {
-                this["SelectedDefaultStyle"] = value;
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -86,42 +65,6 @@ namespace SNT2_WPF.Properties {
             }
             set {
                 this["logHex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\Styles\\ResourcesDictionary\\DefaultStyleMode.xaml")]
-        public string pathStyleIsChecked {
-            get {
-                return ((string)(this["pathStyleIsChecked"]));
-            }
-            set {
-                this["pathStyleIsChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool boolSelected_DefaultStyle {
-            get {
-                return ((bool)(this["boolSelected_DefaultStyle"]));
-            }
-            set {
-                this["boolSelected_DefaultStyle"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool boolSelected_DarkStyle {
-            get {
-                return ((bool)(this["boolSelected_DarkStyle"]));
-            }
-            set {
-                this["boolSelected_DarkStyle"] = value;
             }
         }
         

@@ -5,12 +5,6 @@
     <Setting Name="PathDefaultStyle" Type="System.String" Scope="Application">
       <Value Profile="(Default)">..\..\Styles\ResourcesDictionary\DefaultStyleMode.xaml</Value>
     </Setting>
-    <Setting Name="PathDarkStyle" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">..\..\Styles\ResourcesDictionary\DarkStyleMode.xaml</Value>
-    </Setting>
-    <Setting Name="SelectedDefaultStyle" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="logData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -18,15 +12,6 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="logHex" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="pathStyleIsChecked" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\..\Styles\ResourcesDictionary\DefaultStyleMode.xaml</Value>
-    </Setting>
-    <Setting Name="boolSelected_DefaultStyle" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="boolSelected_DarkStyle" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LimitErrorCom" Type="System.Int32" Scope="User">

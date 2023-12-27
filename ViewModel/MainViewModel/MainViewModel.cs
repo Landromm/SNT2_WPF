@@ -34,15 +34,11 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         //Fields
         private bool _checkActivetedHideMenu = false;
-        private bool _isCheckedStyleMode;
-        private string pathDefaultStyle = "";
-        private string pathDarkStyle = "";
         private ObservableCollection<MainDataModel> _mainData = null!;
         private MainDataModel? _selectedMainData = null!;
 		private CDADModel? _cdadModel = null!;
 		private Counters? settingsCounter = null!;
 		private int[,] arrayCounters = null!;
-		private string _countErrorReader;
 
 		private readonly IUserDialog _userDialog = null!;
 		private readonly IMessageBus _messageBus = null!;
@@ -60,16 +56,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             {
                 _checkActivetedHideMenu = value;
                 OnPropertyChanged(nameof(CheckActivetedHideMenu));
-            }
-        }
-        //Состояние выбора темы приложения.
-        public bool IsCheckedStyleMode
-        {
-            get => _isCheckedStyleMode;
-            set
-            {
-                _isCheckedStyleMode = value;
-                OnPropertyChanged(nameof(IsCheckedStyleMode));
             }
         }
         public ObservableCollection<MainDataModel> MainDataModels
@@ -101,8 +87,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		public MainViewModel(IUserDialog UserDialog, IMessageBus MessageBus)
         {
-            InitializationStyleSNT2();
-
 			_userDialog = UserDialog;
 			_messageBus = MessageBus;
             _userRepositoriesDB = new UserRepositoriesDB();
@@ -138,6 +122,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 				arrayCounters[i,6] = 1265 + (i * 1000);
 			}
 		}
+
 		private void StartReadCounters()
 		{
 			Thread thread = new Thread(() =>
@@ -303,30 +288,6 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
         #endregion
 
-        #region Command SelectionModeStyleCommand - Выбор стиля приложения: темная или светлая тема.
-
-        /// <summary>Выбор стиля приложения: темная или светлая тема.</summary>
-        private LambdaCommand? _SelectionModeStyleCommand;
-
-        /// <summary>Выбор стиля приложения: темная или светлая тема.</summary>
-        public ICommand SelectionModeStyleCommand => _SelectionModeStyleCommand ??= new(ExecutedSelectionModeStyleCommand);
-
-        /// <summary>Логика выполнения - Выбор стиля приложения: темная или светлая тема.</summary>
-        private void ExecutedSelectionModeStyleCommand()
-        {
-
-			IsCheckedStyleMode = !IsCheckedStyleMode;
-			CheckActivetedHideMenu = false;
-			//pathDefaultStyle = INI.ReadINI("StyleThemeSNT2", "pathDefaultStyle");
-			//pathDarkStyle = INI.ReadINI("StyleThemeSNT2", "pathDarkStyle");
-
-			if (!IsCheckedStyleMode)
-				ChangeStyleThemes(Properties.Settings.Default.PathDarkStyle, false);
-			else
-				ChangeStyleThemes(Properties.Settings.Default.PathDefaultStyle, true);
-		}
-		#endregion
-
 		#region Command OpenCurrentP1GraphCommand - Открытие текущего графика по давлению №1 (P1)
 
 		/// <summary>Открытие текущего графика по давлению №1 (P1)</summary>
@@ -475,39 +436,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			
 		}
 		#endregion
-		#endregion 
-
-		//Метод установления стиля в зависимости от принятых параметров.
-		private void ChangeStyleThemes(string pathStyle, bool IsDefaultStyle)
-        {
-            var uri = new Uri(@pathStyle, UriKind.Relative);
-            ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            Application.Current.Resources.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
-
-			Properties.Settings.Default.pathStyleIsChecked = pathStyle;
-			Properties.Settings.Default.boolSelected_DefaultStyle = IsDefaultStyle;
-			Properties.Settings.Default.boolSelected_DarkStyle = !IsDefaultStyle;
-			Properties.Settings.Default.SelectedDefaultStyle = IsDefaultStyle;
-			Properties.Settings.Default.Save();
-        }        
-
-        // Метод инициализации стиля приложения
-        private void InitializationStyleSNT2()
-        {
-            string isCheckedStyleApplication = Properties.Settings.Default.pathStyleIsChecked;
-			bool isCheckedDefaultStyle = Properties.Settings.Default.SelectedDefaultStyle;
-
-			if (isCheckedDefaultStyle)
-                IsCheckedStyleMode = true;
-            else
-                IsCheckedStyleMode = false;
-
-            var uri = new Uri(@isCheckedStyleApplication, UriKind.Relative);
-            ResourceDictionary? resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            Application.Current.Resources.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
-		}
+		#endregion
 
 		private void InitializationCDADValue(string? CounterId)
 		{
