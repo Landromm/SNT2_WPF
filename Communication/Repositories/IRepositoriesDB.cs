@@ -42,5 +42,5 @@ internal interface IRepositoriesDB
 	/// </summary>
 	/// <param name="hash"></param>
 	/// <returns></returns>
-	public (DateTime,string) GetLastHistoryData(string? hash);
+	public (DateTime,string?) GetLastHistoryData(string? hash);
 }

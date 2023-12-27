@@ -1100,7 +1100,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 	{
 		if (settingsCounter is not null)
 		{
-			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.Open))
+			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 			{
 				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
 

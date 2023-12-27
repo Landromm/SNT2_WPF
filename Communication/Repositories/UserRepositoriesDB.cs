@@ -79,7 +79,7 @@ internal class UserRepositoriesDB : IRepositoriesDB
 				.ToList()
 				.First();
 		}
-		return !value.Equals("0");
+		return !value!.Equals("0");
 	}
 
 	public List<(DateTime, string)> GetHistoryData(string? hash)

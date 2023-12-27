@@ -13,11 +13,11 @@ using System.Windows.Input;
 namespace SNT2_WPF.ViewModel.Settings;
 public class SettingsWindowViewModel : DialogViewModel
 {
-	private Base.ViewModel _currentChildView;
+	private Base.ViewModel? _currentChildView;
 
 	private readonly IUserDialog _userDialog = null!;
 
-	public Base.ViewModel CurrentChildView
+	public Base.ViewModel? CurrentChildView
 	{
 		get => _currentChildView;
 		set
