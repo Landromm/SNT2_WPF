@@ -13,9 +13,7 @@ namespace SNT2_WPF.Communication.ComPort
 {
     internal class CommunicationManager
     {
-        //static LogWriter logWriter = new LogWriter();
-
-        public enum TransmissionType { Text, Hex }
+		public enum TransmissionType { Text, Hex }
 
         //property variables
         private string? _baudRate = string.Empty;
@@ -85,8 +83,8 @@ namespace SNT2_WPF.Communication.ComPort
         #endregion
 
         private SerialPort comPort = new();
-
-        public CommunicationManager(string baud, string par, string sBits, string dBits, string name)
+		private LogWriter logWriter;
+		public CommunicationManager(string baud, string par, string sBits, string dBits, string name)
         {
             _baudRate = baud;
             _parity = par;
@@ -97,6 +95,7 @@ namespace SNT2_WPF.Communication.ComPort
 
             //now add an event handler
             comPort.DataReceived += new SerialDataReceivedEventHandler(comPort_DataReceived);
+            logWriter = new();
         }
         public CommunicationManager()
         {
@@ -109,12 +108,13 @@ namespace SNT2_WPF.Communication.ComPort
 
             //add event handler
             comPort.DataReceived += new SerialDataReceivedEventHandler(comPort_DataReceived);
-        }
+			logWriter = new();
+		}
 
-        /// <summary>
-        /// Метод проверки открытия COM-порта.
-        /// </summary>
-        public bool ComPortIsOpen()
+		/// <summary>
+		/// Метод проверки открытия COM-порта.
+		/// </summary>
+		public bool ComPortIsOpen()
         {
             if (comPort.IsOpen && !comPort.BreakState)
                 return true;
@@ -139,17 +139,16 @@ namespace SNT2_WPF.Communication.ComPort
 
                 comPort.Open();
 
-                //Console.WriteLine(("Открытие COM-порта: " + comPort.PortName));
+                logWriter.WriteInformation("Открытие COM-порта: " + comPort.PortName);
                 Thread.Sleep(5000);
 
-                //Console.WriteLine("COM-порт открыт в |" + DateTime.Now + "|\n");
-                return true;
+				logWriter.WriteInformation("COM-порт открыт: " + comPort.PortName);
+				return true;
             }
             catch (Exception ex)
             {
-                string error = "Не удалось открыть COM-Порт! \n" + ex;
-                //ConsoleColorOutputError(error, ex);
-                //logWriter.WriteError(error + ex);
+                string error = "Не удалось открыть COM-Порт - " + comPort.PortName + " |\n\t" + ex;
+                logWriter.WriteError(error);
                 return false;
             }
         }
@@ -167,19 +166,17 @@ namespace SNT2_WPF.Communication.ComPort
                 {
                     comPort.BreakState = false;
                     comPort.Close();
-                }
-                Console.WriteLine(("Закрытие COM-порта: " + comPort.PortName));
-                Console.WriteLine("COM-порт закрыт в |" + DateTime.Now + "|\n");
-                //logWriter.WriteInformation("COM-порт закрыт в |" + DateTime.Now + "|\n");
-                //logWriter.WriteError("COM-порт закрыт в |" + DateTime.Now + "|\n");
+
+					logWriter.WriteInformation("Закрытие COM-порта: " + comPort.PortName);
+					logWriter.WriteInformation("COM-порт закрыт: " + comPort.PortName);
+				}
                 return true;
             }
             catch (Exception ex)
             {
-                string error = "Не удалось корректно закрыть COM-Порт! \n" + ex;
-                //ConsoleColorOutputError(error, ex);
-                //logWriter.WriteError(error + ex);
-                return false;
+				string error = "Не удалось корректно закрыть COM-Порт - " + comPort.PortName + " |\n\t" + ex;
+                logWriter.WriteError(error);
+				return false;
             }
         }
         #endregion
@@ -203,8 +200,7 @@ namespace SNT2_WPF.Communication.ComPort
             catch (Exception ex)
             {
                 string error = "Ошибка конвертации полученной строки в массив байтов! \n";
-                //ConsoleColorOutputError(error, ex);
-                //logWriter.WriteError(error + ex);
+                logWriter.WriteError(error + ex);
                 //протетсировать данноое возвращение!!!!!!!!!!!! Возможно наличие багов.
                 throw;
             }
@@ -230,9 +226,9 @@ namespace SNT2_WPF.Communication.ComPort
             catch (Exception ex)
             {
                 string error = "Ошибка конвертации массива байт в строку-hex! \n";
-                //ConsoleColorOutputError(error, ex);
-                //logWriter.WriteError(error + ex);
-                return string.Empty;
+				logWriter.WriteError(error + ex);
+
+				return string.Empty;
             }
         }
         #endregion
@@ -264,16 +260,15 @@ namespace SNT2_WPF.Communication.ComPort
                 catch (Exception ex)
                 {
                     string error = "Ошибка чтения с COM-порта.! \n";
-                    //ConsoleColorOutputError(error, ex);
-                    //logWriter.WriteError(error + ex);
+                    logWriter.WriteError(error + ex);
                 }
             }
             else
             {
                 string str = comPort.ReadExisting();
-                Console.WriteLine("Разрыв связи с COM-портом: " + str);
-            }
-        }
+				logWriter.WriteError("Разрыв связи с COM-портом: " + str + "\n");
+			}
+		}
         #endregion
 
         #region WriteData
@@ -294,22 +289,9 @@ namespace SNT2_WPF.Communication.ComPort
             catch (FormatException ex)
             {
                 string error = "Ошибка отправки hex - сообщения счетчику: \n";
-                //ConsoleColorOutputError(error, ex);
-                //logWriter.WriteError(error + ex);
-                byte[] newMsg = HexToByte(msg);
-                Console.WriteLine(ByteToHex(newMsg) + "\n\n");
+                logWriter.WriteError(error + ex);
             }
         }
         #endregion
-
-        //Метод форматировванного цветного вывода текста ошибки.
-        private void ConsoleColorOutputError(string str, Exception ex)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{str}\n");
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine(ex.Message + "\n");
-            Console.ResetColor();
-        }
     }
 }

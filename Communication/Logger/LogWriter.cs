@@ -23,6 +23,8 @@ namespace SNT2_WPF.Communication.Logger
                 Directory.CreateDirectory(@ConfigurationManager.AppSettings["pathLogData"]);
             if (!Directory.Exists(@ConfigurationManager.AppSettings["pathLogInfo"]))
                 Directory.CreateDirectory(@ConfigurationManager.AppSettings["pathLogInfo"]);
+
+            LoadFlagLog();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace SNT2_WPF.Communication.Logger
 			}
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка чтения config.ini файла при логировании!\n" + ex);
+                Console.WriteLine("Ошибка чтения файла конфигурации!\n" + ex);
             }
         }
 
@@ -91,7 +93,6 @@ namespace SNT2_WPF.Communication.Logger
                     {
                         sw.WriteLine(DateTime.Now.ToString() + "| ERROR | " + ex.Message);
                     }
-                    WriteData(data, nameFile);
                 }
             }
         }

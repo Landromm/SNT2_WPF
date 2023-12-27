@@ -199,8 +199,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 
 		comm.Count = 0;
 		comm.DataByteList.Clear();
-		comm.WriteData(readDataMsg);   //Чтения данных со счетчика.            
-		Console.WriteLine("---------------------------------------------");
+		comm.WriteData(readDataMsg);   //Чтения данных со счетчика.
 
 		Thread.Sleep(timeoutRead);
 	}
@@ -214,8 +213,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 
 		comm.Count = 0;
 		comm.DataByteList.Clear();
-		comm.WriteData(readDataMsg);   //Чтения данных со счетчика.            
-		Console.WriteLine("---------------------------------------------");
+		comm.WriteData(readDataMsg);   //Чтения данных со счетчика.
 
 		Thread.Sleep(timeoutRead);
 	}
@@ -229,18 +227,7 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 			resultCRC ^= Convert.ToInt32(dataList[i], 16);
 		}
 		resultCRC ^= 0xA5;
-		//Console.WriteLine("Контрольная сумма результат:\t" + resultCRC);
 
-		if (resultCRC == Convert.ToInt32(dataList.Last(), 16))
-		{
-			Console.Write("Чтение данных - OK.");
-		}
-		else
-		{
-			Console.Write("Контрольная сумма не совпадает!");
-		}
-
-		Console.ResetColor();
 		return resultCRC == Convert.ToInt32(dataList.Last(), 16) ? true : false;
 	}
 
@@ -248,17 +235,15 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 	private static string FormatData(Range range)
 	{
 		tempStr = string.Empty;
-		;
 		string[] buffArray = new string[comm.DataByteList.Count];
 		int count = 0;
+
 		foreach (var item in comm.DataByteList)
-		{
 			buffArray[count++] = item.ToString();
-		}
+
 		foreach (var item in buffArray[range])
-		{
 			tempStr += item;
-		}
+
 		return tempStr;
 	}
 
@@ -303,7 +288,6 @@ internal class ReadCounters : DialogViewModel, IReadCounters
 			data_RTC.NoPowerTime = FormatData(126..129);
 			data_RTC.MaxSensorsPressure = FormatData(129..130);
 
-			Console.WriteLine($"Время:{data_RTC.DateTimes}");
 			SetValueDB_RTC(data_RTC, indexCount);
 		}
 		catch (Exception ex)
