@@ -40,7 +40,10 @@ namespace SNT2_WPF.Communication.Logger
 			}
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка чтения файла конфигурации!\n" + ex);
+				using (StreamWriter sw = File.AppendText(pathLogInformaiion + "_Error.txt"))
+				{
+					sw.WriteLine(DateTime.Now.ToString() + "| ERROR | " + "Ошибка чтения файла конфигурации!\n");
+				}
             }
         }
 
