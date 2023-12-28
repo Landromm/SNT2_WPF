@@ -24,6 +24,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
     public string TabName { get; init; }
 
 	private Counters? settingsCounter = null!;
+	private LogWriter logWriter = null!;
 
 	private readonly JsonSerializerOptions options = new (){ WriteIndented = true };
 	private readonly IRepositoriesDB _userRepositoriesDB = null!;
@@ -701,7 +702,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedTemperature_ch1_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров температуры канала №1\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -742,7 +746,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedFlowVolume_ch1_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров расхода объемного канала №1\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -785,7 +792,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedFlowMass_ch1_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров расхода массового канала №1\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -828,7 +838,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedPressure_ch1_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров давления канала №1\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -871,7 +884,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedTemperatura_ch2_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров параметров температуры канала №2\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -914,7 +930,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedFlowVolume_ch2_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров параметров расхода объемного канала №2\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -957,7 +976,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedFlowMass_ch2_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров параметров расхода массового канала №2\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -1000,7 +1022,10 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].ExecutedPressure_ch2_SaveCommand()\n\t" +
+				$"Ошибка в сохранении параметров параметров давления канала №2\n\t" +
+				$"{ex}");
 		}
 	}
 	#endregion
@@ -1011,6 +1036,7 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 		CounterId = countId;
 		_hash = new List<int>();
 		settingsCounter = new();
+		logWriter = new();
 
 		_userRepositoriesDB = new UserRepositoriesDB();
 
@@ -1049,33 +1075,47 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 				"Внимание!",
 				MessageBoxButton.OK,
 				MessageBoxImage.Error);
+
+			logWriter.WriteError(
+				$"Ошибка! Проверьте инициализацию счетчиков.\n" +
+				".в ItemTabControlTagViewModel!");
 		}
 	}
 
 	private void InitializationData()
 	{
-		if(!_hash.IsNullOrEmpty())
+		try
 		{
-			DiscriptionCounter = GetDiscriptionCounter(CounterId);
-			TimeAndDate = _userRepositoriesDB.GetValueChanel(_hash[0]);
-			SerialNumber = _userRepositoriesDB.GetValueChanel(_hash[1]);
-			InterfaceNumber = _userRepositoriesDB.GetValueChanel(_hash[2]);
-			Commissioning = _userRepositoriesDB.GetValueChanel(_hash[3])!.Insert(2, "-").Insert(5, "-").Insert(8, ":");
-			DownTime = _userRepositoriesDB.GetValueChanel(_hash[4]);
-			RunningTime = _userRepositoriesDB.GetValueChanel(_hash[5]);
-			MaxSensorsPressure = _userRepositoriesDB.GetValueChanel(_hash[6])!.Insert(1, ".");
-			FlowMax_ch1 = _userRepositoriesDB.GetValueChanel(_hash[7]);
-			FlowBoundary_ch1 = _userRepositoriesDB.GetValueChanel(_hash[8]);
-			FlowMax_ch2 = _userRepositoriesDB.GetValueChanel(_hash[9]);
-			FlowBoundary_ch2 = _userRepositoriesDB.GetValueChanel(_hash[10]);
+			if (!_hash.IsNullOrEmpty())
+			{
+				DiscriptionCounter = GetDiscriptionCounter(CounterId);
+				TimeAndDate = _userRepositoriesDB.GetValueChanel(_hash[0]);
+				SerialNumber = _userRepositoriesDB.GetValueChanel(_hash[1]);
+				InterfaceNumber = _userRepositoriesDB.GetValueChanel(_hash[2]);
+				Commissioning = _userRepositoriesDB.GetValueChanel(_hash[3])!.Insert(2, "-").Insert(5, "-").Insert(8, ":");
+				DownTime = _userRepositoriesDB.GetValueChanel(_hash[4]);
+				RunningTime = _userRepositoriesDB.GetValueChanel(_hash[5]);
+				MaxSensorsPressure = _userRepositoriesDB.GetValueChanel(_hash[6])!.Insert(1, ".");
+				FlowMax_ch1 = _userRepositoriesDB.GetValueChanel(_hash[7]);
+				FlowBoundary_ch1 = _userRepositoriesDB.GetValueChanel(_hash[8]);
+				FlowMax_ch2 = _userRepositoriesDB.GetValueChanel(_hash[9]);
+				FlowBoundary_ch2 = _userRepositoriesDB.GetValueChanel(_hash[10]);
+			}
+		}
+		catch (Exception ex)
+		{
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].InitializationData()\n\t" +
+				$"Ошибка инициализации данных счетчика для визуального отображения в настройках!\n\t" +
+				$"{ex}");
 		}
 	}
 
 	private void InitializationSettingsTegCounter()
 	{
-		try
+		using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 		{
-			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			try
 			{
 				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
 
@@ -1089,58 +1129,70 @@ internal class ItemTabControlTagViewModel : Base.ViewModel
 					InitializationSettingsTeg(listParametrs!);
 				}
 			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+			catch (Exception ex)
+			{
+				logWriter.WriteError(
+					$"[ItemTabControlTagViewModel].InitializationSettingsTegCounter()\n\t" +
+					$"Ошибка инициализации данных с файла настроек каналов [db_List_SettingsTeg.json]!\n\t" +
+					$"{ex}");
+			}
 		}
 	}
 
 	private void GetJsonSettingObject()
 	{
-		if (settingsCounter is not null)
+		using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
 		{
-			using (FileStream fs = new FileStream(@"Resources\\db_List_SettingsTeg.json", FileMode.OpenOrCreate))
+			try
 			{
 				settingsCounter = JsonSerializer.Deserialize<Counters>(fs)!;
-
-				if (settingsCounter is not null)
-				{
-					var listParametrs = settingsCounter.CountersList!
-						.Where(c => c.CounterId == CounterId)
-						.Select(p => p.SettingsCounterParameters)
-						.First();
-				}
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError(
+					$"[ItemTabControlTagViewModel].GetJsonSettingObject()\n\t" +
+					$"Ошибка десериализации данных с json-файла настройки каналлов - [db_List_SettingsTeg.json]!\n\t" +
+					$"{ex}");
 			}
 		}
+		
 	}
 
 	private void InitializationSettingsTeg(SettingsCounterParameters settingsCounterParameters)
 	{
-		Temperature_ch1_Max = settingsCounterParameters.Temperature_ch1_Max;
-		Temperature_ch1_Min = settingsCounterParameters.Temperature_ch1_Min;
-		Temperature_ch1_CDAD = settingsCounterParameters.Temperature_ch1_CDAD;
-		FlowVolume_ch1_Max = settingsCounterParameters.FlowVolume_ch1_Max;
-		FlowVolume_ch1_Min = settingsCounterParameters.FlowVolume_ch1_Min;
-		FlowVolume_ch1_CDAD = settingsCounterParameters.FlowVolume_ch1_CDAD;
-		FlowMass_ch1_Max = settingsCounterParameters.FlowMass_ch1_Max;
-		FlowMass_ch1_Min = settingsCounterParameters.FlowMass_ch1_Min;
-		FlowMass_ch1_CDAD = settingsCounterParameters.FlowMass_ch1_CDAD;
-		Pressure_ch1_Max = settingsCounterParameters.Pressure_ch1_Max;
-		Pressure_ch1_Min = settingsCounterParameters.Pressure_ch1_Min;
-		Pressure_ch1_CDAD = settingsCounterParameters.Pressure_ch1_CDAD;
-		Temperature_ch2_Max = settingsCounterParameters.Temperature_ch2_Max;
-		Temperature_ch2_Min = settingsCounterParameters.Temperature_ch2_Min;
-		Temperature_ch2_CDAD = settingsCounterParameters.Temperature_ch2_CDAD;
-		FlowVolume_ch2_Max = settingsCounterParameters.FlowVolume_ch2_Max;
-		FlowVolume_ch2_Min = settingsCounterParameters.FlowVolume_ch2_Min;
-		FlowVolume_ch2_CDAD = settingsCounterParameters.FlowVolume_ch2_CDAD;
-		FlowMass_ch2_Max = settingsCounterParameters.FlowMass_ch2_Max;
-		FlowMass_ch2_Min = settingsCounterParameters.FlowMass_ch2_Min;
-		FlowMass_ch2_CDAD = settingsCounterParameters.FlowMass_ch2_CDAD;
-		Pressure_ch2_Max = settingsCounterParameters.Pressure_ch2_Max;
-		Pressure_ch2_Min = settingsCounterParameters.Pressure_ch2_Min;
-		Pressure_ch2_CDAD = settingsCounterParameters.Pressure_ch2_CDAD;
+		try
+		{
+			Temperature_ch1_Max = settingsCounterParameters.Temperature_ch1_Max;
+			Temperature_ch1_Min = settingsCounterParameters.Temperature_ch1_Min;
+			Temperature_ch1_CDAD = settingsCounterParameters.Temperature_ch1_CDAD;
+			FlowVolume_ch1_Max = settingsCounterParameters.FlowVolume_ch1_Max;
+			FlowVolume_ch1_Min = settingsCounterParameters.FlowVolume_ch1_Min;
+			FlowVolume_ch1_CDAD = settingsCounterParameters.FlowVolume_ch1_CDAD;
+			FlowMass_ch1_Max = settingsCounterParameters.FlowMass_ch1_Max;
+			FlowMass_ch1_Min = settingsCounterParameters.FlowMass_ch1_Min;
+			FlowMass_ch1_CDAD = settingsCounterParameters.FlowMass_ch1_CDAD;
+			Pressure_ch1_Max = settingsCounterParameters.Pressure_ch1_Max;
+			Pressure_ch1_Min = settingsCounterParameters.Pressure_ch1_Min;
+			Pressure_ch1_CDAD = settingsCounterParameters.Pressure_ch1_CDAD;
+			Temperature_ch2_Max = settingsCounterParameters.Temperature_ch2_Max;
+			Temperature_ch2_Min = settingsCounterParameters.Temperature_ch2_Min;
+			Temperature_ch2_CDAD = settingsCounterParameters.Temperature_ch2_CDAD;
+			FlowVolume_ch2_Max = settingsCounterParameters.FlowVolume_ch2_Max;
+			FlowVolume_ch2_Min = settingsCounterParameters.FlowVolume_ch2_Min;
+			FlowVolume_ch2_CDAD = settingsCounterParameters.FlowVolume_ch2_CDAD;
+			FlowMass_ch2_Max = settingsCounterParameters.FlowMass_ch2_Max;
+			FlowMass_ch2_Min = settingsCounterParameters.FlowMass_ch2_Min;
+			FlowMass_ch2_CDAD = settingsCounterParameters.FlowMass_ch2_CDAD;
+			Pressure_ch2_Max = settingsCounterParameters.Pressure_ch2_Max;
+			Pressure_ch2_Min = settingsCounterParameters.Pressure_ch2_Min;
+			Pressure_ch2_CDAD = settingsCounterParameters.Pressure_ch2_CDAD;
+		}
+		catch (Exception ex)
+		{
+			logWriter.WriteError(
+				$"[ItemTabControlTagViewModel].InitializationSettingsTeg()\n\t" +
+				$"Ошибка присвоения данных переменным, при инициализации параметров настроек каналов!\n\t" +
+				$"{ex}");
+		}
 	}
-
 }
