@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
+using SNT2_WPF.Communication.Logger;
 using SNT2_WPF.Models.DataConEF;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.Repositories;
 internal class UserRepositoriesDB : IRepositoriesDB
 {
+	private LogWriter logWriter = new();
+
 	public string? GetCounterId(string? numberCounter)
 	{
 		string? counterId = string.Empty;
@@ -35,6 +38,8 @@ internal class UserRepositoriesDB : IRepositoriesDB
 					.Select(id => id.CounterId)
 					.ToList()
 					.First();
+
+				logWriter.WriteError($"UserRepositoriesDB.GetCounterId() - Не вернул Id Счетчика по его номеру. \n\t {ex}");
 			}
 		}
 		return counterId;
@@ -45,11 +50,18 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		var descriptionCounter = string.Empty;
 		using var contex = new DataContext();
 		{
-			descriptionCounter = contex.Counters	
-				.Where(id => id.CounterId == counterId)
-				.Select(desc => desc.NameCounter)
-				.ToList()
-				.First();
+			try
+			{
+				descriptionCounter = contex.Counters
+					.Where(id => id.CounterId == counterId)
+					.Select(desc => desc.NameCounter)
+					.ToList()
+					.First();
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError($"UserRepositoriesDB.GetDescriptionCounter() - Не вернул наименование счетчика. \n\t {ex}");
+			}
 		}
 		return descriptionCounter;
 	}
@@ -59,11 +71,18 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		var value = string.Empty;
 		using var contex = new DataContext();
 		{
-			value = contex.ListValues
-				.Where(h => h.Hash == hash)
-				.Select(v => v.Value)
-				.ToList()
-				.First();
+			try
+			{
+				value = contex.ListValues
+					.Where(h => h.Hash == hash)
+					.Select(v => v.Value)
+					.ToList()
+					.First();
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError($"UserRepositoriesDB.GetValueChanel() - Не вернул значение по хэшу параметра. \n\t {ex}");
+			}
 		}
 		return value;
 	}
@@ -73,18 +92,24 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		string? value = "0";
 		using var contex = new DataContext();
 		{
-			value = contex.ListValues
-				.Where(h => h.Hash == hash)
-				.Select(v => v.Value)
-				.ToList()
-				.First();
+			try
+			{
+				value = contex.ListValues
+					.Where(h => h.Hash == hash)
+					.Select(v => v.Value)
+					.ToList()
+					.First();
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError($"UserRepositoriesDB.GetStatusChanel() - Не вернул статус активности счетчика. \n\t {ex}");
+			}
 		}
 		return !value!.Equals("0");
 	}
 
 	public List<(DateTime, string)> GetHistoryData(string? hash)
 	{
-
 		if (hash == null)
 			return new List<(DateTime, string)>{ new (DateTime.Now, "-25.00") };
 
@@ -93,23 +118,31 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		var historyData = new List<(DateTime, string)>();
 		using var context = new DataContext();
 		{
-			var result = from historyH in context.History
-						 where historyH.HashId == hashInt &&
-						 historyH.DateTime > DateTime.Now.AddMinutes(-60) &&
-						 historyH.DateTime <= DateTime.Now
-						 orderby historyH.DateTime
-						 select new
-						 {
-							 historyH.DateTime,
-							 historyH.Value
-						 };
-			if(!result.IsNullOrEmpty())
+			try
 			{
-				foreach (var item in result!)
+				var result = from historyH in context.History
+							 where historyH.HashId == hashInt &&
+							 historyH.DateTime > DateTime.Now.AddMinutes(-60) &&
+							 historyH.DateTime <= DateTime.Now
+							 orderby historyH.DateTime
+							 select new
+							 {
+								 historyH.DateTime,
+								 historyH.Value
+							 };
+				if (!result.IsNullOrEmpty())
 				{
-					(DateTime, string) items = (item.DateTime, item.Value.Replace(".", ","));
-					historyData.Add(items);
+					foreach (var item in result!)
+					{
+						(DateTime, string) items = (item.DateTime, item.Value.Replace(".", ","));
+						historyData.Add(items);
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError($"UserRepositoriesDB.GetHistoryData() - Не вернул список кортежей " +
+					$"содержащих архивные значения по хэшу. \n\t {ex}");
 			}
 		}
 		return historyData;
@@ -124,15 +157,23 @@ internal class UserRepositoriesDB : IRepositoriesDB
 		(DateTime, string?) historyData = new();
 		using var context = new DataContext();
 		{
-			var result = context.ListValues
-				.Where(d => d.Hash == hashInt)
-				.Select(val => val.Value)
-				.ToList()
-				.Last();
-			if(result is not null)
-				result = result.Replace(".", ",");
+			try
+			{
+				var result = context.ListValues
+						.Where(d => d.Hash == hashInt)
+						.Select(val => val.Value)
+						.ToList()
+						.Last();
+				if (result is not null)
+					result = result.Replace(".", ",");
 
-			historyData = (DateTime.Now, result);
+				historyData = (DateTime.Now, result);
+			}
+			catch (Exception ex)
+			{
+				logWriter.WriteError($"UserRepositoriesDB.GetHistoryData() - Не вернул кортеж " +
+					$"последних данных из онлайнтаблицы по хэшу. \n\t {ex}");
+			}
 		}
 		return historyData;
 	}

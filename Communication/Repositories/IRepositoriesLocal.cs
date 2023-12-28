@@ -8,8 +8,10 @@ namespace SNT2_WPF.Communication.Repositories;
 internal interface IRepositoriesLocal
 {
 	/// <summary>
-	/// Инициализация списка счетчиков.
+	/// Возвращает наименования счетчиков, записаные в настройках (config-файле).
+	/// И записывает общее количество счетчиков,
+	/// в соответветствующий тег в настройках программы.
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>Список номеров счетчиков.</returns>
 	List<string> InitializeCounters();
 }

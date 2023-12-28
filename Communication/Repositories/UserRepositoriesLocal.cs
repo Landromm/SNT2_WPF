@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 namespace SNT2_WPF.Communication.Repositories;
 internal class UserRepositoriesLocal : IRepositoriesLocal
 {
+	/// <summary>
+	/// Возвращает наименования счетчиков, записаные в настройках (config-файле).
+	/// И записывает общее количество счетчиков,
+	/// в соответветствующий тег в настройках программы.
+	/// </summary>
+	/// <returns>Список номеров счетчиков.</returns>
 	public List<string> InitializeCounters()
 	{
 		var numbersCounters = new List<string>();
