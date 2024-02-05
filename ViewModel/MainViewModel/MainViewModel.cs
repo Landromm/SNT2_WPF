@@ -24,6 +24,7 @@ using SNT2_WPF.Models.DataModel.DataControl;
 using SNT2_WPF.Models.DataSettingsTeg;
 using System.IO;
 using System.Text.Json;
+using SNT2_WPF.Communication.Logger;
 
 namespace SNT2_WPF.ViewModel.MainViewModel
 {
@@ -38,6 +39,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
         private MainDataModel? _selectedMainData = null!;
 		private CDADModel? _cdadModel = null!;
 		private Counters? settingsCounter = null!;
+		private LogWriter logWriter;
 		private int[,] arrayCounters = null!;
 
 		private readonly IUserDialog _userDialog = null!;
@@ -92,6 +94,7 @@ namespace SNT2_WPF.ViewModel.MainViewModel
             _userRepositoriesDB = new UserRepositoriesDB();
             _userRepositoriesLocal = new UserRepositoriesLocal();
 			_cdadModel = new();
+			logWriter = new();
 
 			MainDataModels = new ObservableCollection<MainDataModel>();
             InitializeCounters();
@@ -175,97 +178,113 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 
 		private void InitializeDataValues(List<string> listCounters)
 		{
-			for (int i = 0; i < listCounters.Count; i++)
+			try
 			{
-				var counterData = new MainDataModel();
-				string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+				for (int i = 0; i < listCounters.Count; i++)
+				{
+					var counterData = new MainDataModel();
+					string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
 
-				InitializationCDADValue(counterId);
+					InitializationCDADValue(counterId);
 
-				counterData.NumberCounter = listCounters[i];
-				counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
-				counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
-				counterData.HashCheckErrorConection = arrayCounters[i,0].ToString();
+					counterData.NumberCounter = listCounters[i];
+					counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
+					counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
+					counterData.HashCheckErrorConection = arrayCounters[i, 0].ToString();
 
-				counterData.Pressure_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]),
-					CdadModel!.Pressure_ch1_CDAD);
-                counterData.HashPressure_ch1 = arrayCounters[i,1].ToString();
+					counterData.Pressure_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]),
+						CdadModel!.Pressure_ch1_CDAD);
+					counterData.HashPressure_ch1 = arrayCounters[i, 1].ToString();
 
-                counterData.Temperature_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]),
-					CdadModel!.Temperature_ch1_CDAD);
-                counterData.HashTemperature_ch1 = arrayCounters[i,2].ToString();
+					counterData.Temperature_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]),
+						CdadModel!.Temperature_ch1_CDAD);
+					counterData.HashTemperature_ch1 = arrayCounters[i, 2].ToString();
 
-				counterData.Flow_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]),
-					CdadModel!.FlowMass_ch1_CDAD);
-				counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
+					counterData.Flow_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]),
+						CdadModel!.FlowMass_ch1_CDAD);
+					counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
 
-				counterData.Pressure_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]),
-					CdadModel!.Pressure_ch2_CDAD);
-                counterData.HashPressure_ch2 = arrayCounters[i,4].ToString();
+					counterData.Pressure_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]),
+						CdadModel!.Pressure_ch2_CDAD);
+					counterData.HashPressure_ch2 = arrayCounters[i, 4].ToString();
 
-				counterData.Temperature_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]),
-					CdadModel!.Temperature_ch2_CDAD);
-                counterData.HashTemperature_ch2 = arrayCounters[i,5].ToString();
+					counterData.Temperature_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]),
+						CdadModel!.Temperature_ch2_CDAD);
+					counterData.HashTemperature_ch2 = arrayCounters[i, 5].ToString();
 
-				counterData.Flow_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]),
-					CdadModel!.FlowMass_ch2_CDAD);
-				counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
+					counterData.Flow_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]),
+						CdadModel!.FlowMass_ch2_CDAD);
+					counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
 
-				MainDataModels.Add(counterData);
+					MainDataModels.Add(counterData);
+				}
+			}
+			catch (Exception ex)
+			{
+				string error = $"Ошибка инициализации значений данных в <MainViewModel.InitializeDataValues(List<string> listCounters)>\n" + ex;
+				logWriter.WriteError(error);
 			}
 		}
 
 		private void GetAllDataValues(List<string> listCounters)
         {
-            for (int i = 0; i < listCounters.Count; i++)
-            {
-				var counterData = new MainDataModel();
-				string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
+			try
+			{
+				for (int i = 0; i < listCounters.Count; i++)
+				{
+					var counterData = new MainDataModel();
+					string? counterId = _userRepositoriesDB.GetCounterId(listCounters[i]);
 
-				InitializationCDADValue(counterId);
+					InitializationCDADValue(counterId);
 
-				counterData.NumberCounter = listCounters[i];
-				counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
-				counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
-				counterData.HashCheckErrorConection = arrayCounters[i, 0].ToString();
+					counterData.NumberCounter = listCounters[i];
+					counterData.DescriptionCounter = _userRepositoriesDB.GetDescriptionCounter(counterId);
+					counterData.CheckErrorConection = _userRepositoriesDB.GetStatusChanel(arrayCounters[i, 0]);
+					counterData.HashCheckErrorConection = arrayCounters[i, 0].ToString();
 
-				counterData.Pressure_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]),
-					CdadModel!.Pressure_ch1_CDAD);
-				counterData.HashPressure_ch1 = arrayCounters[i, 1].ToString();
+					counterData.Pressure_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 1]),
+						CdadModel!.Pressure_ch1_CDAD);
+					counterData.HashPressure_ch1 = arrayCounters[i, 1].ToString();
 
-				counterData.Temperature_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]),
-					CdadModel!.Temperature_ch1_CDAD);
-				counterData.HashTemperature_ch1 = arrayCounters[i, 2].ToString();
+					counterData.Temperature_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 2]),
+						CdadModel!.Temperature_ch1_CDAD);
+					counterData.HashTemperature_ch1 = arrayCounters[i, 2].ToString();
 
-				counterData.Flow_ch1 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]),
-					CdadModel!.FlowMass_ch1_CDAD);
-				counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
+					counterData.Flow_ch1 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 3]),
+						CdadModel!.FlowMass_ch1_CDAD);
+					counterData.HashFlow_ch1 = arrayCounters[i, 3].ToString();
 
-				counterData.Pressure_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]),
-					CdadModel!.Pressure_ch2_CDAD);
-				counterData.HashPressure_ch2 = arrayCounters[i, 4].ToString();
+					counterData.Pressure_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 4]),
+						CdadModel!.Pressure_ch2_CDAD);
+					counterData.HashPressure_ch2 = arrayCounters[i, 4].ToString();
 
-				counterData.Temperature_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]),
-					CdadModel!.Temperature_ch2_CDAD);
-				counterData.HashTemperature_ch2 = arrayCounters[i, 5].ToString();
+					counterData.Temperature_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 5]),
+						CdadModel!.Temperature_ch2_CDAD);
+					counterData.HashTemperature_ch2 = arrayCounters[i, 5].ToString();
 
-				counterData.Flow_ch2 = GetValueWithDot(
-					_userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]),
-					CdadModel!.FlowMass_ch2_CDAD);
-				counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
+					counterData.Flow_ch2 = GetValueWithDot(
+						_userRepositoriesDB.GetValueChanel(arrayCounters[i, 6]),
+						CdadModel!.FlowMass_ch2_CDAD);
+					counterData.HashFlow_ch2 = arrayCounters[i, 6].ToString();
 
-				MainDataModels[i] = counterData;
+					MainDataModels[i] = counterData;
+				}
+			}
+			catch (Exception ex)
+			{
+				string error = $"Ошибка инициализации значений данных в <MainViewModel.GetAllDataValues(List<string> listCounters)>\n" + ex;
+				logWriter.WriteError(error);
 			}
 		}
 
@@ -509,7 +528,8 @@ namespace SNT2_WPF.ViewModel.MainViewModel
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"Этап 1 - Ошибка чтения json-файла.");
+				string error = $"Этап 1 - Ошибка чтения json-файла.\n" + ex;
+				logWriter.WriteError(error);
 			}
 		}
 
